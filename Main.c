@@ -4,7 +4,7 @@
 #include<conio.h>
 
 
-typedef struct candidate
+typedef struct candidate////yo
 {
 	char Lname[50], Fname[50], email[50], ID[10], password1[50], password2[50], city[50], answer[50], phoneNumber[20];//all the candidate data
 	int questionChoose;

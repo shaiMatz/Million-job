@@ -26,6 +26,12 @@ typedef struct employer
 
 }employer;
 
+////////////// PUBLIC FUNCTIONS ///////////
+
+int findRightRow(char* fileName, char* email);
+int deleteline(char* fileName, int row);
+
+
 ////////////// CANDIDATE FUNCTIONS ///////////
 
 int MailCheck(char* mail);
@@ -35,8 +41,6 @@ int BirthCheck(int day, int month, int year);
 int CVFile(char* CandidateName);
 candidate Candidate_Registration();
 candidate loginC(char email[]);
-int findRightRow(char* fileName, char* email);
-int deleteline(char* fileName, int row);
 int editProfile(candidate cand, char* fileName, int ans);
 
 ////////////// EMPLOYER FUNCTIONS ///////////
@@ -131,8 +135,8 @@ employer employer_Registration()
 	// Asking user input for the
 	// new record to be added
 	printf("\nEnter company name:  \b");
-	scanf("%s", &newEmp.companyName);
-	getchar();
+	gets(newEmp.companyName);
+
 	printf("\nEnter first name:  \b");
 	scanf("%s", &newEmp.Fname);
 	printf("\nEnter last name:  \b");
@@ -167,8 +171,9 @@ employer employer_Registration()
 		printf("\nEnter phone number:  \b");
 		scanf("%s", &newEmp.phoneNumber);
 	}
+	getchar();
 	printf("\nEnter some information about the company:  \n");
-	getchar(newEmp.jobDescription);
+	gets(newEmp.jobDescription);
 
 	printf("\nChoose your security question:(default qeustion is 1)\n");
 	printf("press 1: What is your grandfather name from your father side? \n");
@@ -555,13 +560,15 @@ candidate Candidate_Registration()
 	scanf("%d", &newCandidate.questionChoose);
 	printf("\nEnter your answer:  \b");
 	scanf("%s", &newCandidate.answer);
-	printf("\nNew Account added to record");
+
 	// Saving data in file
 	fprintf(CandidateF, "%ld,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s\n", newCandidate.ID,
 		newCandidate.Fname, newCandidate.Lname, newCandidate.email, newCandidate.password1,
 		newCandidate.city, newCandidate.month, newCandidate.day,
 		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose, newCandidate.answer);
 	fclose(CandidateF);
+	system("cls");
+	printf("\nNew Account added to record");
 	return newCandidate;
 }
 int MailCheck(char* mail)

@@ -3,11 +3,13 @@
 #include <string.h>
 #include<conio.h>
 #include <stdbool.h>
+#include <fcntl.h>
 
 typedef struct candidate////yo????
 {
-	char Lname[50], Fname[50], email[50], ID[10], password1[50], password2[50], city[50], answer[50], phoneNumber[20];//all the candidate data
+	char Lname[50], Fname[50], email[50], password1[50], password2[50], city[50], answer[50], phoneNumber[20];//all the candidate data
 	int questionChoose;
+	long ID;
 	int month, day, year;
 }candidate;
 
@@ -17,20 +19,229 @@ int PasswordCheck(char* password);
 int BirthCheck(int day, int month, int year);
 int CVFile(char* CandidateName);
 candidate Candidate_Registration();
-
+candidate login(char email[]);
+int findRightRow(char* fileName, char* email);
+int deleteline(char* fileName, int row);
+int editProfile(candidate cand, char* fileName, int ans);
 
 int main()
 {
 
-	candidate newC = Candidate_Registration();
-	char candidateName[50] = "shai";
-	CVFile(candidateName);
+	candidate newC = login("shyshir@gmail.com");
+	editProfile(newC, "Candidate_DATA.csv", 3);
+	//char candidateName[50] = "shai";
+	//CVFile(candidateName);
 
 	return 0;
 
 }
+int deleteline(char* fileName, int row)
+{
+	char buffer[2024];
+	int numRow = 0, rc;
+	char name[50] = "temp";
+	FILE* fp = fopen(fileName, "r");
+	strcat(name, fileName);
+	FILE* temp = fopen(name, "w");
+	if (!fp)
+		printf("Can't open file: %s\n", fileName);
+
+	if (!temp)
+		printf("Can't open file: %s\n", name);
+	else
+	{
+		while (fgets(buffer, 1024, fp))
+		{
+			numRow++;
+			if (row != numRow)
+				fputs(buffer, temp);
+		}
+	}
 
 
+	if (fclose(fp) == 0)
+	{
+		printf("file closed");
+	}
+
+
+
+	rc = remove("Candidate_DATA.csv");
+	if (rc != 0)
+	{
+		perror("remove");
+		return 1;
+	}
+	puts("Removed file");
+	fclose(temp);
+	rc = rename(name, fileName);
+	return 0;
+}
+int findRightRow(char* fileName, char* email)
+{//find the row by email, returns the line nunber
+	char* value, buffer[2024];
+	int column = 0, row = 0, wantedRow = 0;
+	FILE* fp = fopen(fileName, "r");
+	if (!fp)
+		printf("Can't open file\n");
+
+	else
+	{
+		while (fgets(buffer, 1024, fp))//run until he find the row that matches the email
+		{
+			if (strcmp("\n", buffer) == 0)
+				break;
+			column = 0;
+			row++;
+			wantedRow++;
+			if (row == 1)//skip the first row, its titles
+				continue;
+			else {
+				value = strtok(buffer, ", ");
+				while (column != 3)//3 is the email column
+				{
+					value = strtok(NULL, ", ");
+					column++;
+				}
+				if (column == 3)
+				{
+					if (strcmp(email, value) == 0)
+					{//check if the same email
+						fclose(fp);
+						return wantedRow;		//find the right row can stop now	
+					}
+				}
+				else//continue to the next row
+				{
+					column = 0;
+					continue;
+				}
+
+			}
+
+		}
+	}
+	fclose(fp);
+	return 0;
+}
+candidate login(char email[])
+{
+	char* value, buffer[2024];
+	int column = 0, row = 0, wantedRow = 1;
+	candidate newCand;
+	FILE* fp = fopen("Candidate_DATA.csv", "r");
+	if (!fp)
+		printf("Can't open file\n");
+
+	else
+	{
+
+		wantedRow = findRightRow("Candidate_DATA.csv", email);
+		if (wantedRow == 0)
+		{
+			printf("The email not found!");
+			fclose(fp);
+			return;
+		}
+		row = 0;
+		rewind(fp);
+
+		while (fgets(buffer, 1024, fp))
+		{
+			row++;
+			column = 0;
+			if (row == wantedRow)
+			{
+				value = strtok(buffer, ", ");
+				while (value)
+				{
+					if (column == 0)
+						newCand.ID = value;
+					if (column == 1)
+						strcpy(newCand.Fname, value);
+					if (column == 2)
+						strcpy(newCand.Lname, value);
+					if (column == 3)
+						strcpy(newCand.email, value);
+					if (column == 4)
+						strcpy(newCand.password1, value);
+					if (column == 5)
+						strcpy(newCand.city, value);
+					if (column == 6)
+						newCand.month = atoi(value);
+					if (column == 7)
+						newCand.day = atoi(value);
+					if (column == 8)
+						newCand.year = atoi(value);
+					if (column == 9)
+						strcpy(newCand.phoneNumber, value);
+					if (column == 10)
+						newCand.questionChoose = atoi(value);
+					if (column == 11)
+						strcpy(newCand.answer, value);
+					value = strtok(NULL, ", ");
+					column++;
+				}
+			}
+			else
+				continue;
+		}
+	}
+	fclose(fp);
+	return newCand;
+}
+int editProfile(candidate cand, char* fileName, int ans)
+{
+
+	int check = 0, wantedRow;
+	wantedRow = findRightRow(fileName, cand.email);
+	if (wantedRow == 0)
+	{
+		printf("The email not found!");
+		return;
+	}
+
+	check = deleteline(fileName, wantedRow);
+	FILE* fp = fopen(fileName, "a+");
+	if (check == 0)
+	{
+		printf("\nenter your new information: \b");
+		if (ans == 0)
+			scanf("%s", &cand.ID);
+		if (ans == 1)
+			scanf("%s", &cand.Fname);
+		if (ans == 2)
+			scanf("%s", &cand.Lname);
+		if (ans == 3)
+			scanf("%s", &cand.email);
+		if (ans == 4)
+			scanf("%s", &cand.password1);
+		if (ans == 5)
+			scanf("%s", &cand.city);
+		if (ans == 6)
+			scanf("%s", &cand.month);
+		if (ans == 7)
+			scanf("%d", &cand.day);
+		if (ans == 8)
+			scanf("%d", &cand.year);
+		if (ans == 9)
+			scanf("%s", &cand.phoneNumber);
+		if (ans == 10)
+			scanf("%s", &cand.questionChoose);
+		if (ans == 11)
+			scanf("%s", &cand.answer);
+
+		fprintf(fp, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s\n", cand.ID,
+			cand.Fname, cand.Lname, cand.email, cand.password1,
+			cand.city, cand.month, cand.day,
+			cand.year, cand.phoneNumber, cand.questionChoose, cand.answer);
+		fclose(fp);
+		return 0;
+
+	}
+	fclose(fp);
+	return 1;
+}
 int CVFile(char* CandidateName)
 {
 	char temp[10] = "CV.txt", CVName[50];
@@ -43,7 +254,7 @@ int CVFile(char* CandidateName)
 	if (!CandidateCV) {
 		// Error in file opening
 		printf("Can't open file\n");
-		return 0;
+		return -1;
 	}
 	printf("\nBase information\n");
 	// Asking user input for the CVFile
@@ -111,24 +322,8 @@ int CVFile(char* CandidateName)
 	while (scanf("%[^\n]%*c", MilitaryService) == 1) {
 		fprintf(CandidateCV, "%s %s", MilitaryService, "\n");
 	}
+	return 0;
 }
-
-int PhoneCheck(char* phone)
-{
-	if (phone[0] == '0' && phone[1] == '5' && strlen(phone) == 10)
-		return 1;
-	if (strlen(phone) != 10)
-	{
-		printf("The phone number must have 10 digits, try again !\n");
-		return 0;
-	}
-	else
-	{
-		printf("The phone number must start with 05, try again !\n");
-		return 0;
-	}
-}
-
 candidate Candidate_Registration()
 {
 	FILE* CandidateF = fopen("Candidate_DATA.csv", "a+");
@@ -144,7 +339,7 @@ candidate Candidate_Registration()
 	// Asking user input for the
 	// new record to be added
 	printf("\nEnter ID:  \b");
-	scanf("%s", &newCandidate.ID);
+	scanf("%ld", &newCandidate.ID);
 	printf("\nEnter first name:  \b");
 	scanf("%s", &newCandidate.Fname);
 	printf("\nEnter last name:  \b");
@@ -172,7 +367,7 @@ candidate Candidate_Registration()
 	}
 	printf("\nEnter your city name:  \b");
 	scanf("%s", &newCandidate.city);
-	printf("\nEnter your birthay: \n");
+	printf("\nEnter your birthay ");
 	printf("\nMonth:  \b");
 	scanf("%d", &newCandidate.month);
 	printf("\nDay:  \b");
@@ -205,14 +400,13 @@ candidate Candidate_Registration()
 	scanf("%s", &newCandidate.answer);
 	printf("\nNew Account added to record");
 	// Saving data in file
-	fprintf(CandidateF, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s\n", newCandidate.ID,
+	fprintf(CandidateF, "%ld,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s\n", newCandidate.ID,
 		newCandidate.Fname, newCandidate.Lname, newCandidate.email, newCandidate.password1,
 		newCandidate.city, newCandidate.month, newCandidate.day,
 		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose, newCandidate.answer);
 	fclose(CandidateF);
 	return newCandidate;
 }
-
 int MailCheck(char* mail)
 {
 	int position = 0;
@@ -266,8 +460,6 @@ int MailCheck(char* mail)
 		return 0;
 	}
 }
-
-
 int PasswordCheck(char* password)
 {
 	int i = 0;
@@ -294,7 +486,6 @@ int PasswordCheck(char* password)
 		return 0;
 	}
 }
-
 int BirthCheck(int day, int month, int year)
 {
 	if (year < 1900)
@@ -397,5 +588,20 @@ int BirthCheck(int day, int month, int year)
 				return 0;
 			}
 		}
+	}
+}
+int PhoneCheck(char* phone)
+{
+	if (phone[0] == '0' && phone[1] == '5' && strlen(phone) == 10)
+		return 1;
+	if (strlen(phone) != 10)
+	{
+		printf("The phone number must have 10 digits, try again !\n");
+		return 0;
+	}
+	else
+	{
+		printf("The phone number must start with 05, try again !\n");
+		return 0;
 	}
 }

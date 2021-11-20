@@ -32,7 +32,7 @@ candidate loginC(char email[])
 				while (value)
 				{
 					if (column == 0)
-						strcpy( newCand.ID ,value);
+						strcpy(newCand.ID, value);
 					if (column == 1)
 						strcpy(newCand.Fname, value);
 					if (column == 2)
@@ -85,13 +85,13 @@ int CVFile(candidate cand)
 	printf("\nBase information\n");
 	// Asking user input for the CVFile
 
-	fprintf(CandidateCV, "%s %s %s", cand.Fname,cand.Lname, "CV\n\n");
-	printf("ID: %s \n",cand.ID);
+	fprintf(CandidateCV, "%s %s %s", cand.Fname, cand.Lname, "CV\n\n");
+	printf("ID: %s \n", cand.ID);
 	fprintf(CandidateCV, "%s %s %s", "Base information\nID: ", cand.ID, "\n");
-	printf("First name: %s \n",cand.Fname);
-	printf("Last name:  %s\n",cand.Lname);
+	printf("First name: %s \n", cand.Fname);
+	printf("Last name:  %s\n", cand.Lname);
 	fprintf(CandidateCV, "%s %s %s %s ", "Name: ", cand.Fname, cand.Lname, "\n");
-	printf("Email address: %s\n",cand.email);
+	printf("Email address: %s\n", cand.email);
 	fprintf(CandidateCV, "%s %s %s", "Email: ", cand.email, "\n");
 	printf("Enter the languages you speak:  \b");
 	gets(language);
@@ -99,9 +99,9 @@ int CVFile(candidate cand)
 	printf("Enter your driving license type: (if you dont have drining license enter none)  \b");
 	scanf("%s", &drivingLicence);
 	fprintf(CandidateCV, "%s %s %s", "DrivingLicence: ", drivingLicence, "\n");
-	printf("City address: %s \n",cand.city);
+	printf("City address: %s \n", cand.city);
 	fprintf(CandidateCV, "%s %s %s", "City: ", cand.city, "\n");
-	printf("Phone number: %s \n",cand.phoneNumber);
+	printf("Phone number: %s \n", cand.phoneNumber);
 	fprintf(CandidateCV, "%s %s %s", "Phone number: ", cand.phoneNumber, "\n");
 
 	getchar();
@@ -182,7 +182,7 @@ candidate Candidate_Registration()
 {
 	FILE* CandidateF = fopen("Candidate_DATA.csv", "a+");
 	candidate newCandidate;
-	
+
 	if (!CandidateF) {
 		// Error in file opening
 		printf("Can't open file\n");
@@ -195,7 +195,7 @@ candidate Candidate_Registration()
 	scanf("%s", &newCandidate.ID);
 	while (IDCheck(newCandidate.ID) == 0)
 	{
-		printf("\nEnter ID:  \b");
+		printf("Enter valid ID : ");
 		scanf("%s", &newCandidate.ID);
 	}
 	printf("\nEnter first name:  \b");
@@ -226,6 +226,11 @@ candidate Candidate_Registration()
 	getchar();
 	printf("\nEnter your city name:  \b");
 	gets(newCandidate.city);
+	while (CheckLower(newCandidate.city) == 0)
+	{
+		gets(newCandidate.city);
+	}
+
 	printf("\nEnter your birthay ");
 	printf("\nMonth:  \b");
 	scanf("%d", &newCandidate.month);
@@ -321,7 +326,7 @@ int CandidateMenu(candidate cand)
 		{
 			getchar();
 			system("cls");
-			deleteline(cand.email,findRightRow("Candidate_DATA.csv",cand.email));
+			deleteline(cand.email, findRightRow("Candidate_DATA.csv", cand.email));
 			getchar();
 			break;
 		}
@@ -332,7 +337,7 @@ int CandidateMenu(candidate cand)
 			break;
 		}
 
-		default: 
+		default:
 		{
 			system("cls");
 			printf("wrong Input Please Choose between 1-6 \n");
@@ -427,7 +432,7 @@ int editProfileMenu(candidate cand)
 	char choice = '0';
 	int run = 0;
 
-	while (run != -1) 
+	while (run != -1)
 	{
 		printf("Edit Profile Menu:\nPress 1 for Edit email.\n");
 		printf("Press 2 for Change your password\n");
@@ -445,7 +450,7 @@ int editProfileMenu(candidate cand)
 		case '1':
 		{
 			getchar();
-			editProfile(cand, "Candidate_DATA.csv",atoi(choice));//Email editfunction
+			editProfile(cand, "Candidate_DATA.csv", atoi(choice));//Email editfunction
 			getchar();
 			break;
 		}
@@ -490,12 +495,12 @@ int editProfileMenu(candidate cand)
 			getchar();
 			break;
 		}
-		 case '8':
+		case '8':
 		{
-			 getchar();
-			 CVFile(cand);//free CV builder (not urgent)
-			 getchar();
-			 break;
+			getchar();
+			CVFile(cand);//free CV builder (not urgent)
+			getchar();
+			break;
 		}
 		case '9':
 		{
@@ -507,6 +512,55 @@ int editProfileMenu(candidate cand)
 		{
 			printf("Worng input please try again...(1-8) \n");
 		}
+		}
+	}
+
+}
+
+candidate resetPassword(candidate c)
+{
+	char securityAnswer[MAXNAME];
+	int run = 0;
+	int run2 = 0;
+	char temp[MAXNAME];
+	strcpy(temp, c.password1);
+	while (run == 0)
+	{
+		printf("\nTo reset you're password, enter you're security answer : ");
+		scanf("%s", &securityAnswer);
+		if (strcmp(c.answer, securityAnswer) == 0)
+		{
+			while (run2 == 0)
+			{
+				printf("Enter you're new password twice :\nFirst time : ");
+				scanf("%s", &c.password1);
+				while (PasswordCheck(c.password1) == 0)
+				{
+					printf("Enter valid password : ");
+					scanf("%s", &c.password1);
+				}
+				if (strcmp(temp, c.password1) != 0)
+				{
+					printf("Second Time : ");
+					scanf("%s", &c.password2);
+					if (strcmp(c.password1, c.password2) != 0)
+					{
+						printf("Passwords are different, try again : ");
+					}
+					else
+					{
+						printf("Done !\n");
+						run2 = 1;
+						return c;
+					}
+				}
+				if (strcmp(temp, c.password1) == 0)
+					printf("the new password can be same as the old one, try again !\n");
+			}
+		}
+		else
+		{
+			printf("You're security answer doesn't match, try again !\n");
 		}
 	}
 

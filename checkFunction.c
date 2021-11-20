@@ -16,7 +16,7 @@ int IDCheck(char* ID)
 		return 0;
 	}
 	return 1;
-	
+
 }
 int IDCheckIFREAL(long numid) //function "ID"
 {
@@ -327,5 +327,35 @@ int findRightRow(char* fileName, char* email)
 	}
 	fclose(fp);
 	return 0;
+}
+int CheckLower(char* city)
+{
+	int count = 0, i = 0, countSpace = 0, countSymbol = 0;
+
+	for (i; i < strlen(city); i++)
+	{
+		if (city[i] >= 'a' && city[i] <= 'z')
+		{
+			count++;
+		}
+		if (city[i] == ' ')
+		{
+			countSpace++;
+		}
+		if (city[i] > 32 && city[i] <= 47 || city[i] >= 58 && city[i] <= 64 || city[i] >= 92 && city[i] <= 96 || city[i] >= 123 && city[i] <= 126)
+		{
+			countSymbol++;
+		}
+
+
+	}
+	if (count == strlen(city) - countSpace - countSymbol)
+		return 1;
+	else
+	{
+		printf("Enter the city only in lowercase : ");
+		return 0;
+	}
+
 }
 

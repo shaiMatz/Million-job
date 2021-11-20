@@ -1,5 +1,3 @@
-#pragma once
-
 #include"employer.h"
 
 employer loginE(char email[])
@@ -78,8 +76,9 @@ employer employer_Registration()
 
 	// Asking user input for the
 	// new record to be added
-	getchar();
+
 	printf("\nEnter company name:  \b");
+	getchar();
 	gets(newEmp.companyName);
 
 	printf("\nEnter first name:  \b");
@@ -110,6 +109,10 @@ employer employer_Registration()
 	getchar();
 	printf("\nEnter your city name:  \b");
 	gets(newEmp.city);
+	while (CheckLower(newEmp.city) == 0)
+	{
+		gets(newEmp.city);
+	}
 	printf("\nEnter phone number:  \b");
 	scanf("%s", &newEmp.phoneNumber);
 	while (PhoneCheck(newEmp.phoneNumber) == 0)
@@ -121,7 +124,7 @@ employer employer_Registration()
 	printf("\nEnter some information about the company:  \n");
 	gets(newEmp.jobDescription);
 
-	printf("\nChoose your security question:(default qeustion is 1)\n");
+	printf("\nChoose your security question:(default question is 1)\n");
 	printf("press 1: What is your grandfather name from your father side? \n");
 	printf("press 2: What is your pet name? \n");
 	printf("press 3: What is the name of your high-school? \nyour choise:  \b");
@@ -139,5 +142,53 @@ employer employer_Registration()
 	printf("\nNew Account added to record\n");
 
 	return newEmp;
+
+}
+employer resetPassword2(employer e)
+{
+	char securityAnswer[MAXNAME];
+	int run = 0;
+	int run2 = 0;
+	char temp[MAXNAME];
+	strcpy(temp, e.password1);
+	while (run == 0)
+	{
+		printf("\nTo reset you're password, enter you're security answer : ");
+		scanf("%s", &securityAnswer);
+		if (strcmp(e.answer, securityAnswer) == 0)
+		{
+			while (run2 == 0)
+			{
+				printf("Enter you're new password twice :\nFirst time : ");
+				scanf("%s", &e.password1);
+				while (PasswordCheck(e.password1) == 0)
+				{
+					printf("Enter valid password : ");
+					scanf("%s", &e.password1);
+				}
+				if (strcmp(temp, e.password1) != 0)
+				{
+					printf("Second Time : ");
+					scanf("%s", &e.password2);
+					if (strcmp(e.password1, e.password2) != 0)
+					{
+						printf("Passwords are different, try again : ");
+					}
+					else
+					{
+						printf("Done !\n");
+						run2 = 1;
+						return e;
+					}
+				}
+				if (strcmp(temp, e.password1) == 0)
+					printf("the new password can be same as the old one, try again !\n");
+			}
+		}
+		else
+		{
+			printf("You're security answer doesn't match, try again !\n");
+		}
+	}
 
 }

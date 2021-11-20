@@ -11,3 +11,4 @@ typedef struct employer
 
 employer employer_Registration();
 employer loginE(char email[]);
+employer resetPassword2(employer e);

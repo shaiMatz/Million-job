@@ -386,8 +386,8 @@ int CandidateMenu(candidate cand)
 		printf("Candidate Menu :\n1) Press 1 to search your next job.\n");
 		printf("2) Press 2 to go to your list of Favorite jobs.\n");
 		printf("3) Press 3 to go to your list of Submissions.\n");
-		printf("4) Press 4 to edit your profile \n");
-		printf("5) Press 5 to delete your Profile\n");
+		printf("4) Press 4 to edit your profile.\n");
+		printf("5) Press 5 to delete your Profile.\n");
 		printf("6) Press 6 to exit.\n\nchoice : ");
 		scanf("%c", &choice);
 		switch (choice)

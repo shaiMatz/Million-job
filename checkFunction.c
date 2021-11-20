@@ -276,6 +276,7 @@ int deleteline(char* fileName, int row)
 	rc = rename(name, fileName);
 	return 0;
 }
+
 int findRightRow(char* fileName, char* email)
 {//find the row by email, returns the line nunber
 	char* value, buffer[2024];

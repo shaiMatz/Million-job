@@ -61,14 +61,15 @@ void menu()
 			scanf("%c", &choice1);
 			switch (choice1)			//employer or candidate ?
 			{
-			case'1':
-				system("cls");
+			case '1':
 				getchar();
+				system("cls");
 				newEmp = employer_Registration();
 				getchar();
-				//EmployerMenu(newemp);
-
+				EmployerMenu(newEmp);
+				getchar();
 				break;
+
 			case '2':
 				getchar();
 				system("cls");

@@ -1,10 +1,10 @@
 #pragma once
-#include "checkFunction.h"
+#include"checkFunction.h"
 
 
-typedef struct candidate
+typedef struct candidate////yo????
 {
-	char ID[MAXNAME], Lname[MAXNAME], Fname[MAXNAME], email[MAXNAME], password1[MAXNAME],password2[MAXNAME], city[MAXNAME], answer[MAXNAME], phoneNumber[MAXNAME];//all the candidate data
+	char ID[MAXNAME],Lname[MAXNAME], Fname[MAXNAME], email[MAXNAME], password1[MAXNAME], password2[MAXNAME], city[MAXNAME], answer[MAXNAME], phoneNumber[MAXNAME],CVname[MAXNAME];//all the candidate data
 	int questionChoose;
 	int month, day, year;
 }candidate;

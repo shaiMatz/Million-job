@@ -1,10 +1,11 @@
 #include "checkFunction.h"
-
+#include "candidate.h"
+#include "employer.h"
 
 int IDCheck(char* ID)
 {
 	long longID;
-	if (strlen(ID) != 9 && strlen(ID) != 8)
+	if (strlen(ID) != 9 && strlen(ID) != 8)//check the length
 	{
 		printf("Your ID isn't right!\n");
 		return 0;
@@ -16,7 +17,7 @@ int IDCheck(char* ID)
 		return 0;
 	}
 	return 1;
-
+	
 }
 int IDCheckIFREAL(long numid) //function "ID"
 {
@@ -122,7 +123,7 @@ int PasswordCheck(char* password)
 	}
 	else
 	{
-		printf("The password does not match, try again !");
+		printf("The password does not match the conditions, try again !\n");
 		return 0;
 	}
 }
@@ -263,12 +264,7 @@ int deleteline(char* fileName, int row)
 	}
 
 
-	if (fclose(fp) == 0)
-	{
-		printf("file closed");
-	}
-
-
+	fclose(fp);
 
 	rc = remove("Candidate_DATA.csv");
 	if (rc != 0)
@@ -276,7 +272,6 @@ int deleteline(char* fileName, int row)
 		perror("remove");
 		return 1;
 	}
-	puts("Removed file");
 	fclose(temp);
 	rc = rename(name, fileName);
 	return 0;
@@ -326,7 +321,54 @@ int findRightRow(char* fileName, char* email)
 		}
 	}
 	fclose(fp);
-	return 0;
+	return -1;
+}
+int findRightRowPass(char* fileName, char* pass)
+{//find the row by password, returns the line nunber
+	char* value, buffer[2024];
+	int column = 0, row = 0, wantedRow = 0;
+	FILE* fp = fopen(fileName, "r");
+	if (!fp)
+		printf("Can't open file\n");
+
+	else
+	{
+		while (fgets(buffer, 1024, fp))//run until he find the row that matches the email
+		{
+			if (strcmp("\n", buffer) == 0)
+				break;
+			column = 0;
+			row++;
+			wantedRow++;
+			if (row == 1)//skip the first row, its titles
+				continue;
+			else {
+				value = strtok(buffer, ", ");
+				while (column != 4)//3 is the password column
+				{
+					value = strtok(NULL, ", ");
+					column++;
+				}
+				if (column == 4)
+				{
+					if (strcmp(pass, value) == 0)
+					{//check if the same password
+						fclose(fp);
+						return wantedRow;		//find the right row can stop now	
+					}
+				}
+				else//continue to the next row
+				{
+					column = 0;
+					continue;
+				}
+
+			}
+
+		}
+	}
+	fclose(fp);
+	return -1;
 }
 int CheckLower(char* city)
 {
@@ -358,4 +400,3 @@ int CheckLower(char* city)
 	}
 
 }
-

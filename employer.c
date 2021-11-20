@@ -1,3 +1,5 @@
+#pragma once
+
 #include"employer.h"
 
 employer loginE(char email[])
@@ -76,9 +78,8 @@ employer employer_Registration()
 
 	// Asking user input for the
 	// new record to be added
-
-	printf("\nEnter company name:  \b");
 	getchar();
+	printf("\nEnter company name:  \b");
 	gets(newEmp.companyName);
 
 	printf("\nEnter first name:  \b");
@@ -124,14 +125,14 @@ employer employer_Registration()
 	printf("\nEnter some information about the company:  \n");
 	gets(newEmp.jobDescription);
 
-	printf("\nChoose your security question:(default question is 1)\n");
+	printf("\nChoose your security question:(default qeustion is 1)\n");
 	printf("press 1: What is your grandfather name from your father side? \n");
 	printf("press 2: What is your pet name? \n");
 	printf("press 3: What is the name of your high-school? \nyour choise:  \b");
 
 	scanf("%d", &newEmp.questionChoose);
 	printf("\nEnter your answer:  \b");
-	scanf("%s", &newEmp.answer);
+	gets(newEmp.answer);
 
 	// Saving data in file
 	fprintf(F, "%s,%s,%s,%s,%s,%s,%s,%s,%d,%s\n", newEmp.companyName,

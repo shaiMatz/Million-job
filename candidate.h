@@ -15,5 +15,5 @@ candidate Candidate_Registration();
 void searchEngine(candidate cand);
 int editProfileMenu(candidate cand);
 candidate loginC(char email[]);
-int editProfile(candidate cand, char* fileName, int ans);
+candidate editProfile(candidate cand, char* fileName, int ans);
 candidate resetPassword(candidate c);

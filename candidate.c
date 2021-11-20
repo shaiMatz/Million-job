@@ -156,7 +156,7 @@ int CVFile(candidate cand)
 	
 }
 
-int editProfile(candidate cand, char* fileName, int ans)
+candidate editProfile(candidate cand, char* fileName, int ans)
 {
 
 	int check = 0, wantedRow;
@@ -172,7 +172,7 @@ int editProfile(candidate cand, char* fileName, int ans)
 	if (!fp) {
 		// Error in file opening
 		printf("Can't open file\n");
-		return -1;
+		return;
 	}
 	if (check == 0)
 	{
@@ -241,11 +241,11 @@ int editProfile(candidate cand, char* fileName, int ans)
 			cand.city, cand.month, cand.day,
 			cand.year, cand.phoneNumber, cand.questionChoose, cand.answer);
 		fclose(fp);
-		return 0;
+		return cand;
 
 	}
 	fclose(fp);
-	return 1;
+	return cand;
 }
 
 //int addAtTheEndRow(candidate cand, char* fileName, int row, char* addString);
@@ -534,7 +534,7 @@ int editProfileMenu(candidate cand)
 {
 	char choice = '0';
 	int run = 0;
-
+	int ans=0;
 	while (run != -1) 
 	{
 		printf("Edit Profile Menu:\nPress 1 for Edit email.\n");
@@ -554,7 +554,8 @@ int editProfileMenu(candidate cand)
 		{
 			system("cls");
 			getchar();
-			editProfile(cand, "Candidate_DATA.csv",atoi(choice));//Email editfunction
+			ans = choice- '0';
+			cand=editProfile(cand, "Candidate_DATA.csv", ans);//Email editfunction
 			getchar();
 			break;
 		}
@@ -562,7 +563,8 @@ int editProfileMenu(candidate cand)
 		{
 			system("cls");
 			getchar();
-			editProfile(cand, "Candidate_DATA.csv", atoi(choice));//Change Password function.passwordChange();//Change Password function.
+			ans = choice - '0';
+			editProfile(cand, "Candidate_DATA.csv", ans);//Change Password function.passwordChange();//Change Password function.
 			getchar();
 			break;
 		}
@@ -570,7 +572,8 @@ int editProfileMenu(candidate cand)
 		{
 			system("cls");
 			getchar();
-			editProfile(cand, "Candidate_DATA.csv", atoi(choice));//address edit function
+			ans = choice - '0';
+			editProfile(cand, "Candidate_DATA.csv", ans);//address edit function
 			getchar();
 			break;
 		}
@@ -578,7 +581,8 @@ int editProfileMenu(candidate cand)
 		{
 			system("cls");
 			getchar();
-			editProfile(cand, "Candidate_DATA.csv", atoi(choice));//Phone number edit function 
+			ans = choice - '0';
+			editProfile(cand, "Candidate_DATA.csv", ans);//Phone number edit function 
 			getchar();
 			break;
 		}

@@ -49,7 +49,7 @@ void menu()
 				system("cls");
 				newEmp = loginE(email);
 				getchar();
-				//EmployerMenu(newemp);
+				EmployerMenu(newEmp);
 			}
 			break;
 		}

@@ -171,7 +171,9 @@ int EmployerMenu(employer emp)
 		}
 		case '2':
 		{
+			getchar();
 			jobEdit();// inside function switch cases between 3 cases (edit,add,delete)
+			getchar();
 			break;
 		}
 		case '3':
@@ -270,7 +272,9 @@ int jobEdit()// inside function switch cases between 3 cases (edit,add,delete)
 		{
 		case '1':
 		{
+			getchar();
 			jobAdd();
+			getchar();
 			break;
 		}
 		case '2':
@@ -298,6 +302,7 @@ int jobEdit()// inside function switch cases between 3 cases (edit,add,delete)
 	}
 
 }
+
 int jobAdd()
 {
 	int serialNum;

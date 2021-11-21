@@ -300,19 +300,63 @@ int jobEdit()// inside function switch cases between 3 cases (edit,add,delete)
 }
 int jobAdd()
 {
+	int serialNum;
+	char* value, buffer[2024];
+	int column = 0, row = 0, wantedRow = 0;
+	
+	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r");
+	if (JoblistdataF == NULL)
+	{
+		printf("Can't open file!");
+		return;
+	}
+	
+	
+	while (fgets(buffer, 1024, JoblistdataF))//run to the end.
+	{
+		if (strcmp("\n", buffer) == 0)
+			break;
+		column = 1;
+		row++;
+		wantedRow++;
+		if (row == 1)//skip the first row, its titles
+			continue;
+		else {
+			value = strtok(buffer, ", ");
+			while (column != 1)//1 is the serial column
+			{
+				value = strtok(NULL, ", ");
+				column++;
+			}
+			if (column == 1)
+			{
+				serialNum = atoi(value);// save the last serial number.
+				
+			}
+			else//continue to the next row
+			{
+				column = 0;
+				continue;
+			}
 
-	char* Jname[MAXNAME], Jrange[MAXNAME], Jtype[MAXNAME], Jdescription[MAXNAME], Jresponsibilities[MAXNAME], Jqualifications[MAXNAME], Jsalary[MAXNAME], Jhours[MAXNAME];
+		}
+
+	}
+	serialNum++;
+	fclose(JoblistdataF);
 	
 
-	FILE* JobF = fopen("JOB_LIST_DATA.csv", "a+");
+	
+	char* Jname[MAXNAME], Jrange[MAXNAME], Jtype[MAXNAME], Jdescription[MAXNAME], Jresponsibilities[MAXNAME], Jqualifications[MAXNAME], Jsalary[MAXNAME], Jhours[MAXNAME];
+	
+	FILE* Jobdata = fopen("JOB_LIST_DATA.csv", "a+");
 
 
-	if (!JobF) {
+	if (!Jobdata) {
 		// Error in file opening
 		printf("Can't open file\n");
 		return;
 	}
-
 
 	printf("\nEnter the job name: \n");
 	gets(Jname);
@@ -336,10 +380,11 @@ int jobAdd()
 	gets(Jhours);
 
 	// Saving data in file
-	fprintf(JobF, "%s,%s,%s,%s,%s,%s,%s,%s\n", Jname,
+	
+	fprintf(Jobdata, "%d,%s,%s,%s,%s,%s,%s,%s,%s\n", serialNum, Jname,
 		Jrange, Jtype, Jdescription, Jresponsibilities, Jqualifications,
 		Jsalary, Jhours);
-	fclose(JobF);
+	fclose(Jobdata);
 	system("cls");
 	printf("\nNew job added to record\n");
 	return 0;

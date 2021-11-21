@@ -1,1 +1,5 @@
-Job name,Job range,Job type,Job description,Job responsibilities,Job qualifications,Job salary,Job hours
+SerialNum,Job name,Job range,Job type,Job description,Job responsibilities,Job qualifications,Job salary,Job hours
+1,driver,driver,full time,taxi driver,need to drive from tlv to ashdod,need to have licence,100/h,10 to 11 pm
+2,cleaner,need to clean,full time,clean the house,need to be fast,none,50 nis/h,1 to 4 pm
+3,engineer,software engineering,full time,qa,none,none,1000/h,6 to 10 pm
+4,pilot,none,full time,need to flight,none,none,100 nis/h,11 to 12 pm

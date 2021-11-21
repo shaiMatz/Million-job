@@ -56,6 +56,8 @@ candidate loginC(char email[])
 					if (column == 11)
 						strcpy(newCand.answer, value);
 					if (column == 12)
+						strcpy(newCand.wantedjobs, value);
+					if (column == 13)
 						strcpy(newCand.CVname, value);
 
 					value = strtok(NULL, ", ");
@@ -236,10 +238,15 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 			printf("\nEnter phone number:  \b");
 			gets(cand.answer);
 		}
-		fprintf(fp, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s\n", cand.ID,
+		if (ans == 7)
+		{
+			printf("\nEnter job preference:  \b");
+			gets(cand.wantedjobs);
+		}
+		fprintf(fp, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
 			cand.Fname, cand.Lname, cand.email, cand.password1,
 			cand.city, cand.month, cand.day,
-			cand.year, cand.phoneNumber, cand.questionChoose, cand.answer);
+			cand.year, cand.phoneNumber, cand.questionChoose, cand.wantedjobs, cand.answer);
 		fclose(fp);
 		return cand;
 
@@ -364,12 +371,14 @@ candidate Candidate_Registration()
 	getchar();
 	printf("\nEnter your answer:  \b");
 	gets(newCandidate.answer);
+	printf("\nEnter your job preference:  \b");
+	gets(newCandidate.wantedjobs);
 
 	// Saving data in file
-	fprintf(CandidateF, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s\n", newCandidate.ID,
+	fprintf(CandidateF, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", newCandidate.ID,
 		newCandidate.Fname, newCandidate.Lname, newCandidate.email, newCandidate.password1,
 		newCandidate.city, newCandidate.month, newCandidate.day,
-		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose, newCandidate.answer);
+		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose,newCandidate.wantedjobs, newCandidate.answer);
 	fclose(CandidateF);
 	system("cls");
 	printf("\nNew Account added to record!\n");
@@ -428,7 +437,7 @@ int CandidateMenu(candidate cand)
 		{
 			getchar();
 			system("cls");
-			deleteline(cand.email,findRightRow("Candidate_DATA.csv",cand.email));
+			deleteline("Candidate_DATA.csv",findRightRow("Candidate_DATA.csv",cand.email));
 			getchar();
 			break;
 		}
@@ -463,12 +472,12 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 	printf("Press 6 for clear your search.\n");
 	printf("Press 7 return previous menu.\n");
 	printf("------Enter your choice please:------\n");
-	scanf("%d", &choice);
+	scanf("%c", &choice);
 	while (run != -1)
 	{
 		switch (choice)
 		{
-		case 1: {
+		case '1': {
 			//allJobsPrint();
 			int i = 0;
 			char choice = '0';
@@ -479,11 +488,11 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 			{
 				switch (choice)
 				{
-				case 1:
+				case '1':
 					//addFavorite();//add favorite job function
 					i = 0;
 
-				case 0:
+				case '0':
 					i = 0;
 
 				default:
@@ -492,31 +501,31 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 			}
 			break;
 		}
-		case 2:
+		case '2':
 		{
 			//keywordSearch();
 			break;
 		}
-		case 3:
+		case '3':
 		{
 			//addFilter();
 			break;
 		}
-		case 4:
+		case '4':
 		{
 			//newToOld();//sorting  function new to old
 			break;
 		}
-		case 5:
+		case '5':
 		{
 			//oldToNew();//old to new...
 		}
-		case 6:
+		case '6':
 		{
 			//searchReset();
 			break;
 		}
-		case 7:
+		case '7':
 		{
 			run = -1;
 			break;
@@ -538,14 +547,13 @@ int editProfileMenu(candidate cand)
 	while (run != -1) 
 	{
 		printf("Edit Profile Menu:\nPress 1 for Edit email.\n");
-		printf("Press 2 for Change your password\n");
-		printf("Press 3 for Edit city adress.\n");
-		printf("Press 4 for Edit Phone number.\n");
-		printf("Press 5 for to add or change your wanted job.\n");
-		printf("Press 6 for Change your security question\n");
-		printf("Press 7 for to enter your cv file: (enter cv name)\n");
-		printf("Press 8 for to build your cv file: \n");
-		printf("Press 9 to back to the previous menu\n");
+		printf("Press 2 to Change your password\n");
+		printf("Press 3 to Edit city adress.\n");
+		printf("Press 4 to Edit Phone number.\n");
+		printf("Press 5 to Change your security question\n");
+		printf("Press 6 to Upload your cv file: (enter cv name)\n");
+		printf("Press 7 to build your cv file: \n");
+		printf("Press 8 to go back to the previous menu\n");
 		printf("choice : ");
 		scanf("%c", &choice);
 		switch (choice)
@@ -564,7 +572,7 @@ int editProfileMenu(candidate cand)
 			system("cls");
 			getchar();
 			ans = choice - '0';
-			editProfile(cand, "Candidate_DATA.csv", ans);//Change Password function.passwordChange();//Change Password function.
+			editProfile(cand, "Candidate_DATA.csv", ans);//Change Password function
 			getchar();
 			break;
 		}
@@ -586,22 +594,15 @@ int editProfileMenu(candidate cand)
 			getchar();
 			break;
 		}
+
 		case '5':
-		{
-			system("cls");
-			getchar();
-			//addORchangeJob();// add or change your wanted job(from list of types)
-			getchar();
-			break;
-		}
-		case '6':
 		{
 			system("cls");
 			//change security number
 			getchar();
 			break;
 		}
-		case '7':
+		case '6':
 		{
 			system("cls");
 			getchar();
@@ -609,7 +610,7 @@ int editProfileMenu(candidate cand)
 			getchar();
 			break;
 		}
-		 case '8':
+		 case '7':
 		{
 			 system("cls");
 			 getchar();
@@ -617,7 +618,7 @@ int editProfileMenu(candidate cand)
 			 getchar();
 			 break;
 		}
-		case '9':
+		case '8':
 		{
 			system("cls");
 			run = -1;
@@ -643,20 +644,20 @@ candidate resetPassword(candidate c)
 	strcpy(temp, c.password1);
 	while (run == 0)
 	{
-		printf("\nTo reset you're password, enter you're security answer \n");
+		printf("\nTo reset your password, enter your security answer \n");
 		if (c.questionChoose == 1)
 			printf("What is your grandfather name from your father side?\nAnswer:  \b");
 		if (c.questionChoose == 2)
 			printf("What is your pet name ? \nAnswer:  \b");
 		if (c.questionChoose == 3)
-			printf("What is the name of your high-school? \nAnswer:  \b");
+			printf("What is the name of your high school? \nAnswer:  \b");
 		getchar();
 		gets(securityAnswer);
 		if (strcmp(c.answer, securityAnswer) == 0)
 		{
 			while (run2 == 0)
 			{
-				printf("Enter you're new password twice :\nFirst time : ");
+				printf("Enter your new password twice :\nFirst time : ");
 				scanf("%s", &c.password1);
 				while (PasswordCheck(c.password1) == 0)
 				{
@@ -693,12 +694,12 @@ candidate resetPassword(candidate c)
 					}
 				}
 				if (strcmp(temp, c.password1) == 0)
-					printf("the new password can be same as the old one, try again !\n");
+					printf("the new password can be the same as the old one, try again !\n");
 			}
 		}
 		else
 		{
-			printf("You're security answer doesn't match, try again !\n");
+			printf("Your security answer does not match, try again !\n");
 		}
 	}
 

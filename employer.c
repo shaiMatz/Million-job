@@ -352,7 +352,7 @@ int jobAdd()
 	
 
 	
-	char* Jname[MAXNAME], Jrange[MAXNAME], Jtype[MAXNAME], Jdescription[MAXNAME], Jresponsibilities[MAXNAME], Jqualifications[MAXNAME], Jsalary[MAXNAME], Jhours[MAXNAME];
+	char* Jname[MAXNAME], Jrange[MAXNAME] ,Jcity[MAXNAME], Jtype[MAXNAME], Jdescription[MAXNAME], Jresponsibilities[MAXNAME], Jqualifications[MAXNAME], Jsalary[MAXNAME], Jhours[MAXNAME];
 	
 	FILE* Jobdata = fopen("JOB_LIST_DATA.csv", "a+");
 
@@ -367,7 +367,8 @@ int jobAdd()
 	gets(Jname);
 	printf("\nEnter the job range: \n");
 	gets(Jrange);
-	
+	printf("\nEnter the city: \n");
+	gets(Jcity);
 	printf("\nEnter the job type(full time/part time): \n");
 	gets(Jtype);
 	printf("\nEnter the job description: \n");
@@ -386,7 +387,7 @@ int jobAdd()
 
 	// Saving data in file
 	
-	fprintf(Jobdata, "%d,%s,%s,%s,%s,%s,%s,%s,%s\n", serialNum, Jname,
+	fprintf(Jobdata, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", serialNum, Jname,Jcity,
 		Jrange, Jtype, Jdescription, Jresponsibilities, Jqualifications,
 		Jsalary, Jhours);
 	fclose(Jobdata);

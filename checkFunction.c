@@ -1,7 +1,7 @@
 #include "checkFunction.h"
 #include "candidate.h"
 #include "employer.h"
-
+#include <errno.h>
 int IDCheck(char* ID)
 {
 	long longID;

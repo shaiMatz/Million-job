@@ -1,5 +1,5 @@
 #include "candidate.h"
-
+#include "SearchEngine.h"
 candidate loginC(char email[])
 {
 	char* value, buffer[2024];
@@ -255,37 +255,6 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 	return cand;
 }
 
-//int addAtTheEndRow(candidate cand, char* fileName, int row, char* addString);
-//{
-//	FILE* pf = fopen(fileName, "r");
-//	char buffer[2024], * value, s[3] = "\n";
-//	int column = 0;
-//	int numRow = 0;
-//	int rc;
-//	if (!pf)
-//		printf("Can't open file\n");
-//
-//	else
-//	{
-//		while (fgets(buffer, 1024, pf))
-//		{
-//			puts(buffer);
-//			numRow++;
-//			if (row == numRow)
-//			{
-//				value = strtok(buffer, s);
-//				puts(value);
-//				strcat(buffer, ",");
-//				strcat(buffer, addString);
-//				strcat(buffer, "\n");
-//			}
-//		}
-//		deleteline(fileName, row);
-//	}
-//	fclose(pf);
-//	return 0;
-//}
-
 
 candidate Candidate_Registration()
 {
@@ -438,6 +407,7 @@ int CandidateMenu(candidate cand)
 			getchar();
 			system("cls");
 			deleteline("Candidate_DATA.csv",findRightRow("Candidate_DATA.csv",cand.email));
+			run = -1;
 			getchar();
 			break;
 		}
@@ -478,37 +448,17 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		switch (choice)
 		{
 		case '1': {
-			//allJobsPrint();
-			int i = 0;
-			char choice = '0';
-			printf("Would you like to add job to favorite?\n");
-			printf("For Yes, press 1 , for No, press 0\n");
-			scanf("%s", &choice);
-			while (i != 0)
-			{
-				switch (choice)
-				{
-				case '1':
-					//addFavorite();//add favorite job function
-					i = 0;
-
-				case '0':
-					i = 0;
-
-				default:
-					printf("Worng number please try again");
-				}
-			}
+			printall();
 			break;
 		}
 		case '2':
 		{
-			//keywordSearch();
+			
 			break;
 		}
 		case '3':
 		{
-			//addFilter();
+			Filtermenu();
 			break;
 		}
 		case '4':
@@ -522,7 +472,8 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		}
 		case '6':
 		{
-			//searchReset();
+			system("cls");
+			printall();
 			break;
 		}
 		case '7':

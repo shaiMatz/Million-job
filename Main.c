@@ -9,9 +9,9 @@
 int main()
 {
 	//jobAdd();
-//menu();
+	menu();
 	//Filtermenu();
-	printall();
+	//printall();
 	//employer newEmployer = employer_Registration();
 	//candidate newC = loginC("shyshir@gmail.com");
 	//addAtTheEndRow("Candidate_DATA.csv", 3,"shaiCV");

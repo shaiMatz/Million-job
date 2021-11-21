@@ -60,8 +60,8 @@ int filtertown()
 		else
 		{
 			temp = _strdup(buffer);
-			if (strcmp(getfield(temp,4), name) == 0)
-				printf("\n%s\n", buffer);
+			if (strcmp(getfield(temp, 4), name) == 0)
+				printJob(buffer);
 		}
 	}
 	fclose(fp);
@@ -80,6 +80,31 @@ const char* getfield(char* line, int column)
 			return value;
 	}
 	return NULL;
+}
+
+void printJob(char* line)
+{
+	char* temp = _strdup(line);
+	printf("\n  JOB NUMBER %s\n", getfield(temp, 1));
+	temp = _strdup(line);
+	printf("Job name: %s\n", getfield(temp, 2));
+	temp = _strdup(line);
+	printf("Job range: %s\n", getfield(temp, 3));
+	temp = _strdup(line);
+	printf("Job city: %s\n", getfield(temp, 4));
+	temp = _strdup(line);
+	printf("Job type: %s\n", getfield(temp, 5));
+	temp = _strdup(line);
+	printf("Job description: %s\n", getfield(temp, 6));
+	temp = _strdup(line);
+	printf("Job responsibilities: %s\n", getfield(temp, 7));
+	temp = _strdup(line);
+	printf("Job qualifications: %s\n", getfield(temp, 8));
+	temp = _strdup(line);
+	printf("Job salary: %s\n", getfield(temp, 9));
+	temp = _strdup(line);
+	printf("Job hours: %s\n\n", getfield(temp, 10));
+	temp = _strdup(line);
 }
 
 int filterjobhours()
@@ -137,7 +162,7 @@ int filterjobhours()
 		{
 			temp = _strdup(buffer);
 			if (strcmp(getfield(temp, 10), name) == 0)
-				printf("\n%s\n", buffer);
+				printJob(buffer);
 		}
 	}
 	fclose(fp);
@@ -147,28 +172,30 @@ int filterjobhours()
 
 int printall()
 {
-	int count = 0;
+	int count = 1;
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
 		printf("can't open file\n");
 	char buffer[2024];
-	char choice='1';
+	char choice = '1';
 	int row = 2;
-	int ch = getc(fp);
+	int run = 1;
 	fgets(buffer, 1024, fp);
-	while (ch!=EOF)
+	while (run != 0)
 	{
 		choice = '1';
-		while (count < 10 && fgets(buffer, 1024, fp)   )
+		while (count <= 10 && fgets(buffer, 1024, fp))
 		{
+
 			if (row == 1)
 				continue;
 			else
 			{
-				printf("\n%s\n", buffer);
+				printJob(buffer);
 			}
 			count++;
 			row++;
+
 		}
 		while (choice != '0')
 		{
@@ -184,8 +211,16 @@ int printall()
 				// the function does not exist yet;
 				break;
 			case '3':
-				count = 0;
-				choice = '0';
+				if (count >= 10)
+				{
+					count = 0;
+					choice = '0';
+				}
+				else
+				{
+					run = 0;
+					choice = '0';
+				}
 				break;
 			case '4':
 				return 0;
@@ -197,5 +232,6 @@ int printall()
 	}
 	printf("there is no more work in the database\n");
 }
+
 
 

@@ -10,7 +10,8 @@ int main()
 {
 	//jobAdd();
 //menu();
-	Filtermenu();
+	//Filtermenu();
+	printall();
 	//employer newEmployer = employer_Registration();
 	//candidate newC = loginC("shyshir@gmail.com");
 	//addAtTheEndRow("Candidate_DATA.csv", 3,"shaiCV");

@@ -172,7 +172,7 @@ int EmployerMenu(employer emp)
 		case '2':
 		{
 			getchar();
-			jobEdit();// inside function switch cases between 3 cases (edit,add,delete)
+			jobEdit(emp.email);// inside function switch cases between 3 cases (edit,add,delete)
 			getchar();
 			break;
 		}
@@ -256,7 +256,7 @@ employer resetPassword2(employer e)
 
 }
 
-int jobEdit()// inside function switch cases between 3 cases (edit,add,delete)
+int jobEdit(char* email)// inside function switch cases between 3 cases (edit,add,delete)
 {
 	int run = 0;
 	char choice = '0';
@@ -273,12 +273,15 @@ int jobEdit()// inside function switch cases between 3 cases (edit,add,delete)
 		case '1':
 		{
 			getchar();
-			jobAdd();
+			jobAdd(email);
 			getchar();
 			break;
 		}
 		case '2':
 		{
+			getchar();
+			editJobFromList(email);
+			getchar();
 			break;
 		}
 		case '3':
@@ -303,7 +306,7 @@ int jobEdit()// inside function switch cases between 3 cases (edit,add,delete)
 
 }
 
-int jobAdd()
+int jobAdd(char* email)
 {
 	int serialNum;
 	char* value, buffer[2024];
@@ -387,15 +390,70 @@ int jobAdd()
 
 	// Saving data in file
 	
-	fprintf(Jobdata, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", serialNum, Jname,Jcity,
+	fprintf(Jobdata, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", serialNum, Jname,Jcity,
 		Jrange, Jtype, Jdescription, Jresponsibilities, Jqualifications,
-		Jsalary, Jhours);
+		Jsalary, Jhours,email);
 	fclose(Jobdata);
 	system("cls");
 	printf("\nNew job added to record\n");
 	return 0;
 
 
+}
+
+int editJobFromList(char* email)
+{
+	char* value, buffer[2024];
+
+	int column = 0, row = 0, wantedRow = 0;
+
+	int jobCounter = 0;
+
+	char c2[1000];
+	char* pch;
+
+	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r");
+	if (JoblistdataF == NULL)
+	{
+		printf("Can't open file!");
+		return;
+	}
+
+	else
+	{
+		while (fgets(buffer, 1024, JoblistdataF))//run to the end.
+		{
+			if (strcmp("\n", buffer) == 0)
+				break;
+			column = 0;
+			row++;
+			wantedRow++;
+			if (row == 1)//skip the first row, its titles
+				continue;
+			else {
+				strcpy(c2, _strrev(buffer));
+				pch = strtok(c2, " ,");
+				strcpy(c2, _strrev(pch));
+				pch = strtok(c2, "\n");// pch holds the email.
+				if (strcmp(pch, email) == 0)
+				{
+					jobCounter++;
+					
+					printf("%s", _strrev(buffer));
+					
+					continue;
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+	}
+
+	
+	fclose(JoblistdataF);
+	return 0;
 }
 
 

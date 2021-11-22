@@ -10,8 +10,9 @@ typedef struct employer
 }employer;
 
 int EmployerMenu(employer emp);
-int jobAdd();
-int jobEdit();
+int jobAdd(char* email);
+int jobEdit(char* email);
+int editJobFromList(char* email);
 
 employer employer_Registration();
 employer loginE(char email[]);

@@ -1,8 +1,9 @@
 #pragma once
 
-
-int Filtermenu();
-const char* getfield(char* line, int column);
+#include "candidate.h"
+int Filtermenu(candidate cand);
+void printJob(char* line);
 int filtertown();
 int filterjobhours();
-int printall();
+int printall(candidate cand);
+int pickAJob(int like, candidate cand);

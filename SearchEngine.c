@@ -1,7 +1,8 @@
 #include "SearchEngine.h"
 #include "checkFunction.h"
-
-int Filtermenu()
+#include"candidate.h"
+#include "employer.h"
+int Filtermenu(candidate cand)
 {
 	//int run = 0;
 	char i = ' ';
@@ -69,18 +70,6 @@ int filtertown()
 	return 0;
 }
 
-const char* getfield(char* line, int column)
-{
-	const char* value;
-	for (value = strtok(line, ",");
-		value && *value;
-		value = strtok(NULL, ",\n"))
-	{
-		if (!--column)
-			return value;
-	}
-	return NULL;
-}
 
 void printJob(char* line)
 {
@@ -170,9 +159,9 @@ int filterjobhours()
 	return 0;
 }
 
-int printall()
+int printall(candidate cand)
 {
-	int count = 1;
+	int count = 1,liked=0;
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
 		printf("can't open file\n");
@@ -205,6 +194,8 @@ int printall()
 			switch (choice)
 			{
 			case '1':
+				printf("enter the number you liked: ");
+				scanf("%d", liked);
 				// the function does not exist yet;
 				break;
 			case '2':
@@ -234,4 +225,29 @@ int printall()
 }
 
 
+int pickAJob(int like,candidate cand)
+{
+	char name[MAXNAME] = "submissionsJOB";
+	char CFileName[MAXNAME];
+	strcat(name, like + '0');
+	strcat(name, ".csv");
+	strcpy(CFileName, cand.Fname);
+	strcat(CFileName, cand.ID);
+	strcat(CFileName, ".csv");
 
+	FILE* pf = fopen(name, "a+");
+	if (!pf)
+		printf("can't open file: %s\n", name);
+
+	FILE* candF = fopen(CFileName, "a+");
+	if (!candF)
+		printf("can't open file: %s\n", CFileName);
+
+	fprintf(pf, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
+		cand.Fname, cand.Lname, cand.email, cand.password1,
+		cand.city, cand.month, cand.day,
+		cand.year, cand.phoneNumber, cand.questionChoose, cand.wantedjobs, cand.answer);
+
+	fclose(pf);
+	return 0;
+}

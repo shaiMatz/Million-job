@@ -448,7 +448,7 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		switch (choice)
 		{
 		case '1': {
-			printall();
+			printall(cand);
 			break;
 		}
 		case '2':
@@ -458,7 +458,7 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		}
 		case '3':
 		{
-			Filtermenu();
+			Filtermenu(cand);
 			break;
 		}
 		case '4':
@@ -473,7 +473,7 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		case '6':
 		{
 			system("cls");
-			printall();
+			printall(cand);
 			break;
 		}
 		case '7':

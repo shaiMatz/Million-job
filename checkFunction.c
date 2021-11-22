@@ -401,3 +401,15 @@ int CheckLower(char* city)
 	}
 
 }
+const char* getfield(char* line, int column)
+{
+	const char* value;
+	for (value = strtok(line, ",");
+		value && *value;
+		value = strtok(NULL, ",\n"))
+	{
+		if (!--column)
+			return value;
+	}
+	return NULL;
+}

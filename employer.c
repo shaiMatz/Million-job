@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include"employer.h"
@@ -153,7 +154,7 @@ int EmployerMenu(employer emp)
 	int choice = '0';
 	while (run != -1)
 	{
-		printf("----Wellcome dear %s---- \n",emp.Fname);
+		printf("----Wellcome dear %s---- \n", emp.Fname);
 		printf("Employer Menu :\n");
 		printf("Press 1 to Search engine.\n");// signed as a same candidate search engine in the requirments...
 		printf("Press 2 to Add,Edit,Delete jobs.\n");
@@ -260,7 +261,7 @@ int jobEdit(char* email)// inside function switch cases between 3 cases (edit,ad
 {
 	int run = 0;
 	char choice = '0';
-	
+
 	while (run != -1)
 	{
 		printf("1) Press 1 to add a job.\n");
@@ -268,7 +269,7 @@ int jobEdit(char* email)// inside function switch cases between 3 cases (edit,ad
 		printf("3) Press 3 to delete a job.\n");
 		printf("4) Press 4 to exit.\n\nchoice : ");
 		scanf("%c", &choice);
-		switch (choice) 
+		switch (choice)
 		{
 		case '1':
 		{
@@ -311,15 +312,15 @@ int jobAdd(char* email)
 	int serialNum;
 	char* value, buffer[2024];
 	int column = 0, row = 0, wantedRow = 0;
-	
+
 	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r");
 	if (JoblistdataF == NULL)
 	{
 		printf("Can't open file!");
 		return;
 	}
-	
-	
+
+
 	while (fgets(buffer, 1024, JoblistdataF))//run to the end.
 	{
 		if (strcmp("\n", buffer) == 0)
@@ -339,7 +340,7 @@ int jobAdd(char* email)
 			if (column == 1)
 			{
 				serialNum = atoi(value);// save the last serial number.
-				
+
 			}
 			else//continue to the next row
 			{
@@ -352,11 +353,11 @@ int jobAdd(char* email)
 	}
 	serialNum++;
 	fclose(JoblistdataF);
-	
 
-	
-	char* Jname[MAXNAME], Jrange[MAXNAME] ,Jcity[MAXNAME], Jtype[MAXNAME], Jdescription[MAXNAME], Jresponsibilities[MAXNAME], Jqualifications[MAXNAME], Jsalary[MAXNAME], Jhours[MAXNAME];
-	
+
+
+	char* Jname[MAXNAME], Jrange[MAXNAME], Jcity[MAXNAME], Jtype[MAXNAME], Jdescription[MAXNAME], Jresponsibilities[MAXNAME], Jqualifications[MAXNAME], Jsalary[MAXNAME], Jhours[MAXNAME];
+
 	FILE* Jobdata = fopen("JOB_LIST_DATA.csv", "a+");
 
 
@@ -376,23 +377,23 @@ int jobAdd(char* email)
 	gets(Jtype);
 	printf("\nEnter the job description: \n");
 	gets(Jdescription);
-	
+
 	printf("\nEnter the job responsibilities: \n");
 	gets(Jresponsibilities);
-	
+
 	printf("\nEnter the job qualifications: \n");
 	gets(Jqualifications);
-	
+
 	printf("\nEnter the job salary: \n");
 	gets(Jsalary);
 	printf("\nEnter the job hours: \n");
 	gets(Jhours);
 
 	// Saving data in file
-	
-	fprintf(Jobdata, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", serialNum, Jname,Jcity,
+
+	fprintf(Jobdata, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", serialNum, Jname, Jcity,
 		Jrange, Jtype, Jdescription, Jresponsibilities, Jqualifications,
-		Jsalary, Jhours,email);
+		Jsalary, Jhours, email);
 	fclose(Jobdata);
 	system("cls");
 	printf("\nNew job added to record\n");
@@ -438,9 +439,9 @@ int editJobFromList(char* email)
 				if (strcmp(pch, email) == 0)
 				{
 					jobCounter++;
-					
+
 					printf("%s", _strrev(buffer));
-					
+
 					continue;
 				}
 				else
@@ -451,12 +452,55 @@ int editJobFromList(char* email)
 		}
 	}
 
-	
+
 	fclose(JoblistdataF);
 	return 0;
 }
 
+job buildJob(int number)
+{
+	int row = 0;
+	char* temp=NULL;
+	FILE* jobF = fopen("JOB_LIST_DATA.csv", "r");
+	job JobN;
+	char buffer[MAXBUFFER];
+	if (!jobF) {
+		// Error in file opening
+		printf("Can't open file\n");
+		return;
+	}
+	JobN.serialNum = number;
+	while (fgets(buffer, 2024, jobF))
+	{
+		temp == _strdup(buffer);
+		if (atoi(getfield(temp, 1)) == number)
+		{
+			
+			temp == _strdup(buffer);
+			strcpy(JobN.Jname, getfield(temp, 2));
+			temp == _strdup(buffer);
+			strcpy(JobN.Jrange, getfield(temp, 3));
+			temp == _strdup(buffer);
+			strcpy(JobN.Jcity, getfield(temp, 4));
+			temp == _strdup(buffer);
+			strcpy(JobN.Jtype, getfield(temp, 5));
+			temp == _strdup(buffer);
+			strcpy(JobN.Jdescription, getfield(temp, 6));
+			temp == _strdup(buffer);
+			strcpy(JobN.Jresponsibilities, getfield(temp, 7));
+			temp == _strdup(buffer);
+			strcpy(JobN.Jqualifications, getfield(temp, 8));
+			temp == _strdup(buffer);
+			strcpy(JobN.Jsalary, getfield(temp, 9));
+			temp == _strdup(buffer);
+			strcpy(JobN.Jhours, getfield(temp, 10));
+			temp == _strdup(buffer);
+			strcpy(JobN.empEmail, getfield(temp, 11));
 
+		}
+	}
+	return JobN;
+}
 
 
 

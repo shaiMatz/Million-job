@@ -21,3 +21,4 @@ int BirthCheck(int day, int month, int year);
 int findRightRow(char* fileName, char* email);//by email
 int deleteline(char* fileName, int row);
 int findRightRowPass(char* fileName, char* pass);
+const char* getfield(char* line, int column);

@@ -359,7 +359,7 @@ candidate Candidate_Registration()
 	fprintf(CandidateF, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", newCandidate.ID,
 		newCandidate.Fname, newCandidate.Lname, newCandidate.email, newCandidate.password1,
 		newCandidate.city, newCandidate.month, newCandidate.day,
-		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose, newCandidate.wantedjobs, newCandidate.answer);
+		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose, newCandidate.answer, newCandidate.wantedjobs);
 	fclose(CandidateF);
 	system("cls");
 	printf("\nNew Account added to record!\n");
@@ -445,19 +445,18 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 
 	char choice = '0';
 	int	run = 0;
-	printf("----Dear %s Please choose a search action:----\n", cand.Fname);
-	printf("Press 1 Show all jobs. \n");
-	printf("Press 2 for Search by keywords.\n");
-	printf("Press 3 for Add filter.\n");
-
-printf("Press 5 for Sorting old to new.\n");
-	printf("Press 6 for clear your search.\n");
-	printf("Press 7 return previous menu.\n");
-	printf("------Enter your choice please:------\n");
-	scanf("%c", &choice);
-	getchar();
+	
 	while (run != -1)
 	{
+		printf("----Dear %s Please choose a search action:----\n", cand.Fname);
+		printf("Press 1 Show all jobs. \n");
+		printf("Press 2 for Add filter.\n");
+		printf("Press 3 for Sorting old to new.\n");
+		printf("Press 4 for clear your search.\n");
+		printf("Press 5 return previous menu.\n");
+		printf("------Enter your choice please:------\n");
+		scanf("%c", &choice);
+		getchar();
 		switch (choice)
 		{
 		case '1': {
@@ -466,12 +465,12 @@ printf("Press 5 for Sorting old to new.\n");
 		}
 		case '2':
 		{
-
+			Filtermenu(cand);
 			break;
 		}
 		case '3':
 		{
-			Filtermenu(cand);
+			
 			break;
 		}
 		case '4':

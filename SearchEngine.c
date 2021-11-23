@@ -4,7 +4,6 @@
 #include "employer.h"
 int Filtermenu(candidate cand)
 {
-	//int run = 0;
 	char i = ' ';
 	while (i != '0')
 	{
@@ -14,20 +13,22 @@ int Filtermenu(candidate cand)
 		{
 		case '1':
 			getchar();
-			filtertown();
+			filtertown(cand);
 			break;
 
 		case '2':
 			getchar();
-			filterjobhours();
+			filterjobhours(cand);
 			break;
 
 		case '3':
-			//filter();
+			getchar();
+			filtersalary(cand);
 			break;
 
 		case '4':
-			//filter();
+			getchar();
+			filterjobtype(cand);
 			break;
 
 		case '5':
@@ -43,7 +44,7 @@ int Filtermenu(candidate cand)
 }
 
 
-int filtertown()
+int filtertown(candidate cand)
 {
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
@@ -67,6 +68,7 @@ int filtertown()
 	}
 	fclose(fp);
 	free(temp);
+	choicemenu(cand);
 	return 0;
 }
 
@@ -96,7 +98,7 @@ void printJob(char* line)
 	temp = _strdup(line);
 }
 
-int filterjobhours()
+int filterjobhours(candidate cand)
 {
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
@@ -156,6 +158,39 @@ int filterjobhours()
 	}
 	fclose(fp);
 	free(temp);
+	choicemenu(cand);
+	return 0;
+}
+
+int choicemenu(candidate cand)
+{
+	char choice = ' ';
+	int liked;
+	while (choice != '0')
+	{
+		printf("Press 1 to pick a job \nPress 2 to save a work to your favourites \nPress 3 to go back to previous menu\n");
+		scanf("%c", &choice);
+		getchar();
+		switch (choice)
+		{
+		case '1':
+			printf("enter the number you liked: ");
+			scanf("%d", &liked);
+			pickAJob(cand, buildJob(liked));
+			break;
+		case '2':
+			printf("enter the number you want to add to your favorite list: ");
+			scanf("%d", &liked);
+			pickAFavJob(cand, buildJob(liked));
+			break;
+		case '3':
+			choice = '0';
+			return 0;
+		default:
+			printf("wrong entry try again\n");
+			break;
+		}
+	}
 	return 0;
 }
 
@@ -233,7 +268,9 @@ int pickAJob(candidate cand,job jobN)
 {
 	char name[MAXNAME] = "submissionsJOB";
 	char CFileName[MAXNAME];
-	strcat(name,jobN.serialNum + '0');
+	char num[MAXNAME];
+	sprintf(num,"%d", jobN.serialNum);
+	strcat(name,num);
 	strcat(name, ".csv");
 	strcpy(CFileName, cand.Fname);
 	strcat(CFileName, cand.ID);
@@ -279,3 +316,125 @@ int pickAFavJob(candidate cand, job jobN)
 	fclose(pf);
 	return 0;
 }
+
+int filtersalary(candidate cand)
+{
+	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
+	if (!fp)
+		printf("can't open file\n");
+	char buffer[2024], * temp = NULL;
+	int row = 0;
+	char i = '1';
+	char name[MAXNAME];
+	while (i != '0')
+	{
+		printf("Press 1 to show salary between 30-40/h \nPress 2 to show salary between 40-50/h  \nPress 3 to show salary between 50-60/h  \nPress 4 to show salary between 60-70/h  \nPress 5 to show salary +70/h \nPress 6 to go to the previous menu\n ");
+		scanf("%c", &i);
+		getchar();
+		switch (i)
+		{
+		case '1':
+			strcpy(name, "30-40/h");
+			i = '0';
+			break;
+
+		case '2':
+			strcpy(name, "40-50/h");
+			i = '0';
+			break;
+
+		case '3':
+			strcpy(name, "50-60/h");
+			i = '0';
+			break;
+
+		case '4':
+			strcpy(name, "60-70/h");
+			i = '0';
+			break;
+
+		case '5':
+			strcpy(name, "+70/h");
+			i = '0';
+			break;
+		case '6':
+			return 0;
+		default:
+			printf("wrong entry try again\n");
+			break;
+		}
+	}
+
+	while (fgets(buffer, 1024, fp))
+	{
+		row++;
+		if (row == 1)
+			continue;
+
+		else
+		{
+			temp = _strdup(buffer);
+			if (strcmp(getfield(temp, 9), name) == 0)
+				printJob(buffer);
+		}
+	}
+	fclose(fp);
+	free(temp);
+	choicemenu(cand);
+	return 0;
+}
+
+int filterjobtype(candidate cand)
+{
+	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
+	if (!fp)
+		printf("can't open file\n");
+	char buffer[2024], * temp = NULL;
+	int row = 0;
+	char i = '1';
+	char name[MAXNAME];
+	while (i != '0')
+	{
+		printf("Press 1 to show part time \nPress 2 to show full time \nPress 3 to go to the previous menu \n");
+		scanf("%c", &i);
+		getchar();
+		switch (i)
+		{
+		case '1':
+			strcpy(name, "part time");
+			i = '0';
+			break;
+
+		case '2':
+			strcpy(name, "full time");
+			i = '0';
+			break;
+
+		case '3':
+			return 0;
+
+		default:
+			printf("wrong entry try again\n");
+			break;
+		}
+	}
+
+	while (fgets(buffer, 1024, fp))
+	{
+		row++;
+		if (row == 1)
+			continue;
+
+		else
+		{
+			temp = _strdup(buffer);
+			if (strcmp(getfield(temp, 5), name) == 0)
+				printJob(buffer);
+		}
+	}
+	fclose(fp);
+	free(temp);
+	choicemenu(cand);
+	return 0;
+}
+

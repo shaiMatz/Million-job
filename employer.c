@@ -502,6 +502,7 @@ job buildJob(int number)
 
 		}
 	}
+	fclose(jobF);
 	return JobN;
 }
 

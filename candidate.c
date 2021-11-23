@@ -394,7 +394,7 @@ int CandidateMenu(candidate cand)
 		{
 			getchar();
 			system("cls");
-			//favoriteJobs(cand);
+			favoriteJobs(cand);
 			getchar();
 			break;
 		}
@@ -402,7 +402,7 @@ int CandidateMenu(candidate cand)
 		{
 			getchar();
 			system("cls");
-			//subList(cand);//subbmitions list
+			wantedJobs(cand);//subbmitions list
 			getchar();
 			break;
 		}
@@ -662,4 +662,42 @@ candidate resetPassword(candidate c)
 		}
 	}
 
+}
+
+wantedJobs(candidate cand)
+{
+	char CFileName[MAXNAME],buffer[MAXBUFFER];
+	strcpy(CFileName, cand.Fname);
+	strcat(CFileName, cand.ID);
+	strcat(CFileName, ".csv");
+
+	FILE* candF = fopen(CFileName, "r");
+	if (!candF)
+		printf("can't open file: %s\n", CFileName);
+
+	while (fgets(buffer,2024,candF))
+	{
+		printJob(buffer);
+	}
+	fclose(candF);
+	return 0;
+}
+
+favoriteJobs(candidate cand)
+{
+	char name[MAXNAME] = "FAVORITEJOB",buffer[MAXBUFFER];
+	strcat(name, cand.Fname);
+	strcat(name, cand.ID);
+	strcat(name, ".csv");
+
+	FILE* candF = fopen(name, "r");
+	if (!candF)
+		printf("can't open file: %s\n", name);
+
+	while (fgets(buffer, 2024, candF))
+	{
+		printJob(buffer);
+	}
+	fclose(candF);
+	return 0;
 }

@@ -176,11 +176,13 @@ int choicemenu(candidate cand)
 		case '1':
 			printf("enter the number you liked: ");
 			scanf("%d", &liked);
+			getchar();
 			pickAJob(cand, buildJob(liked));
 			break;
 		case '2':
 			printf("enter the number you want to add to your favorite list: ");
 			scanf("%d", &liked);
+			getchar();
 			pickAFavJob(cand, buildJob(liked));
 			break;
 		case '3':
@@ -196,7 +198,7 @@ int choicemenu(candidate cand)
 
 int printall(candidate cand)
 {
-	int count = 1,liked=0;
+	int count = 1, liked = 0;
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
 		printf("can't open file\n");
@@ -231,12 +233,16 @@ int printall(candidate cand)
 			case '1':
 				printf("enter the number you liked: ");
 				scanf("%d", &liked);
+				getchar();
 				pickAJob(cand, buildJob(liked));
+				choice = '0';
 				break;
 			case '2':
 				printf("enter the number you want to add to your favorite list: ");
 				scanf("%d", &liked);
+				getchar();
 				pickAFavJob(cand, buildJob(liked));
+				choice = '0';
 				break;
 			case '3':
 				if (count >= 10)
@@ -267,13 +273,13 @@ int printall(candidate cand)
 }
 
 
-int pickAJob(candidate cand,job jobN)
+int pickAJob(candidate cand, job jobN)
 {
 	char name[MAXNAME] = "submissionsJOB";
 	char CFileName[MAXNAME];
 	char num[MAXNAME];
-	sprintf(num,"%d", jobN.serialNum);
-	strcat(name,num);
+	sprintf(num, "%d", jobN.serialNum);
+	strcat(name, num);
 	strcat(name, ".csv");
 	strcpy(CFileName, cand.Fname);
 	strcat(CFileName, cand.ID);
@@ -287,35 +293,46 @@ int pickAJob(candidate cand,job jobN)
 	if (!candF)
 		printf("can't open file: %s\n", CFileName);
 
-	fprintf(pf, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
-		cand.Fname, cand.Lname, cand.email, cand.password1,
-		cand.city, cand.month, cand.day,
-		cand.year, cand.phoneNumber, cand.questionChoose, cand.wantedjobs, cand.answer);
+	if (ifExists(CFileName, num, 1) != 0)
+	{
+		fprintf(candF, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", jobN.serialNum, jobN.Jname, jobN.Jcity,
+			jobN.Jrange, jobN.Jtype, jobN.Jdescription, jobN.Jresponsibilities, jobN.Jqualifications,
+			jobN.Jsalary, jobN.Jhours);
+		fprintf(pf, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
+			cand.Fname, cand.Lname, cand.email, cand.password1,
+			cand.city, cand.month, cand.day,
+			cand.year, cand.phoneNumber, cand.questionChoose, cand.answer, cand.wantedjobs);
+	}
+	else
+		printf("The job already exists in your list!\n");
 
-	fprintf(candF,"%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", jobN.serialNum, jobN.Jname, jobN.Jcity,
-		jobN.Jrange, jobN.Jtype, jobN.Jdescription, jobN.Jresponsibilities, jobN.Jqualifications,
-		jobN.Jsalary, jobN.Jhours);
 
 	fclose(pf);
+	fclose(candF);
 	return 0;
 }
 
 int pickAFavJob(candidate cand, job jobN)
 {
 	char name[MAXNAME] = "FAVORITEJOB";
-	strcpy(name, cand.Fname);
+	strcat(name, cand.Fname);
 	strcat(name, cand.ID);
 	strcat(name, ".csv");
+
+	char num[MAXNAME];
+	sprintf(num, "%d", jobN.serialNum);
 
 	FILE* pf = fopen(name, "a+");
 	if (!pf)
 		printf("can't open file: %s\n", name);
-
-
-	fprintf(pf, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", jobN.serialNum, jobN.Jname, jobN.Jcity,
-		jobN.Jrange, jobN.Jtype, jobN.Jdescription, jobN.Jresponsibilities, jobN.Jqualifications,
-		jobN.Jsalary, jobN.Jhours);
-
+	if (ifExists(name, num, 1) != 0)
+	{
+		fprintf(pf, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", jobN.serialNum, jobN.Jname, jobN.Jcity,
+			jobN.Jrange, jobN.Jtype, jobN.Jdescription, jobN.Jresponsibilities, jobN.Jqualifications,
+			jobN.Jsalary, jobN.Jhours);
+	}
+	else
+		printf("The job already exists in your list!\n");
 	fclose(pf);
 	return 0;
 }

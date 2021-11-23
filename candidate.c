@@ -452,8 +452,9 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		printf("Press 1 Show all jobs. \n");
 		printf("Press 2 for Add filter.\n");
 		printf("Press 3 for Sorting old to new.\n");
-		printf("Press 4 for clear your search.\n");
-		printf("Press 5 return previous menu.\n");
+		printf("Press 4 for Sorting new to old.\n");
+		printf("Press 5 for clear your search.\n");
+		printf("Press 6 return previous menu.\n");
 		printf("------Enter your choice please:------\n");
 		scanf("%c", &choice);
 		getchar();
@@ -470,28 +471,23 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		}
 		case '3':
 		{
-			
+			printoldertonew(cand);
 			break;
 		}
 		case '4':
 		{
-			//newToOld();//sorting function new to old
+			printnewtoolder(cand);
 			break;
 		}
 		case '5':
-		{
-			//oldToNew();//old to new...
-		}
-		case '6':
 		{
 			system("cls");
 			printall(cand);
 			break;
 		}
-		case '7':
+		case '6':
 		{
-			run = -1;
-			break;
+			return 0;
 		}
 		default:
 		{

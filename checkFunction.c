@@ -276,7 +276,6 @@ int deleteline(char* fileName, int row)
 	rc = rename(name, fileName);
 	return 0;
 }
-
 int deleteJobLine(char* fileName, int serialNum)
 {
 	char num[50];
@@ -319,7 +318,6 @@ int deleteJobLine(char* fileName, int serialNum)
 	rc = rename(name, fileName);
 	return 0;
 }
-
 int findRightRow(char* fileName, char* email)
 {//find the row by email, returns the line nunber
 	char* value, buffer[2024];
@@ -456,7 +454,6 @@ const char* getfield(char* line, int column)
 	}
 	return NULL;
 }
-
 int ifExists(char* fileName, char* name, int column)
 {
 	char buffer[MAXBUFFER];
@@ -467,4 +464,109 @@ int ifExists(char* fileName, char* name, int column)
 			return 0;
 	}
 	return 1;
+}
+int sortFile(char* fileName, int column)
+{
+	char buffer[MAXBUFFER];
+	char name[MAXNAME] = "temp";
+	char* temp2;
+	int mone = countNumLine(fileName);
+	int counter = 1,rc;
+	strcat(name, fileName);
+	int row=0,run=0;
+	FILE* pf = fopen(fileName, "r");
+	if (!pf)
+		printf("can't open the file: %s", fileName);
+	FILE* temp = fopen(name, "w");
+	if (!temp)
+		printf("can't open the file: %s", name);
+	fgets(buffer, 2024, pf);
+	fprintf(temp, "%s", buffer);
+	while (run == 0)
+	{	
+		while (fgets(buffer, 2024, pf))
+		{
+			temp2= _strdup(buffer);
+			if (atoi(getfield(temp2, 1))==counter)
+			{
+				counter++;
+				fprintf(temp, "%s", buffer);
+			}	
+		}
+		if (counter == mone)
+			run = -1;
+		else
+			rewind(pf);
+	}
+	fclose(pf);
+	rc = remove(fileName);
+	if (rc != 0)
+	{
+		perror("remove");
+		return 1;
+	}
+	fclose(temp);
+	rc = rename(name, fileName);
+	return 0;
+}
+
+int countNumLine(char* fileName)
+{
+	char buffer[MAXBUFFER];
+	FILE* pf = fopen(fileName, "r");
+	if (!pf)
+		printf("can't open the file: %s", fileName);
+	int mone = -1;
+	while (fgets(buffer, 2024, pf))
+	{
+		mone++;
+	}
+	fclose(pf);
+	return mone;
+	
+}
+
+int sortFilefromendtostart(char* fileName, int column)
+{
+	char buffer[MAXBUFFER];
+	char name[MAXNAME] = "temp";
+	char* temp2;
+	int mone = countNumLine(fileName);
+	int counter = 0, rc;
+	strcat(name, fileName);
+	int row = 0, run = 0;
+	FILE* pf = fopen(fileName, "r");
+	if (!pf)
+		printf("can't open the file: %s", fileName);
+	FILE* temp = fopen(name, "w");
+	if (!temp)
+		printf("can't open the file: %s", name);
+	fgets(buffer, 2024, pf);
+	fprintf(temp, "%s", buffer);
+	while (run == 0)
+	{
+		while (fgets(buffer, 2024, pf))
+		{
+			temp2 = _strdup(buffer);
+			if (atoi(getfield(temp2, 1)) == mone)
+			{
+				mone--;
+				fprintf(temp, "%s", buffer);
+			}
+		}
+		if (counter == mone)
+			run = -1;
+		else
+			rewind(pf);
+	}
+	fclose(pf);
+	rc = remove(fileName);
+	if (rc != 0)
+	{
+		perror("remove");
+		return 1;
+	}
+	fclose(temp);
+	rc = rename(name, fileName);
+	return 0;
 }

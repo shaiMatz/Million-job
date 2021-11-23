@@ -438,3 +438,17 @@ int filterjobtype(candidate cand)
 	return 0;
 }
 
+
+int printoldertonew(candidate cand)
+{
+	sortFile("JOB_LIST_DATA.csv", 1);
+	printall(cand);
+	return 0;
+}
+
+int printnewtoolder(candidate cand)
+{
+	sortFilefromendtostart("JOB_LIST_DATA.csv", 1);
+	printall(cand);
+	return 0;
+}

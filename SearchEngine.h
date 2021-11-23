@@ -11,3 +11,5 @@ int pickAFavJob(candidate cand, job jobN);
 int filtersalary(candidate cand);
 int choicemenu(candidate cand);
 int filterjobtype(candidate cand);
+int printoldertonew(candidate cand);
+int printnewtoolder(candidate cand);

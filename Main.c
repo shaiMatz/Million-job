@@ -10,6 +10,7 @@ int main()
 {
 	//jobAdd();
 	menu();
+	//sortFile("JOB_LIST_DATA.csv", 1);
 	//Filtermenu();
 	//printall();
 	//employer newEmployer = employer_Registration();
@@ -17,6 +18,7 @@ int main()
 	//addAtTheEndRow("Candidate_DATA.csv", 3,"shaiCV");
 	//char candidateName[50] = "shai";
 	//CVFile(candidateName);
+	//sortFilefromendtostart("JOB_LIST_DATA.csv", 1);
 
 	return 0;
 

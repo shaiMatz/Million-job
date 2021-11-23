@@ -1,4 +1,4 @@
-//ilya
+
 #pragma once
 
 #include"employer.h"
@@ -599,11 +599,8 @@ int editJobFromList(char* email)
 
 	
 	
-	char choice;
-	int run = 0;
-	int ans = 0;
+	
 	int check = 0;
-
 	check = deleteJobLine("JOB_LIST_DATA.csv", jobNumber);
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "a+");
 	if (!fp) {
@@ -611,6 +608,8 @@ int editJobFromList(char* email)
 		printf("Can't open file\n");
 		return;
 	}
+	char choice = '0';
+	int run = 0;
 	
 	while (run != -1)
 	{
@@ -637,43 +636,152 @@ int editJobFromList(char* email)
 		}
 		case '2':
 		{
+			getchar();
 			printf("Enter new job description: \b");
 			gets(joBs.Jdescription);
+			getchar();
 			break;
 		}
 		case '3':
 		{
+			getchar();
 			printf("Enter new job main responsibilities: \b");
 			gets(joBs.Jresponsibilities);
+			getchar();
 			break;
 		}
 		case '4':
 		{
+			getchar();
 			printf("Enter new job qualifications: \b");
 			gets(joBs.Jqualifications);
+			getchar();
 			break;
 		}
 		case '5':
 		{
+			getchar();
 			printf("Enter new job salary: \b");
-			gets(joBs.Jsalary);
+			int run2 = 0;
+			char choice2 = '0';
+			while (run2 != -1)
+			{//gets(joBs.Jsalary);
+				printf("\nPress 1 for 30-40 nis/h.\n");//30-40/h
+				printf("Press 2 for 40-50 nis/h.\n");
+				printf("Press 3 for 50-60 nis/h\n");
+				printf("Press 4 for 60-70 nis/h\n");
+				printf("Press 5 for +70 nis/h\n");//+70/h
+				scanf("%c", &choice2);
+				switch (choice2)
+				{
+				case '1':
+				{
+					strcpy(joBs.Jsalary, "30-40/h");
+					run2 = -1;
+					break;
+				}
+				case '2':
+				{
+					strcpy(joBs.Jsalary, "40-50/h");
+					run2 = -1;
+					break;
+				}
+				case '3':
+				{
+					strcpy(joBs.Jsalary, "50-60/h");
+					run2 = -1;
+					break;
+
+				}
+				case '4':
+				{
+					strcpy(joBs.Jsalary, "60-70/h");
+					run2 = -1;
+					break;
+				}
+				case '5':
+				{
+					strcpy(joBs.Jsalary, "+70/h");
+					run2 = -1;
+					break;
+				}
+
+
+				default:
+				{
+					system("cls");
+					printf("wrong Input Please Choose between 1-5 \n");
+				}
+				}
+			}
+			getchar();
 			break;
 		}
 		case '6':
 		{
+			getchar();
 			printf("Enter new job hours: \b");
-			gets(joBs.Jhours);
+			//gets(joBs.Jhours);
+			int run3 = 0;
+			char choice3 = '0';
+			while (run3 != -1)
+			{
+				printf("\nPress 1 for morning.\n");//30-40/h
+				printf("Press 2 for afternoon.\n");
+				printf("Press 3 for evening\n");
+				printf("Press 4 for night\n");
+				scanf("%c", &choice3);
+				switch (choice3)
+				{
+				case '1':
+				{
+					strcpy(joBs.Jhours, "morning");
+					run3 = -1;
+					break;
+				}
+				case '2':
+				{
+					strcpy(joBs.Jhours, "afternoon");
+					run3 = -1;
+					break;
+				}
+				case '3':
+				{
+					strcpy(joBs.Jhours, "evening");
+					run3 = -1;
+					break;
+
+
+				}
+				case '4':
+				{
+					strcpy(joBs.Jhours, "night");
+					run3 = -1;
+					break;
+				}
+
+				default:
+				{
+					system("cls");
+					printf("wrong Input Please Choose between 1-4 \n");
+				}
+				}
+			}
+			getchar();
 			break;
+
+
 		}
 		case '7':
 		{
 			run = -1;
+			getchar();
 			break;
 		}
 
 		default:
 			system("cls");
-			printf("Worng input please try again...(1-6) \n");
+			printf("Worng input please try again...(1-7) \n");
 
 		}
 	}

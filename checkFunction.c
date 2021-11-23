@@ -463,6 +463,7 @@ int ifExists(char* fileName, char* name, int column)
 		if (strcmp(name, getfield(buffer, column)) == 0)
 			return 0;
 	}
+	fclose(fp);
 	return 1;
 }
 int sortFile(char* fileName, int column)

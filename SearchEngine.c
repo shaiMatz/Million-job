@@ -253,6 +253,7 @@ int printall(candidate cand)
 			case '4':
 				choice = '0';
 				run = 0;
+				fclose(fp);
 				return 0;
 			default:
 				printf("wrong entry try again\n");
@@ -261,6 +262,8 @@ int printall(candidate cand)
 		}
 	}
 	printf("there is no more jobs in the database\n");
+	fclose(fp);
+	return 0;
 }
 
 

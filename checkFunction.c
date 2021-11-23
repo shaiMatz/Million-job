@@ -17,7 +17,7 @@ int IDCheck(char* ID)
 		return 0;
 	}
 	return 1;
-	
+
 }
 int IDCheckIFREAL(long numid) //function "ID"
 {
@@ -277,6 +277,49 @@ int deleteline(char* fileName, int row)
 	return 0;
 }
 
+int deleteJobLine(char* fileName, int serialNum)
+{
+	char num[50];
+	sprintf(num, "%d", serialNum);
+	char buffer[2024];
+	int numRow = 0, rc;
+	char name[50] = "temp";
+	FILE* fp = fopen(fileName, "r");
+	strcat(name, fileName);
+	FILE* temp = fopen(name, "w");
+	if (!fp)
+		printf("Can't open file: %s\n", fileName);
+
+	if (!temp)
+		printf("Can't open file: %s\n", name);
+	else
+	{
+		while (fgets(buffer, 1024, fp))
+		{
+			char tempbuf[1024];
+			strcpy(tempbuf, buffer);
+			if (strcmp(getfield(tempbuf, 1), num) != 0)
+			{
+				fprintf(temp, "%s", buffer);
+			}
+		}
+	}
+
+
+	fclose(fp);
+
+
+	rc = remove("JOB_LIST_DATA.csv");
+	if (rc != 0)
+	{
+		perror("remove");
+		return 1;
+	}
+	fclose(temp);
+	rc = rename(name, fileName);
+	return 0;
+}
+
 int findRightRow(char* fileName, char* email)
 {//find the row by email, returns the line nunber
 	char* value, buffer[2024];
@@ -414,7 +457,7 @@ const char* getfield(char* line, int column)
 	return NULL;
 }
 
-int ifExists(char *fileName,char* name,int column)
+int ifExists(char* fileName, char* name, int column)
 {
 	char buffer[MAXBUFFER];
 	FILE* fp = fopen(fileName, "r");

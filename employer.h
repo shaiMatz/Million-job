@@ -14,20 +14,20 @@ typedef struct employer
 
 typedef struct job
 {
-	char* Jname[MAXNAME], Jrange[MAXNAME], Jcity[MAXNAME], Jtype[MAXNAME],
+	char Jname[MAXNAME], Jrange[MAXNAME], Jcity[MAXNAME], Jtype[MAXNAME],
 		Jdescription[MAXNAME], Jresponsibilities[MAXNAME],Jqualifications[MAXNAME], 
 		Jsalary[MAXNAME], Jhours[MAXNAME], empEmail[MAXNAME];
 	int serialNum;
 }job;
 
 
-
+job buildJob(int number);
 int EmployerMenu(employer emp);
-int jobAdd();
-int jobEdit();
+int jobAdd(char* email);
+int jobEdit(char* email);
 int editJobFromList(char* email);
 
-job buildJob(int number);
+
 
 employer employer_Registration();
 employer loginE(char email[]);

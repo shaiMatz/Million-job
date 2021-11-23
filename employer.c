@@ -1,7 +1,8 @@
-
+//ilya
 #pragma once
 
 #include"employer.h"
+#include"SearchEngine.h"
 
 employer loginE(char email[])
 {
@@ -151,7 +152,7 @@ employer employer_Registration()
 int EmployerMenu(employer emp)
 {
 	int run = 0;
-	int choice = '0';
+	char choice = '0';
 	while (run != -1)
 	{
 		printf("----Wellcome dear %s---- \n", emp.Fname);
@@ -312,7 +313,6 @@ int jobAdd(char* email)
 	int serialNum;
 	char* value, buffer[2024];
 	int column = 0, row = 0, wantedRow = 0;
-
 	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r");
 	if (JoblistdataF == NULL)
 	{
@@ -367,14 +367,49 @@ int jobAdd(char* email)
 		return;
 	}
 
-	printf("\nEnter the job name: \n");
+	printf("\nEnter the job name: \b");
 	gets(Jname);
-	printf("\nEnter the job range: \n");
+	printf("\nEnter the job range: \b");
 	gets(Jrange);
-	printf("\nEnter the city: \n");
+	printf("\nEnter the city: \b");
 	gets(Jcity);
-	printf("\nEnter the job type(full time/part time): \n");
-	gets(Jtype);
+	while (CheckLower(Jcity) == 0)
+	{
+		gets(Jcity);
+	}
+	printf("\nJob type:\n");
+	int run = 0;
+	char choice = '0';
+	while (run != -1)
+	{
+		printf("Press 1 for full time.\n");
+		printf("Press 2 for part time.\n");
+		scanf("%c", &choice);
+		switch (choice)
+		{
+		case '1':
+		{
+			strcpy(Jtype, "full time");
+			run = -1;
+			break;
+		}
+		case '2':
+		{
+			strcpy(Jtype, "part time");
+			run = -1;
+			break;
+		}
+		
+		default:
+		{
+			system("cls");
+			printf("wrong Input Please Choose between 1-2 \n");
+		}
+		}
+	}
+	
+
+	getchar();
 	printf("\nEnter the job description: \n");
 	gets(Jdescription);
 
@@ -384,10 +419,107 @@ int jobAdd(char* email)
 	printf("\nEnter the job qualifications: \n");
 	gets(Jqualifications);
 
-	printf("\nEnter the job salary: \n");
-	gets(Jsalary);
-	printf("\nEnter the job hours: \n");
-	gets(Jhours);
+	printf("\nJob salary: \n");
+	run = 0;
+	choice = '0';
+	while (run != -1)
+	{
+		printf("Press 1 for 30-40 nis/h.\n");//30-40/h
+		printf("Press 2 for 40-50 nis/h.\n");
+		printf("Press 3 for 50-60 nis/h\n");
+		printf("Press 4 for 60-70 nis/h\n");
+		printf("Press 5 for +70 nis/h\n");//+70/h
+		scanf("%c", &choice);
+		switch (choice)
+		{
+		case '1':
+		{
+			strcpy(Jsalary, "30-40/h");
+			run = -1;
+			break;
+		}
+		case '2':
+		{
+			strcpy(Jsalary, "40-50/h");
+			run = -1;
+			break;
+		}
+		case '3':
+		{
+			strcpy(Jsalary, "50-60/h");
+			run = -1;
+			break;
+
+		}
+		case '4':
+		{
+			strcpy(Jsalary, "60-70/h");
+			run = -1;
+			break;
+		}
+		case '5':
+		{
+			strcpy(Jsalary, "+70/h");
+			run = -1;
+			break;
+		}
+
+
+		default:
+		{
+			system("cls");
+			printf("wrong Input Please Choose between 1-5 \n");
+		}
+		}
+	}
+
+	getchar();
+	printf("\nJob hours: \n");
+	run = 0;
+	choice = '0';
+	while (run != -1)
+	{
+		printf("Press 1 for morning.\n");//30-40/h
+		printf("Press 2 for afternoon.\n");
+		printf("Press 3 for evening\n");
+		printf("Press 4 for night\n");
+		scanf("%c", &choice);
+		switch (choice)
+		{
+		case '1':
+		{
+			strcpy(Jhours, "morning");
+			run = -1;
+			break;
+		}
+		case '2':
+		{
+			strcpy(Jhours, "afternoon");
+			run = -1;
+			break;
+		}
+		case '3':
+		{
+			strcpy(Jhours, "evening");
+			run = -1;
+			break;
+
+
+		}
+		case '4':
+		{
+			strcpy(Jhours, "night");
+			run = -1;
+			break;
+		}
+		
+		default:
+		{
+			system("cls");
+			printf("wrong Input Please Choose between 1-4 \n");
+		}
+		}
+	}
 
 	// Saving data in file
 
@@ -409,7 +541,7 @@ int editJobFromList(char* email)
 	int column = 0, row = 0, wantedRow = 0;
 
 	int jobCounter = 0;
-
+	int jobNumber;
 	char c2[1000];
 	char* pch;
 
@@ -428,7 +560,6 @@ int editJobFromList(char* email)
 				break;
 			column = 0;
 			row++;
-			wantedRow++;
 			if (row == 1)//skip the first row, its titles
 				continue;
 			else {
@@ -440,7 +571,8 @@ int editJobFromList(char* email)
 				{
 					jobCounter++;
 
-					printf("%s", _strrev(buffer));
+					_strrev(buffer);
+					printJob(buffer);
 
 					continue;
 				}
@@ -451,9 +583,102 @@ int editJobFromList(char* email)
 			}
 		}
 	}
-
-
 	fclose(JoblistdataF);
+
+	if (jobCounter == 0)
+	{
+		printf("You don't have any published jobs!\n");
+		return 0;
+	}
+
+	printf("\nEnter the job number you want to edit: ");
+	scanf("%d", &jobNumber);
+	getchar();
+	job joBs;
+	joBs=buildJob(jobNumber);
+
+	
+	
+	char choice;
+	int run = 0;
+	int ans = 0;
+	int check = 0;
+
+	check = deleteJobLine("JOB_LIST_DATA.csv", jobNumber);
+	FILE* fp = fopen("JOB_LIST_DATA.csv", "a+");
+	if (!fp) {
+		// Error in file opening
+		printf("Can't open file\n");
+		return;
+	}
+	
+	while (run != -1)
+	{
+		printf("\nPress 1 to Change the name of the job.\n");
+		printf("Press 2 to Change the job description.\n");
+		printf("Press 3 to Change job main responsibilities.\n");
+		printf("Press 4 to Change job qualifications.\n");
+		printf("Press 5 to Change job salary.\n");
+		printf("Press 6 to Change job hours.\n");
+		printf("Press 7 to exit.");
+		printf("choice: ");
+		scanf("%c", &choice);
+		switch (choice)
+		{
+		case '1':
+		{
+			getchar();
+			printf("Enter new name of the job: \b");
+			gets(joBs.Jname);
+			getchar();
+
+
+			break;
+		}
+		case '2':
+		{
+			printf("Enter new job description: \b");
+			gets(joBs.Jdescription);
+			break;
+		}
+		case '3':
+		{
+			printf("Enter new job main responsibilities: \b");
+			gets(joBs.Jresponsibilities);
+			break;
+		}
+		case '4':
+		{
+			printf("Enter new job qualifications: \b");
+			gets(joBs.Jqualifications);
+			break;
+		}
+		case '5':
+		{
+			printf("Enter new job salary: \b");
+			gets(joBs.Jsalary);
+			break;
+		}
+		case '6':
+		{
+			printf("Enter new job hours: \b");
+			gets(joBs.Jhours);
+			break;
+		}
+		case '7':
+		{
+			run = -1;
+			break;
+		}
+
+		default:
+			system("cls");
+			printf("Worng input please try again...(1-6) \n");
+
+		}
+	}
+	fprintf(fp, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity, joBs.Jtype, joBs.Jdescription, joBs.Jresponsibilities, joBs.Jqualifications, joBs.Jsalary, joBs.Jhours, joBs.empEmail);
+	fclose(fp);
 	return 0;
 }
 
@@ -476,9 +701,7 @@ job buildJob(int number)
 		temp = _strdup(buffer);
 		if (atoi(getfield(temp, 1)) == number)
 		{
-			row++;
-			//if (row == 1)//skip the first row, its titles
-			//	continue;
+			
 			temp = _strdup(buffer);
 			strcpy(JobN.Jname, getfield(temp, 2));
 			temp = _strdup(buffer);

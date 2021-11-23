@@ -32,7 +32,7 @@ candidate loginC(char email[])
 				while (value)
 				{
 					if (column == 0)
-						strcpy( newCand.ID ,value);
+						strcpy(newCand.ID, value);
 					if (column == 1)
 						strcpy(newCand.Fname, value);
 					if (column == 2)
@@ -90,13 +90,13 @@ int CVFile(candidate cand)
 	printf("\nBase information\n");
 	// Asking user input for the CVFile
 
-	fprintf(CandidateCV, "%s %s %s", cand.Fname,cand.Lname, "CV\n\n");
-	printf("ID: %s \n",cand.ID);
+	fprintf(CandidateCV, "%s %s %s", cand.Fname, cand.Lname, "CV\n\n");
+	printf("ID: %s \n", cand.ID);
 	fprintf(CandidateCV, "%s %s %s", "Base information\nID: ", cand.ID, "\n");
-	printf("First name: %s \n",cand.Fname);
-	printf("Last name:  %s\n",cand.Lname);
+	printf("First name: %s \n", cand.Fname);
+	printf("Last name:  %s\n", cand.Lname);
 	fprintf(CandidateCV, "%s %s %s %s ", "Name: ", cand.Fname, cand.Lname, "\n");
-	printf("Email address: %s\n",cand.email);
+	printf("Email address: %s\n", cand.email);
 	fprintf(CandidateCV, "%s %s %s", "Email: ", cand.email, "\n");
 	printf("Enter the languages you speak:  \b");
 	gets(language);
@@ -104,9 +104,9 @@ int CVFile(candidate cand)
 	printf("Enter your driving license type: (if you dont have drining license enter none)  \b");
 	scanf("%s", &drivingLicence);
 	fprintf(CandidateCV, "%s %s %s", "DrivingLicence: ", drivingLicence, "\n");
-	printf("City address: %s \n",cand.city);
+	printf("City address: %s \n", cand.city);
 	fprintf(CandidateCV, "%s %s %s", "City: ", cand.city, "\n");
-	printf("Phone number: %s \n",cand.phoneNumber);
+	printf("Phone number: %s \n", cand.phoneNumber);
 	fprintf(CandidateCV, "%s %s %s", "Phone number: ", cand.phoneNumber, "\n");
 
 	getchar();
@@ -141,7 +141,7 @@ int CVFile(candidate cand)
 	system("cls");
 	printf("your CV file created!\n");
 	strcpy(cand.CVname, CVName);
-	int row=findRightRow("Candidate_DATA.csv", cand.email);
+	int row = findRightRow("Candidate_DATA.csv", cand.email);
 	deleteline("Candidate_DATA.csv", row);
 	FILE* fp = fopen("Candidate_DATA.csv", "a+");
 	if (!fp) {
@@ -152,10 +152,10 @@ int CVFile(candidate cand)
 	fprintf(fp, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
 		cand.Fname, cand.Lname, cand.email, cand.password1,
 		cand.city, cand.month, cand.day,
-		cand.year, cand.phoneNumber, cand.questionChoose, cand.answer,cand.CVname);
+		cand.year, cand.phoneNumber, cand.questionChoose, cand.answer, cand.CVname);
 	fclose(fp);
 	return 0;
-	
+
 }
 
 candidate editProfile(candidate cand, char* fileName, int ans)
@@ -260,7 +260,7 @@ candidate Candidate_Registration()
 {
 	FILE* CandidateF = fopen("Candidate_DATA.csv", "a+");
 	candidate newCandidate;
-	
+
 	if (!CandidateF) {
 		// Error in file opening
 		printf("Can't open file\n");
@@ -282,13 +282,25 @@ candidate Candidate_Registration()
 	scanf("%s", &newCandidate.Lname);
 	printf("\nEnter email address: (It will be your username)  \b");
 	scanf("%s", &newCandidate.email);
+	while (ifExists("Candidate_DATA.csv", newCandidate.email, 4) != 1)
+	{
+		printf("The email is already exists in the database, please choose anoter\n");
+		scanf("%s", &newCandidate.email);
+	}
 	while (MailCheck(newCandidate.email) == 0)
 	{
 		printf("\nEnter email address: (It will be your username)  \b");
 		scanf("%s", &newCandidate.email);
 	}
+
+
 	printf("\nEnter password: (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword:  ");
 	scanf("%s", &newCandidate.password1);
+	while (ifExists("Candidate_DATA.csv", newCandidate.password1, 5) != 1)
+	{
+		printf("The password is already exists in the database, please choose anoter\n");
+		scanf("%s", &newCandidate.password1);
+	}
 	while (PasswordCheck(newCandidate.password1) == 0)
 	{
 		printf("\nEnter password:  \b");
@@ -347,7 +359,7 @@ candidate Candidate_Registration()
 	fprintf(CandidateF, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", newCandidate.ID,
 		newCandidate.Fname, newCandidate.Lname, newCandidate.email, newCandidate.password1,
 		newCandidate.city, newCandidate.month, newCandidate.day,
-		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose,newCandidate.wantedjobs, newCandidate.answer);
+		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose, newCandidate.wantedjobs, newCandidate.answer);
 	fclose(CandidateF);
 	system("cls");
 	printf("\nNew Account added to record!\n");
@@ -374,7 +386,7 @@ int CandidateMenu(candidate cand)
 		{
 			getchar();
 			system("cls");
-			//searchEngine(cand);
+			searchEngine(cand);
 			getchar();
 			break;
 		}
@@ -383,7 +395,7 @@ int CandidateMenu(candidate cand)
 			getchar();
 			system("cls");
 			//favoriteJobs(cand);
-			getchar(); 
+			getchar();
 			break;
 		}
 		case '3':
@@ -406,7 +418,7 @@ int CandidateMenu(candidate cand)
 		{
 			getchar();
 			system("cls");
-			deleteline("Candidate_DATA.csv",findRightRow("Candidate_DATA.csv",cand.email));
+			deleteline("Candidate_DATA.csv", findRightRow("Candidate_DATA.csv", cand.email));
 			run = -1;
 			getchar();
 			break;
@@ -419,7 +431,7 @@ int CandidateMenu(candidate cand)
 			break;
 		}
 
-		default: 
+		default:
 		{
 			system("cls");
 			printf("wrong Input Please Choose between 1-6 \n");
@@ -437,12 +449,13 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 	printf("Press 1 Show all jobs. \n");
 	printf("Press 2 for Search by keywords.\n");
 	printf("Press 3 for Add filter.\n");
-	printf("Press 4 for Sorting new to old.\n");
-	printf("Press 5 for Sorting old to new.\n");
+
+printf("Press 5 for Sorting old to new.\n");
 	printf("Press 6 for clear your search.\n");
 	printf("Press 7 return previous menu.\n");
 	printf("------Enter your choice please:------\n");
 	scanf("%c", &choice);
+	getchar();
 	while (run != -1)
 	{
 		switch (choice)
@@ -453,7 +466,7 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		}
 		case '2':
 		{
-			
+
 			break;
 		}
 		case '3':
@@ -463,7 +476,7 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		}
 		case '4':
 		{
-			//newToOld();//sorting  function new to old
+			//newToOld();//sorting function new to old
 			break;
 		}
 		case '5':
@@ -494,8 +507,8 @@ int editProfileMenu(candidate cand)
 {
 	char choice = '0';
 	int run = 0;
-	int ans=0;
-	while (run != -1) 
+	int ans = 0;
+	while (run != -1)
 	{
 		printf("Edit Profile Menu:\nPress 1 for Edit email.\n");
 		printf("Press 2 to Change your password\n");
@@ -513,8 +526,8 @@ int editProfileMenu(candidate cand)
 		{
 			system("cls");
 			getchar();
-			ans = choice- '0';
-			cand=editProfile(cand, "Candidate_DATA.csv", ans);//Email editfunction
+			ans = choice - '0';
+			cand = editProfile(cand, "Candidate_DATA.csv", ans);//Email editfunction
 			getchar();
 			break;
 		}
@@ -561,13 +574,13 @@ int editProfileMenu(candidate cand)
 			getchar();
 			break;
 		}
-		 case '7':
+		case '7':
 		{
-			 system("cls");
-			 getchar();
-			 CVFile(cand);//free CV builder (not urgent)
-			 getchar();
-			 break;
+			system("cls");
+			getchar();
+			CVFile(cand);//free CV builder (not urgent)
+			getchar();
+			break;
 		}
 		case '8':
 		{
@@ -628,7 +641,7 @@ candidate resetPassword(candidate c)
 						system("cls");
 						printf("Done !\n");
 						run2 = 1;
-						
+
 						int row = findRightRow("Candidate_DATA.csv", c.email);
 						deleteline("Candidate_DATA.csv", row);
 						FILE* fp = fopen("Candidate_DATA.csv", "a+");

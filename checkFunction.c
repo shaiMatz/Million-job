@@ -413,3 +413,15 @@ const char* getfield(char* line, int column)
 	}
 	return NULL;
 }
+
+int ifExists(char *fileName,char* name,int column)
+{
+	char buffer[MAXBUFFER];
+	FILE* fp = fopen(fileName, "r");
+	while (fgets(buffer, 2024, fp))
+	{
+		if (strcmp(name, getfield(buffer, column)) == 0)
+			return 0;
+	}
+	return 1;
+}

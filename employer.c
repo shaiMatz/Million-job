@@ -470,31 +470,34 @@ job buildJob(int number)
 		return;
 	}
 	JobN.serialNum = number;
+	fgets(buffer, 2024, jobF);
 	while (fgets(buffer, 2024, jobF))
 	{
-		temp == _strdup(buffer);
+		temp = _strdup(buffer);
 		if (atoi(getfield(temp, 1)) == number)
 		{
-			
-			temp == _strdup(buffer);
+			row++;
+			//if (row == 1)//skip the first row, its titles
+			//	continue;
+			temp = _strdup(buffer);
 			strcpy(JobN.Jname, getfield(temp, 2));
-			temp == _strdup(buffer);
+			temp = _strdup(buffer);
 			strcpy(JobN.Jrange, getfield(temp, 3));
-			temp == _strdup(buffer);
+			temp = _strdup(buffer);
 			strcpy(JobN.Jcity, getfield(temp, 4));
-			temp == _strdup(buffer);
+			temp = _strdup(buffer);
 			strcpy(JobN.Jtype, getfield(temp, 5));
-			temp == _strdup(buffer);
+			temp = _strdup(buffer);
 			strcpy(JobN.Jdescription, getfield(temp, 6));
-			temp == _strdup(buffer);
+			temp = _strdup(buffer);
 			strcpy(JobN.Jresponsibilities, getfield(temp, 7));
-			temp == _strdup(buffer);
+			temp = _strdup(buffer);
 			strcpy(JobN.Jqualifications, getfield(temp, 8));
-			temp == _strdup(buffer);
+			temp = _strdup(buffer);
 			strcpy(JobN.Jsalary, getfield(temp, 9));
-			temp == _strdup(buffer);
+			temp = _strdup(buffer);
 			strcpy(JobN.Jhours, getfield(temp, 10));
-			temp == _strdup(buffer);
+			temp = _strdup(buffer);
 			strcpy(JobN.empEmail, getfield(temp, 11));
 
 		}

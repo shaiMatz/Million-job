@@ -195,11 +195,13 @@ int printall(candidate cand)
 			{
 			case '1':
 				printf("enter the number you liked: ");
-				scanf("%d", liked);
-				// the function does not exist yet;
+				scanf("%d", &liked);
+				pickAJob(cand, buildJob(liked));
 				break;
 			case '2':
-				// the function does not exist yet;
+				printf("enter the number you want to add to your favorite list: ");
+				scanf("%d", &liked);
+				pickAFavJob(cand, buildJob(liked));
 				break;
 			case '3':
 				if (count >= 10)
@@ -214,6 +216,8 @@ int printall(candidate cand)
 				}
 				break;
 			case '4':
+				choice = '0';
+				run = 0;
 				return 0;
 			default:
 				printf("wrong entry try again\n");
@@ -221,15 +225,15 @@ int printall(candidate cand)
 			}
 		}
 	}
-	printf("there is no more work in the database\n");
+	printf("there is no more jobs in the database\n");
 }
 
 
-int pickAJob(int like,candidate cand)
+int pickAJob(candidate cand,job jobN)
 {
 	char name[MAXNAME] = "submissionsJOB";
 	char CFileName[MAXNAME];
-	strcat(name, like + '0');
+	strcat(name,jobN.serialNum + '0');
 	strcat(name, ".csv");
 	strcpy(CFileName, cand.Fname);
 	strcat(CFileName, cand.ID);
@@ -247,6 +251,30 @@ int pickAJob(int like,candidate cand)
 		cand.Fname, cand.Lname, cand.email, cand.password1,
 		cand.city, cand.month, cand.day,
 		cand.year, cand.phoneNumber, cand.questionChoose, cand.wantedjobs, cand.answer);
+
+	fprintf(candF,"%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", jobN.serialNum, jobN.Jname, jobN.Jcity,
+		jobN.Jrange, jobN.Jtype, jobN.Jdescription, jobN.Jresponsibilities, jobN.Jqualifications,
+		jobN.Jsalary, jobN.Jhours);
+
+	fclose(pf);
+	return 0;
+}
+
+int pickAFavJob(candidate cand, job jobN)
+{
+	char name[MAXNAME] = "FAVORITEJOB";
+	strcpy(name, cand.Fname);
+	strcat(name, cand.ID);
+	strcat(name, ".csv");
+
+	FILE* pf = fopen(name, "a+");
+	if (!pf)
+		printf("can't open file: %s\n", name);
+
+
+	fprintf(pf, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", jobN.serialNum, jobN.Jname, jobN.Jcity,
+		jobN.Jrange, jobN.Jtype, jobN.Jdescription, jobN.Jresponsibilities, jobN.Jqualifications,
+		jobN.Jsalary, jobN.Jhours);
 
 	fclose(pf);
 	return 0;

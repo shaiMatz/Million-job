@@ -1,5 +1,6 @@
 #include "candidate.h"
 #include "SearchEngine.h"
+#include "checkFunction.h"
 candidate loginC(char email[])
 {
 	char* value, buffer[2024];
@@ -160,8 +161,14 @@ int CVFile(candidate cand)
 
 candidate editProfile(candidate cand, char* fileName, int ans)
 {
-
+	int count = countNumLine("JOB_LIST_DATA.csv");
+	char name[MAXNAME] = "submissionsJOB";
+	char num[MAXNAME];
+	char buffer[MAXBUFFER];
+	int exists = 0;
+	FILE* temppf=NULL;
 	int check = 0, wantedRow;
+
 	wantedRow = findRightRow(fileName, cand.email);
 	if (wantedRow == 0)
 	{
@@ -243,10 +250,27 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 			printf("\nEnter job preference:  \b");
 			gets(cand.wantedjobs);
 		}
+		for (int i = 0; i < count; i++)
+		{
+			strcpy(name, "submissionsJOB");
+			sprintf(num, "%d", count);
+			strcat(name, num);
+			strcat(name, ".csv");
+			if (ifExists(name, cand.email, 4) == 0)
+			{
+				deleteline(name, findRightRow(name,cand.email));
+				fopen(name, "a");
+				fprintf(temppf, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
+					cand.Fname, cand.Lname, cand.email, cand.password1,
+					cand.city, cand.month, cand.day,
+					cand.year, cand.phoneNumber, cand.questionChoose, cand.answer, cand.wantedjobs);
+				fclose(temppf);
+			}
+		}
 		fprintf(fp, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
 			cand.Fname, cand.Lname, cand.email, cand.password1,
 			cand.city, cand.month, cand.day,
-			cand.year, cand.phoneNumber, cand.questionChoose, cand.wantedjobs, cand.answer);
+			cand.year, cand.phoneNumber, cand.questionChoose, cand.answer, cand.wantedjobs);
 		fclose(fp);
 		return cand;
 
@@ -320,12 +344,12 @@ candidate Candidate_Registration()
 	{
 		gets(newCandidate.city);
 	}
-	printf("\nEnter your birthay ");
-	printf("\nMonth:  \b");
+	printf("\nEnter your birthay (00/00/0000)");
+	printf("\nMonth:(00)  \b");
 	scanf("%d", &newCandidate.month);
-	printf("\nDay:  \b");
+	printf("\nDay:(00)  \b");
 	scanf("%d", &newCandidate.day);
-	printf("\nYear:  \b");
+	printf("\nYear:(0000)  \b");
 	scanf("%d", &newCandidate.year);
 	while (BirthCheck(newCandidate.day, newCandidate.month, newCandidate.year) == 0)
 	{
@@ -347,7 +371,7 @@ candidate Candidate_Registration()
 	printf("\nChoose your security question:(default question is 1)\n");
 	printf("press 1: What is your grandfather name from your father side? \n");
 	printf("press 2: What is your pet name? \n");
-	printf("press 3: What is the name of your high-school? \nyour choise:  \b");
+	printf("press 3: What is the name of your high-school? \nyour choice:  \b");
 	scanf("%d", &newCandidate.questionChoose);
 	getchar();
 	printf("\nEnter your answer:  \b");
@@ -362,7 +386,7 @@ candidate Candidate_Registration()
 		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose, newCandidate.answer, newCandidate.wantedjobs);
 	fclose(CandidateF);
 	system("cls");
-	printf("\nNew Account added to record!\n");
+	printf("\nNew Account added to record! press enter to continue\n");
 	return newCandidate;
 }
 
@@ -503,6 +527,7 @@ int editProfileMenu(candidate cand)
 	char choice = '0';
 	int run = 0;
 	int ans = 0;
+
 	while (run != -1)
 	{
 		printf("Edit Profile Menu:\nPress 1 for Edit email.\n");
@@ -510,9 +535,8 @@ int editProfileMenu(candidate cand)
 		printf("Press 3 to Edit city adress.\n");
 		printf("Press 4 to Edit Phone number.\n");
 		printf("Press 5 to Change your security question\n");
-		printf("Press 6 to Upload your cv file: (enter cv name)\n");
-		printf("Press 7 to build your cv file: \n");
-		printf("Press 8 to go back to the previous menu\n");
+		printf("Press 6 to build your cv file: \n");
+		printf("Press 7 to go back to the previous menu\n");
 		printf("choice : ");
 		scanf("%c", &choice);
 		switch (choice)
@@ -561,15 +585,8 @@ int editProfileMenu(candidate cand)
 			getchar();
 			break;
 		}
+
 		case '6':
-		{
-			system("cls");
-			getchar();
-			//upLoadCV();
-			getchar();
-			break;
-		}
-		case '7':
 		{
 			system("cls");
 			getchar();
@@ -577,7 +594,7 @@ int editProfileMenu(candidate cand)
 			getchar();
 			break;
 		}
-		case '8':
+		case '7':
 		{
 			system("cls");
 			run = -1;
@@ -587,12 +604,14 @@ int editProfileMenu(candidate cand)
 		default:
 		{
 			system("cls");
-			printf("Worng input please try again...(1-8) \n");
+			printf("Worng input please try again...(1-7) \n");
 		}
 		}
 	}
 
 }
+
+
 
 candidate resetPassword(candidate c)
 {

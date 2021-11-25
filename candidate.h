@@ -17,5 +17,5 @@ int editProfileMenu(candidate cand);
 candidate loginC(char email[]);
 candidate editProfile(candidate cand, char* fileName, int ans);
 candidate resetPassword(candidate c);
-wantedJobs(candidate cand);
-favoriteJobs(candidate cand);
+int wantedJobs(candidate cand);
+int favoriteJobs(candidate cand);

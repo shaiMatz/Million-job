@@ -9,8 +9,8 @@
 int main()
 {
 	//jobAdd();
-	empSearchEngine();
-	//menu();
+	//empSearchEngine();
+	menu();
 	//sortFile("JOB_LIST_DATA.csv", 1);
 	//Filtermenu();
 	//printall();

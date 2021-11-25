@@ -48,7 +48,10 @@ int filtertown(candidate cand)
 {
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
+	{
 		printf("can't open file\n");
+		return 1;
+	}
 	char buffer[2024], * temp = NULL;
 	int row = 0;
 	char name[MAXNAME];
@@ -124,7 +127,10 @@ int filterjobhours(candidate cand)
 {
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
+	{
 		printf("can't open file\n");
+		return 1;
+	}
 	char buffer[2024], * temp = NULL;
 	int row = 0;
 	char i = '1';
@@ -223,7 +229,10 @@ int printall(candidate cand)
 	int count = 1, liked = 0;
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
+	{
 		printf("can't open file\n");
+		return 1;
+	}
 	char buffer[2024];
 	char choice = '1';
 	int row = 2;
@@ -308,12 +317,16 @@ int pickAJob(candidate cand, job jobN)
 
 	FILE* pf = fopen(name, "a+");
 	if (!pf)
+	{
 		printf("can't open file: %s\n", name);
-
+		return 1;
+	}
 	FILE* candF = fopen(CFileName, "a+");
 	if (!candF)
+	{
 		printf("can't open file: %s\n", CFileName);
-
+		return 1;
+	}
 	if (ifExists(CFileName, num, 1) != 0)
 	{
 		fprintf(candF, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", jobN.serialNum, jobN.Jname, jobN.Jcity,
@@ -345,7 +358,10 @@ int pickAFavJob(candidate cand, job jobN)
 
 	FILE* pf = fopen(name, "a+");
 	if (!pf)
+	{
 		printf("can't open file: %s\n", name);
+		return 1;
+	}
 	if (ifExists(name, num, 1) != 0)
 	{
 		fprintf(pf, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", jobN.serialNum, jobN.Jname, jobN.Jcity,
@@ -362,7 +378,10 @@ int filtersalary(candidate cand)
 {
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
+	{
 		printf("can't open file\n");
+		return 1;
+	}
 	char buffer[2024], * temp = NULL;
 	int row = 0;
 	char i = '1';
@@ -429,7 +448,10 @@ int filterjobtype(candidate cand)
 {
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
+	{
 		printf("can't open file\n");
+		return 1;
+	}
 	char buffer[2024], * temp = NULL;
 	int row = 0;
 	char i = '1';
@@ -497,7 +519,10 @@ int filtertownEmp()
 {
 	FILE* fp = fopen("Candidate_DATA.csv", "r");
 	if (!fp)
+	{
 		printf("can't open file\n");
+		return 1;
+	}
 	char buffer[2024], * temp = NULL;
 	int row = 0;
 	char name[MAXNAME];
@@ -517,7 +542,7 @@ int filtertownEmp()
 	}
 	fclose(fp);
 	free(temp);
-	
+
 	return 0;
 }
 
@@ -525,7 +550,10 @@ int filterjobGenreEmp()
 {
 	FILE* fp = fopen("Candidate_DATA.csv", "r");
 	if (!fp)
+	{
 		printf("can't open file\n");
+		return 1;
+	}
 	char buffer[2024], * temp = NULL;
 	int row = 0;
 	char name[MAXNAME];

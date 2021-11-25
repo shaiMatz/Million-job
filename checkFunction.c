@@ -249,10 +249,15 @@ int deleteline(char* fileName, int row)
 	strcat(name, fileName);
 	FILE* temp = fopen(name, "w");
 	if (!fp)
+	{
 		printf("Can't open file: %s\n", fileName);
-
+		return 1;
+	}
 	if (!temp)
+	{
 		printf("Can't open file: %s\n", name);
+		return 1;
+	}
 	else
 	{
 		while (fgets(buffer, 1024, fp))
@@ -287,10 +292,15 @@ int deleteJobLine(char* fileName, int serialNum)
 	strcat(name, fileName);
 	FILE* temp = fopen(name, "w");
 	if (!fp)
+	{
 		printf("Can't open file: %s\n", fileName);
-
+		return 1;
+	}
 	if (!temp)
+	{
 		printf("Can't open file: %s\n", name);
+		return 1;
+	}
 	else
 	{
 		while (fgets(buffer, 1024, fp))
@@ -324,7 +334,10 @@ int findRightRow(char* fileName, char* email)
 	int column = 0, row = 0, wantedRow = 0;
 	FILE* fp = fopen(fileName, "r");
 	if (!fp)
+	{
 		printf("Can't open file\n");
+		return 1;
+	}
 
 	else
 	{
@@ -363,7 +376,7 @@ int findRightRow(char* fileName, char* email)
 		}
 	}
 	fclose(fp);
-	return -1;
+	return 1;
 }
 int findRightRowPass(char* fileName, char* pass)
 {//find the row by password, returns the line nunber
@@ -371,8 +384,10 @@ int findRightRowPass(char* fileName, char* pass)
 	int column = 0, row = 0, wantedRow = 0;
 	FILE* fp = fopen(fileName, "r");
 	if (!fp)
+	{
 		printf("Can't open file\n");
-
+		return 1;
+	}
 	else
 	{
 		while (fgets(buffer, 1024, fp))//run until he find the row that matches the email
@@ -458,6 +473,12 @@ int ifExists(char* fileName, char* name, int column)
 {
 	char buffer[MAXBUFFER];
 	FILE* fp = fopen(fileName, "r");
+	if (!fp)
+	{
+		printf("Can't open file\n");
+		return 1;
+	}
+
 	while (fgets(buffer, 2024, fp))
 	{
 		if (strcmp(name, getfield(buffer, column)) == 0)
@@ -472,22 +493,28 @@ int sortFile(char* fileName, int column)
 	char name[MAXNAME] = "temp";
 	char* temp2;
 	int mone = lastSerial();// check for the last serial
-	int counter = 1,rc;
+	int counter = 1, rc;
 	strcat(name, fileName);
-	int row=0,run=0;
+	int row = 0, run = 0;
 	FILE* pf = fopen(fileName, "r");
 	if (!pf)
+	{
 		printf("can't open the file: %s", fileName);
+		return 1;
+	}
 	FILE* temp = fopen(name, "w");
 	if (!temp)
+	{
 		printf("can't open the file: %s", name);
+		return 1;
+	}
 	fgets(buffer, 2024, pf);
 	fprintf(temp, "%s", buffer);
-	while (counter<=mone)
-	{	
+	while (counter <= mone)
+	{
 		while (fgets(buffer, 2024, pf))
 		{
-			temp2= _strdup(buffer);
+			temp2 = _strdup(buffer);
 			if (atoi(getfield(temp2, 1)) == counter)
 			{
 				fprintf(temp, "%s", buffer);
@@ -514,7 +541,10 @@ int countNumLine(char* fileName)
 	char buffer[MAXBUFFER];
 	FILE* pf = fopen(fileName, "r");
 	if (!pf)
+	{
 		printf("can't open the file: %s", fileName);
+		return 1;
+	}
 	int mone = -1;
 	while (fgets(buffer, 2024, pf))
 	{
@@ -522,7 +552,7 @@ int countNumLine(char* fileName)
 	}
 	fclose(pf);
 	return mone;
-	
+
 }
 
 int sortFilefromendtostart(char* fileName, int column)
@@ -530,16 +560,22 @@ int sortFilefromendtostart(char* fileName, int column)
 	char buffer[MAXBUFFER];
 	char name[MAXNAME] = "temp";
 	char* temp2;
-	int mone =lastSerial();
+	int mone = lastSerial();
 	int counter = mone, rc;
 	strcat(name, fileName);
 	int row = 0, run = 0;
 	FILE* pf = fopen(fileName, "r");
 	if (!pf)
+	{
 		printf("can't open the file: %s", fileName);
+		return 1;
+	}
 	FILE* temp = fopen(name, "w");
 	if (!temp)
+	{
 		printf("can't open the file: %s", name);
+		return 1;
+	}
 	fgets(buffer, 2024, pf);
 	fprintf(temp, "%s", buffer);
 	while (counter >= 0)
@@ -570,7 +606,7 @@ int sortFilefromendtostart(char* fileName, int column)
 
 int lastSerial()
 {
-	int bigSerialNum=0;
+	int bigSerialNum = 0;
 	char* value, buffer[2024];
 	char* temp;
 

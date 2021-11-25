@@ -11,7 +11,10 @@ employer loginE(char email[])
 	employer newEmp;
 	FILE* fp = fopen("Employer_DATA.csv", "r");
 	if (!fp)
+	{
 		printf("Can't open file\n");
+		return;
+	}
 
 	else
 	{
@@ -317,7 +320,7 @@ int jobAdd(char* email)
 	if (JoblistdataF == NULL)
 	{
 		printf("Can't open file!");
-		return;
+		return 1;
 	}
 
 
@@ -364,7 +367,7 @@ int jobAdd(char* email)
 	if (!Jobdata) {
 		// Error in file opening
 		printf("Can't open file\n");
-		return;
+		return 1;
 	}
 
 	printf("\nEnter the job name: \b");
@@ -399,7 +402,7 @@ int jobAdd(char* email)
 			run = -1;
 			break;
 		}
-		
+
 		default:
 		{
 			system("cls");
@@ -407,7 +410,7 @@ int jobAdd(char* email)
 		}
 		}
 	}
-	
+
 
 	getchar();
 	printf("\nEnter the job description: \n");
@@ -512,7 +515,7 @@ int jobAdd(char* email)
 			run = -1;
 			break;
 		}
-		
+
 		default:
 		{
 			system("cls");
@@ -549,7 +552,7 @@ int editJobFromList(char* email)
 	if (JoblistdataF == NULL)
 	{
 		printf("Can't open file!");
-		return;
+		return 1;
 	}
 
 	else
@@ -595,22 +598,22 @@ int editJobFromList(char* email)
 	scanf("%d", &jobNumber);
 	getchar();
 	job joBs;
-	joBs=buildJob(jobNumber);
+	joBs = buildJob(jobNumber);
 
-	
-	
-	
+
+
+
 	int check = 0;
 	check = deleteJobLine("JOB_LIST_DATA.csv", jobNumber);
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "a+");
 	if (!fp) {
 		// Error in file opening
 		printf("Can't open file\n");
-		return;
+		return 1;
 	}
 	char choice = '0';
 	int run = 0;
-	
+
 	while (run != -1)
 	{
 		printf("\nPress 1 to Change the name of the job.\n");
@@ -793,7 +796,7 @@ int editJobFromList(char* email)
 job buildJob(int number)
 {
 	int row = 0;
-	char* temp=NULL;
+	char* temp = NULL;
 	FILE* jobF = fopen("JOB_LIST_DATA.csv", "r");
 	job JobN;
 	char buffer[MAXBUFFER];
@@ -809,7 +812,7 @@ job buildJob(int number)
 		temp = _strdup(buffer);
 		if (atoi(getfield(temp, 1)) == number)
 		{
-			
+
 			temp = _strdup(buffer);
 			strcpy(JobN.Jname, getfield(temp, 2));
 			temp = _strdup(buffer);

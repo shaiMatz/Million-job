@@ -8,8 +8,10 @@ candidate loginC(char email[])
 	candidate newCand;
 	FILE* fp = fopen("Candidate_DATA.csv", "r");
 	if (!fp)
+	{
 		printf("Can't open file\n");
-
+		return;
+	}
 	else
 	{
 
@@ -166,7 +168,7 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 	char num[MAXNAME];
 	char buffer[MAXBUFFER];
 	int exists = 0;
-	FILE* temppf=NULL;
+	FILE* temppf = NULL;
 	int check = 0, wantedRow;
 
 	wantedRow = findRightRow(fileName, cand.email);
@@ -258,7 +260,7 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 			strcat(name, ".csv");
 			if (ifExists(name, cand.email, 4) == 0)
 			{
-				deleteline(name, findRightRow(name,cand.email));
+				deleteline(name, findRightRow(name, cand.email));
 				fopen(name, "a");
 				fprintf(temppf, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
 					cand.Fname, cand.Lname, cand.email, cand.password1,
@@ -469,7 +471,7 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 
 	char choice = '0';
 	int	run = 0;
-	
+
 	while (run != -1)
 	{
 		printf("----Dear %s Please choose a search action:----\n", cand.Fname);
@@ -662,6 +664,7 @@ candidate resetPassword(candidate c)
 						if (!fp) {
 							// Error in file opening
 							printf("Can't open file\n");
+							return;
 						}
 						fprintf(fp, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", c.ID,
 							c.Fname, c.Lname, c.email, c.password1,
@@ -683,18 +686,20 @@ candidate resetPassword(candidate c)
 
 }
 
-wantedJobs(candidate cand)
+int wantedJobs(candidate cand)
 {
-	char CFileName[MAXNAME],buffer[MAXBUFFER];
+	char CFileName[MAXNAME], buffer[MAXBUFFER];
 	strcpy(CFileName, cand.Fname);
 	strcat(CFileName, cand.ID);
 	strcat(CFileName, ".csv");
 
 	FILE* candF = fopen(CFileName, "r");
-	if (!candF)
+	if (!candF) {
 		printf("can't open file: %s\n", CFileName);
+		return 1;
+	}
 
-	while (fgets(buffer,2024,candF))
+	while (fgets(buffer, 2024, candF))
 	{
 		printJob(buffer);
 	}
@@ -702,16 +707,19 @@ wantedJobs(candidate cand)
 	return 0;
 }
 
-favoriteJobs(candidate cand)
+int favoriteJobs(candidate cand)
 {
-	char name[MAXNAME] = "FAVORITEJOB",buffer[MAXBUFFER];
+	char name[MAXNAME] = "FAVORITEJOB", buffer[MAXBUFFER];
 	strcat(name, cand.Fname);
 	strcat(name, cand.ID);
 	strcat(name, ".csv");
 
 	FILE* candF = fopen(name, "r");
 	if (!candF)
-		printf("can't open file: %s\n", name);
+	{
+		printf("can't open file: %s\n~press enter to continue~", name);
+		return 0;
+	}
 
 	while (fgets(buffer, 2024, candF))
 	{

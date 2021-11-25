@@ -359,7 +359,8 @@ int jobAdd(char* email)
 
 
 
-	char* Jname[MAXNAME], Jrange[MAXNAME], Jcity[MAXNAME], Jtype[MAXNAME], Jdescription[MAXNAME], Jresponsibilities[MAXNAME], Jqualifications[MAXNAME], Jsalary[MAXNAME], Jhours[MAXNAME];
+	char* Jname[MAXNAME], Jrange[MAXBUFFER], Jcity[MAXNAME], Jtype[MAXNAME], Jdescription[MAXBUFFER], Jresponsibilities[MAXBUFFER], 
+		Jqualifications[MAXBUFFER], Jsalary[MAXNAME], Jhours[MAXNAME];
 
 	FILE* Jobdata = fopen("JOB_LIST_DATA.csv", "a+");
 

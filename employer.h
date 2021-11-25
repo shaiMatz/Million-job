@@ -5,7 +5,7 @@ typedef struct employer
 {
 	char companyName[MAXNAME], Lname[MAXNAME], Fname[MAXNAME], email[MAXNAME],
 		password1[MAXNAME], password2[MAXNAME], city[MAXNAME], answer[MAXNAME],
-		phoneNumber[MAXNAME], jobDescription[MAXNAME];//all the candidate data
+		phoneNumber[MAXNAME], jobDescription[MAXBUFFER];//all the candidate data
 	int questionChoose;
 
 
@@ -14,8 +14,8 @@ typedef struct employer
 
 typedef struct job
 {
-	char Jname[MAXNAME], Jrange[MAXNAME], Jcity[MAXNAME], Jtype[MAXNAME],
-		Jdescription[MAXNAME], Jresponsibilities[MAXNAME],Jqualifications[MAXNAME], 
+	char Jname[MAXNAME], Jrange[MAXBUFFER], Jcity[MAXNAME], Jtype[MAXNAME],
+		Jdescription[MAXBUFFER], Jresponsibilities[MAXBUFFER], Jqualifications[MAXBUFFER],
 		Jsalary[MAXNAME], Jhours[MAXNAME], empEmail[MAXNAME];
 	int serialNum;
 }job;

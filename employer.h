@@ -22,10 +22,16 @@ typedef struct job
 
 
 job buildJob(int number);
+
 int EmployerMenu(employer emp);
 int jobAdd(char* email);
 int jobEdit(char* email);
 int editJobFromList(char* email);
+int deleteJob(char* email);
+
+int printMyPublishedJobs(char* email);
+
+//int jobsOfferList();
 
 
 

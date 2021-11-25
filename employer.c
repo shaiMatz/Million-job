@@ -168,7 +168,7 @@ int EmployerMenu(employer emp)
 		switch (choice)
 		{
 		case '1': {
-			//searchEngine();
+			//empSearchEngine();
 			break;
 		}
 		case '2':
@@ -839,13 +839,3 @@ job buildJob(int number)
 
 
 
-
-
-
-
-//printf("\nEnter your job qualifications:  \n");
-//while (scanf("%[^\n]%*c", jobQ) == 1)
-//{
-//	strcat(jobQualifications, " ");
-//	strcat(jobQualifications, jobQ);
-//}

@@ -13,3 +13,7 @@ int choicemenu(candidate cand);
 int filterjobtype(candidate cand);
 int printoldertonew(candidate cand);
 int printnewtoolder(candidate cand);
+int filtertownEmp();
+int filterjobGenreEmp();
+int empSearchEngine();
+void printCand(char* line);

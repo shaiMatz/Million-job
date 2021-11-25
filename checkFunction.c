@@ -471,7 +471,7 @@ int sortFile(char* fileName, int column)
 	char buffer[MAXBUFFER];
 	char name[MAXNAME] = "temp";
 	char* temp2;
-	int mone = countNumLine(fileName);
+	int mone = lastSerial();// check for the last serial
 	int counter = 1,rc;
 	strcat(name, fileName);
 	int row=0,run=0;
@@ -483,21 +483,19 @@ int sortFile(char* fileName, int column)
 		printf("can't open the file: %s", name);
 	fgets(buffer, 2024, pf);
 	fprintf(temp, "%s", buffer);
-	while (run == 0)
+	while (counter<=mone)
 	{	
 		while (fgets(buffer, 2024, pf))
 		{
 			temp2= _strdup(buffer);
-			if (atoi(getfield(temp2, 1))==counter)
+			if (atoi(getfield(temp2, 1)) == counter)
 			{
-				counter++;
 				fprintf(temp, "%s", buffer);
-			}	
+				break;
+			}
 		}
-		if (counter == mone)
-			run = -1;
-		else
-			rewind(pf);
+		counter++;
+		rewind(pf);
 	}
 	fclose(pf);
 	rc = remove(fileName);
@@ -532,8 +530,8 @@ int sortFilefromendtostart(char* fileName, int column)
 	char buffer[MAXBUFFER];
 	char name[MAXNAME] = "temp";
 	char* temp2;
-	int mone = countNumLine(fileName);
-	int counter = 0, rc;
+	int mone =lastSerial();
+	int counter = mone, rc;
 	strcat(name, fileName);
 	int row = 0, run = 0;
 	FILE* pf = fopen(fileName, "r");
@@ -544,21 +542,19 @@ int sortFilefromendtostart(char* fileName, int column)
 		printf("can't open the file: %s", name);
 	fgets(buffer, 2024, pf);
 	fprintf(temp, "%s", buffer);
-	while (run == 0)
+	while (counter >= 0)
 	{
 		while (fgets(buffer, 2024, pf))
 		{
 			temp2 = _strdup(buffer);
-			if (atoi(getfield(temp2, 1)) == mone)
+			if (atoi(getfield(temp2, 1)) == counter)
 			{
-				mone--;
 				fprintf(temp, "%s", buffer);
+				break;
 			}
 		}
-		if (counter == mone)
-			run = -1;
-		else
-			rewind(pf);
+		counter--;
+		rewind(pf);
 	}
 	fclose(pf);
 	rc = remove(fileName);
@@ -570,4 +566,30 @@ int sortFilefromendtostart(char* fileName, int column)
 	fclose(temp);
 	rc = rename(name, fileName);
 	return 0;
+}
+
+int lastSerial()
+{
+	int bigSerialNum=0;
+	char* value, buffer[2024];
+	char* temp;
+
+
+	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r");
+	if (JoblistdataF == NULL)
+	{
+		printf("Can't open file!");
+		return;
+	}
+
+
+	while (fgets(buffer, 1024, JoblistdataF))//run to the end.
+	{
+		temp = _strdup(buffer);
+		if (bigSerialNum < atoi(getfield(temp, 1)))
+			bigSerialNum = atoi(getfield(temp, 1));
+
+	}
+	fclose(JoblistdataF);
+	return bigSerialNum;
 }

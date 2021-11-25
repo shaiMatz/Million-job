@@ -32,6 +32,7 @@ int Filtermenu(candidate cand)
 			break;
 
 		case '5':
+			getchar();
 			i = '0';
 			break;
 
@@ -42,7 +43,6 @@ int Filtermenu(candidate cand)
 	}
 	return 0;
 }
-
 
 int filtertown(candidate cand)
 {
@@ -72,7 +72,6 @@ int filtertown(candidate cand)
 	return 0;
 }
 
-
 void printJob(char* line)
 {
 	char* temp = _strdup(line);
@@ -95,7 +94,30 @@ void printJob(char* line)
 	printf("Job salary: %s\n", getfield(temp, 9));
 	temp = _strdup(line);
 	printf("Job hours: %s\n\n", getfield(temp, 10));
+
+}
+void printCand(char* line)
+{
+	char* temp = _strdup(line);
+	char* temp1;
+	char* temp2;
+	printf("\n  candidate %s\n", getfield(temp, 1));
 	temp = _strdup(line);
+	printf("First name: %s\n", getfield(temp, 2));
+	temp = _strdup(line);
+	printf("Last name: %s\n", getfield(temp, 3));
+	temp = _strdup(line);
+	printf("Email: %s\n", getfield(temp, 4));
+	temp = _strdup(line);
+	printf("City: %s\n", getfield(temp, 6));
+	temp = _strdup(line);
+	temp1 = _strdup(line);
+	temp2 = _strdup(line);
+	printf("Birth date: %s/%s/%s \n", getfield(temp1, 8), getfield(temp2, 7), getfield(temp, 9));
+	temp = _strdup(line);
+	printf("Phone number: %s\n", getfield(temp, 10));
+	temp = _strdup(line);
+	printf("Job preferences: %s\n", getfield(temp, 13));
 }
 
 int filterjobhours(candidate cand)
@@ -271,7 +293,6 @@ int printall(candidate cand)
 	fclose(fp);
 	return 0;
 }
-
 
 int pickAJob(candidate cand, job jobN)
 {
@@ -458,7 +479,6 @@ int filterjobtype(candidate cand)
 	return 0;
 }
 
-
 int printoldertonew(candidate cand)
 {
 	sortFile("JOB_LIST_DATA.csv", 1);
@@ -470,5 +490,92 @@ int printnewtoolder(candidate cand)
 {
 	sortFilefromendtostart("JOB_LIST_DATA.csv", 1);
 	printall(cand);
+	return 0;
+}
+
+int filtertownEmp()
+{
+	FILE* fp = fopen("Candidate_DATA.csv", "r");
+	if (!fp)
+		printf("can't open file\n");
+	char buffer[2024], * temp = NULL;
+	int row = 0;
+	char name[MAXNAME];
+	printf("Enter the name of the city\n");
+	gets(name);
+	while (fgets(buffer, 1024, fp))
+	{
+		row++;
+		if (row == 1)
+			continue;
+		else
+		{
+			temp = _strdup(buffer);
+			if (strcmp(getfield(temp, 6), name) == 0)
+				printCand(buffer);
+		}
+	}
+	fclose(fp);
+	free(temp);
+	
+	return 0;
+}
+
+int filterjobGenreEmp()
+{
+	FILE* fp = fopen("Candidate_DATA.csv", "r");
+	if (!fp)
+		printf("can't open file\n");
+	char buffer[2024], * temp = NULL;
+	int row = 0;
+	char name[MAXNAME];
+	printf("Enter the job type\n");
+	gets(name);
+	while (fgets(buffer, 1024, fp))
+	{
+		row++;
+		if (row == 1)
+			continue;
+		else
+		{
+			temp = _strdup(buffer);
+			if (strcmp(getfield(temp, 13), name) == 0)
+				printCand(buffer);
+		}
+	}
+	fclose(fp);
+	free(temp);
+	return 0;
+}
+
+int empSearchEngine()
+{
+	char i = ' ';
+	while (i != '0')
+	{
+		printf("Press 1 to sort by location \nPress 2 to sort by job genre \nPress 3 to go to the previous menu\n ");
+		scanf("%c", &i);
+		switch (i)
+		{
+		case '1':
+			getchar();
+			filtertownEmp();
+			break;
+
+		case '2':
+			getchar();
+			filterjobGenreEmp();
+			break;
+
+		case '3':
+			getchar();
+			i = '0';
+			break;
+
+		default:
+			printf("wrong entry try again\n");
+			break;
+		}
+	}
 	return 0;
 }

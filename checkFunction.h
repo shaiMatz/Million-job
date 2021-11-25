@@ -26,3 +26,4 @@ const char* getfield(char* line, int column);
 int ifExists(char* fileName, char* name, int column);
 int sortFile(char* fileName, int column);
 int sortFilefromendtostart(char* fileName, int column);
+int lastSerial();

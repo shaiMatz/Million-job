@@ -71,56 +71,63 @@ int filtertown(candidate cand)
 	}
 	fclose(fp);
 	free(temp);
-	choicemenu(cand);
+	if (strcmp(cand.email, "0") != 0)
+		choicemenu(cand);
 	return 0;
 }
 
 void printJob(char* line)
 {
 	char* temp = _strdup(line);
-	printf("\n  JOB NUMBER %s\n", getfield(temp, 1));
-	temp = _strdup(line);
-	printf("Job name: %s\n", getfield(temp, 2));
-	temp = _strdup(line);
-	printf("Job range: %s\n", getfield(temp, 3));
-	temp = _strdup(line);
-	printf("Job city: %s\n", getfield(temp, 4));
-	temp = _strdup(line);
-	printf("Job type: %s\n", getfield(temp, 5));
-	temp = _strdup(line);
-	printf("Job description: %s\n", getfield(temp, 6));
-	temp = _strdup(line);
-	printf("Job responsibilities: %s\n", getfield(temp, 7));
-	temp = _strdup(line);
-	printf("Job qualifications: %s\n", getfield(temp, 8));
-	temp = _strdup(line);
-	printf("Job salary: %s\n", getfield(temp, 9));
-	temp = _strdup(line);
-	printf("Job hours: %s\n\n", getfield(temp, 10));
+	if (strcmp(getfield(temp, 1), "SerialNum") != 0)
+	{
+		printf("\n  JOB NUMBER %s\n", getfield(temp, 1));
+		temp = _strdup(line);
+		printf("Job name: %s\n", getfield(temp, 2));
+		temp = _strdup(line);
+		printf("Job range: %s\n", getfield(temp, 3));
+		temp = _strdup(line);
+		printf("Job city: %s\n", getfield(temp, 4));
+		temp = _strdup(line);
+		printf("Job type: %s\n", getfield(temp, 5));
+		temp = _strdup(line);
+		printf("Job description: %s\n", getfield(temp, 6));
+		temp = _strdup(line);
+		printf("Job responsibilities: %s\n", getfield(temp, 7));
+		temp = _strdup(line);
+		printf("Job qualifications: %s\n", getfield(temp, 8));
+		temp = _strdup(line);
+		printf("Job salary: %s\n", getfield(temp, 9));
+		temp = _strdup(line);
+		printf("Job hours: %s\n\n", getfield(temp, 10));
 
+	}
 }
 void printCand(char* line)
 {
 	char* temp = _strdup(line);
 	char* temp1;
 	char* temp2;
-	printf("\n  candidate %s\n", getfield(temp, 1));
-	temp = _strdup(line);
-	printf("First name: %s\n", getfield(temp, 2));
-	temp = _strdup(line);
-	printf("Last name: %s\n", getfield(temp, 3));
-	temp = _strdup(line);
-	printf("Email: %s\n", getfield(temp, 4));
-	temp = _strdup(line);
-	printf("City: %s\n", getfield(temp, 6));
-	temp = _strdup(line);
-	temp1 = _strdup(line);
-	temp2 = _strdup(line);
-	printf("Birth date: %s/%s/%s \n", getfield(temp1, 8), getfield(temp2, 7), getfield(temp, 9));
-	temp = _strdup(line);
-	printf("Phone number: %s\n", getfield(temp, 10));
-	temp = _strdup(line);
-	printf("Job preferences: %s\n", getfield(temp, 13));
+	if (strcmp(getfield(temp, 1), "ID") != 0)
+	{
+		printf("\n  candidate %s\n", getfield(temp, 1));
+		temp = _strdup(line);
+		printf("First name: %s\n", getfield(temp, 2));
+		temp = _strdup(line);
+		printf("Last name: %s\n", getfield(temp, 3));
+		temp = _strdup(line);
+		printf("Email: %s\n", getfield(temp, 4));
+		temp = _strdup(line);
+		printf("City: %s\n", getfield(temp, 6));
+		temp = _strdup(line);
+		temp1 = _strdup(line);
+		temp2 = _strdup(line);
+		printf("Birth date: %s/%s/%s \n", getfield(temp1, 8), getfield(temp2, 7), getfield(temp, 9));
+		temp = _strdup(line);
+		printf("Phone number: %s\n", getfield(temp, 10));
+		temp = _strdup(line);
+		printf("Job preferences: %s\n", getfield(temp, 13));
+	}
 }
 
 int filterjobhours(candidate cand)
@@ -186,7 +193,8 @@ int filterjobhours(candidate cand)
 	}
 	fclose(fp);
 	free(temp);
-	choicemenu(cand);
+	if (strcmp(cand.email, "0") != 0)
+		choicemenu(cand);
 	return 0;
 }
 
@@ -254,47 +262,80 @@ int printall(candidate cand)
 			row++;
 
 		}
-		while (choice != '0')
-		{
-			printf("Press 1 to pick a job \nPress 2 to save a work to your favourites \nPress 3 to continue searching for a work \nPress 4 to go back to previous menu\n");
-			scanf("%c", &choice);
-			getchar();
-			switch (choice)
+		if (strcmp(cand.email, "0") != 0)
+			while (choice != '0')
 			{
-			case '1':
-				printf("enter the number you liked: ");
-				scanf("%d", &liked);
+				printf("Press 1 to pick a job \nPress 2 to save a work to your favourites \nPress 3 to continue searching for a work \nPress 4 to go back to previous menu\n");
+				scanf("%c", &choice);
 				getchar();
-				pickAJob(cand, buildJob(liked));
-				choice = '0';
-				break;
-			case '2':
-				printf("enter the number you want to add to your favorite list: ");
-				scanf("%d", &liked);
-				getchar();
-				pickAFavJob(cand, buildJob(liked));
-				choice = '0';
-				break;
-			case '3':
-				if (count >= 10)
+				switch (choice)
 				{
-					count = 0;
+				case '1':
+					printf("enter the number you liked: ");
+					scanf("%d", &liked);
+					getchar();
+					pickAJob(cand, buildJob(liked));
 					choice = '0';
-				}
-				else
-				{
+					break;
+				case '2':
+					printf("enter the number you want to add to your favorite list: ");
+					scanf("%d", &liked);
+					getchar();
+					pickAFavJob(cand, buildJob(liked));
+					choice = '0';
+					break;
+				case '3':
+					if (count >= 10)
+					{
+						count = 0;
+						choice = '0';
+					}
+					else
+					{
+						run = 0;
+						choice = '0';
+					}
+					break;
+				case '4':
+					choice = '0';
 					run = 0;
-					choice = '0';
+					fclose(fp);
+					return 0;
+				default:
+					printf("wrong entry try again\n");
+					break;
 				}
-				break;
-			case '4':
-				choice = '0';
-				run = 0;
-				fclose(fp);
-				return 0;
-			default:
-				printf("wrong entry try again\n");
-				break;
+			}
+		else
+		{
+			while (choice != '0')
+			{
+				printf("Press 1 to continue searching for a work \nPress 2 to go back to previous menu\n");
+				scanf("%c", &choice);
+				getchar();
+				switch (choice)
+				{
+				case '1':
+					if (count >= 10)
+					{
+						count = 0;
+						choice = '0';
+					}
+					else
+					{
+						run = 0;
+						choice = '0';
+					}
+					break;
+				case '2':
+					choice = '0';
+					run = 0;
+					fclose(fp);
+					return 0;
+				default:
+					printf("wrong entry try again\n");
+					break;
+				}
 			}
 		}
 	}
@@ -440,7 +481,8 @@ int filtersalary(candidate cand)
 	}
 	fclose(fp);
 	free(temp);
-	choicemenu(cand);
+	if (strcmp(cand.email, "0") != 0)
+		choicemenu(cand);
 	return 0;
 }
 
@@ -497,7 +539,8 @@ int filterjobtype(candidate cand)
 	}
 	fclose(fp);
 	free(temp);
-	choicemenu(cand);
+	if (strcmp(cand.email, "0") != 0)
+		choicemenu(cand);
 	return 0;
 }
 
@@ -583,20 +626,18 @@ int empSearchEngine()
 	{
 		printf("Press 1 to sort by location \nPress 2 to sort by job genre \nPress 3 to go to the previous menu\n ");
 		scanf("%c", &i);
+		getchar();
 		switch (i)
 		{
 		case '1':
-			getchar();
 			filtertownEmp();
 			break;
 
 		case '2':
-			getchar();
 			filterjobGenreEmp();
 			break;
 
 		case '3':
-			getchar();
 			i = '0';
 			break;
 

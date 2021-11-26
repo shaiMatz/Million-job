@@ -10,7 +10,7 @@ typedef struct candidate////yo????
 }candidate;
 
 int CandidateMenu(candidate cand);
-int CVFile(candidate cand);
+candidate CVFile(candidate cand);
 candidate Candidate_Registration();
 void searchEngine(candidate cand);
 int editProfileMenu(candidate cand);

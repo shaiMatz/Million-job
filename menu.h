@@ -3,5 +3,5 @@
 #include"employer.h"
 
 void menu();
-int forgetMyPass();
+char* forgetMyPass(int *num);
 char* login(int* num);

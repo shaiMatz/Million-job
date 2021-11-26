@@ -271,7 +271,7 @@ int deleteline(char* fileName, int row)
 
 	fclose(fp);
 
-	rc = remove("Candidate_DATA.csv");
+	rc = remove(fileName);
 	if (rc != 0)
 	{
 		perror("remove");
@@ -467,6 +467,7 @@ int fevoritsDelete(char* fileName,int jobNumber)
 			}
 			else
 			{
+				fclose(fpcand);
 				printf("\nThere was a problem to delete your job!\n");
 				return 1;
 			}
@@ -484,8 +485,8 @@ int fevoritsDelete(char* fileName,int jobNumber)
 
 int findRightRow(char* fileName, char* email)
 {//find the row by email, returns the line nunber
-	char* value, buffer[2024];
-	int column = 0, row = 0, wantedRow = 0;
+	char* temp, buffer[2024];
+	int column = 0, row = 0;
 	FILE* fp = fopen(fileName, "r");
 	if (!fp)
 	{
@@ -497,36 +498,15 @@ int findRightRow(char* fileName, char* email)
 	{
 		while (fgets(buffer, 1024, fp))//run until he find the row that matches the email
 		{
+			row++;
 			if (strcmp("\n", buffer) == 0)
 				break;
-			column = 0;
-			row++;
-			wantedRow++;
-			if (row == 1)//skip the first row, its titles
-				continue;
-			else {
-				value = strtok(buffer, ", ");
-				while (column != 3)//3 is the email column
-				{
-					value = strtok(NULL, ", ");
-					column++;
-				}
-				if (column == 3)
-				{
-					if (strcmp(email, value) == 0)
-					{//check if the same email
-						fclose(fp);
-						return wantedRow;		//find the right row can stop now	
-					}
-				}
-				else//continue to the next row
-				{
-					column = 0;
-					continue;
-				}
-
+			temp = _strdup(buffer);
+			if (strcmp(email, getfield(temp, 4)) == 0)
+			{
+				fclose(fp);
+				return row;
 			}
-
 		}
 	}
 	fclose(fp);
@@ -534,48 +514,25 @@ int findRightRow(char* fileName, char* email)
 }
 int findRightRowPass(char* fileName, char* pass)
 {//find the row by password, returns the line nunber
-	char* value, buffer[2024];
-	int column = 0, row = 0, wantedRow = 0;
+	char buffer[2024],*temp;
+	int column = 0, row = 0;
 	FILE* fp = fopen(fileName, "r");
 	if (!fp)
 	{
 		printf("Can't open file\n");
-		return 1;
+		return -1;
 	}
 	else
 	{
 		while (fgets(buffer, 1024, fp))//run until he find the row that matches the email
 		{
-			if (strcmp("\n", buffer) == 0)
-				break;
-			column = 0;
 			row++;
-			wantedRow++;
-			if (row == 1)//skip the first row, its titles
-				continue;
-			else {
-				value = strtok(buffer, ", ");
-				while (column != 4)//3 is the password column
-				{
-					value = strtok(NULL, ", ");
-					column++;
-				}
-				if (column == 4)
-				{
-					if (strcmp(pass, value) == 0)
-					{//check if the same password
-						fclose(fp);
-						return wantedRow;		//find the right row can stop now	
-					}
-				}
-				else//continue to the next row
-				{
-					column = 0;
-					continue;
-				}
-
+			temp = _strdup(buffer);
+			if (strcmp(getfield(temp, 5), pass) == 0)
+			{
+				fclose(fp);
+				return row;
 			}
-
 		}
 	}
 	fclose(fp);

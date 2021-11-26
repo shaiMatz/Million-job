@@ -5,7 +5,7 @@ typedef struct employer
 {
 	char companyName[MAXNAME], Lname[MAXNAME], Fname[MAXNAME], email[MAXNAME],
 		password1[MAXNAME], password2[MAXNAME], city[MAXNAME], answer[MAXNAME],
-		phoneNumber[MAXNAME], jobDescription[MAXBUFFER];//all the candidate data
+		phoneNumber[MAXNAME], jobDescription[MAXBUFFER];//all the employer data
 	int questionChoose;
 
 
@@ -22,20 +22,16 @@ typedef struct job
 
 
 job buildJob(int number);
-
 int EmployerMenu(employer emp);
-//int editProfileMenu(employer emp);
+int editProfileMenuEmp(employer emp);
 int jobAdd(char* email);
 int jobEdit(char* email);
 int editJobFromList(char* email);
 int deleteJob(char* email);
-
 int printMyPublishedJobs(char* email);
-
 int jobsOfferList(char* email);
 
-
-//employer editProfile(employer emp, char* fileName, int ans);
+employer editProfileEmp(employer emp, char* fileName, int ans);
 employer employer_Registration();
 employer loginE(char email[]);
 employer resetPassword2(employer e);

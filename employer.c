@@ -337,6 +337,7 @@ int EmployerMenu(employer emp)
 		case '4':
 		{
 			editProfileMenuEmp(emp);// menu for edit profile for employer
+			break;
 		}
 		case '5':
 		{

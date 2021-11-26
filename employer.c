@@ -152,66 +152,125 @@ employer employer_Registration()
 
 }
 
-int EmployerMenu(employer emp)
-{
-	int run = 0;
-	char choice = '0';
-	while (run != -1)
-	{
-		printf("----Wellcome dear %s---- \n", emp.Fname);
-		printf("Employer Menu :\n");
-		printf("Press 1 to Search engine.\n");// signed as a same candidate search engine in the requirments...
-		printf("Press 2 to Add,Edit,Delete jobs.\n");
-		printf("Press 3 to List of my jobs offers.\n");
-		printf("Press 4 to Edit profile.\n");
-		printf("Press 5 to delete profile.\n");
-		printf("Press 6 to Candidate Search.\n");
-		printf("Press 7 to exit.\n\nchoice : ");
-		scanf("%c", &choice);
-		switch (choice)
-		{
-		case '1': {
-			//empSearchEngine();
-			break;
-		}
-		case '2':
-		{
-			getchar();
-			jobEdit(emp.email);// inside function switch cases between 3 cases (edit,add,delete)
-			getchar();
-			break;
-		}
-		case '3':
-		{
-			//jobsOfferList();//printing list of jobs and details,viewing optional candidates for specific jobs , and option to delete the job
-			break;
-		}
-		case '4':
-		{
-			//empProfilEdit();// not the same  profile for the employer...
-		}
-		case '5': {
-			//deleteProfile();
-		}
-		case '6':
-		{
-			run = -1;
-			//candidateSearch();// candidate searching by age/type/working area
-		}
-		case '7':
-		{
-			//logoutFunc();// Logout Function
-		}
-
-		default:
-		{
-			system("cls");
-			printf("wrong Input Please Choose between 1-7 \n");
-		}
-		}
-	}
-	return main();
-}
+//employer editProfile(employer emp, char* fileName, int ans)
+//{
+//	int count = countNumLine("JOB_LIST_DATA.csv");
+//	char name[MAXNAME] = "submissionsJOB";
+//	char num[MAXNAME];
+//	char buffer[MAXBUFFER];
+//	int exists = 0;
+//	FILE* temppf = NULL;
+//	int check = 0, wantedRow;
+//
+//	wantedRow = findRightRow(fileName, cand.email);
+//	if (wantedRow == 0)
+//	{
+//		printf("The email not found!");
+//		return;
+//	}
+//
+//	check = deleteline(fileName, wantedRow);
+//	FILE* fp = fopen(fileName, "a+");
+//	if (!fp) {
+//		// Error in file opening
+//		printf("Can't open file\n");
+//		return;
+//	}
+//	if (check == 0)
+//	{
+//		if (ans == 1)
+//		{
+//			printf("Enter your new email: \b");
+//			scanf("%s", &cand.email);
+//			while (MailCheck(cand.email) == 0)
+//			{
+//				printf("\nEnter email address:  \b");
+//				scanf("%s", &cand.email);
+//			}
+//		}
+//		if (ans == 2)
+//		{
+//			printf("\nEnter password: (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword:  ");
+//			scanf("%s", &cand.password1);
+//			while (PasswordCheck(cand.password1) == 0)
+//			{
+//				printf("\nEnter the password again: (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword:  ");
+//				scanf("%s", &cand.password1);
+//			}
+//			printf("\nPassword verefication:  \b");
+//			scanf("%s", &cand.password2);
+//			while (strcmp(cand.password1, cand.password2))
+//			{
+//				printf("\nthe passwords are diffrents,enter your verfication password again:  \b");
+//				scanf("%s", &cand.password2);
+//			}
+//			getchar();
+//		}
+//		if (ans == 3)
+//		{
+//			printf("Enter your city name : (enter just in small letters)");
+//			gets(cand.city);
+//			while (CheckLower(cand.city) == 0)
+//			{
+//				gets(cand.city);
+//			}
+//		}
+//		if (ans == 4)
+//		{
+//			printf("\nEnter phone number:  \b");
+//			scanf("%s", &cand.phoneNumber);
+//			while (PhoneCheck(cand.phoneNumber) == 0)
+//			{
+//				printf("\nEnter phone number:  \b");
+//				scanf("%s", &cand.phoneNumber);
+//			}
+//		}
+//		if (ans == 5)
+//		{
+//			printf("\nChoose your security question:(default question is 1)\n");
+//			printf("press 1: What is your grandfather name from your father side? \n");
+//			printf("press 2: What is your pet name? \n");
+//			printf("press 3: What is the name of your high-school? \nyour choise:  \b");
+//			scanf("%s", &cand.questionChoose);
+//		}
+//		if (ans == 6)
+//		{
+//			printf("\nEnter phone number:  \b");
+//			gets(cand.answer);
+//		}
+//		if (ans == 7)
+//		{
+//			printf("\nEnter job preference:  \b");
+//			gets(cand.wantedjobs);
+//		}
+//		for (int i = 0; i < count; i++)
+//		{
+//			strcpy(name, "submissionsJOB");
+//			sprintf(num, "%d", count);
+//			strcat(name, num);
+//			strcat(name, ".csv");
+//			if (ifExists(name, cand.email, 4) == 0)
+//			{
+//				deleteline(name, findRightRow(name, cand.email));
+//				fopen(name, "a");
+//				fprintf(temppf, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
+//					cand.Fname, cand.Lname, cand.email, cand.password1,
+//					cand.city, cand.month, cand.day,
+//					cand.year, cand.phoneNumber, cand.questionChoose, cand.answer, cand.wantedjobs);
+//				fclose(temppf);
+//			}
+//		}
+//		fprintf(fp, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
+//			cand.Fname, cand.Lname, cand.email, cand.password1,
+//			cand.city, cand.month, cand.day,
+//			cand.year, cand.phoneNumber, cand.questionChoose, cand.answer, cand.wantedjobs);
+//		fclose(fp);
+//		return cand;
+//
+//	}
+//	fclose(fp);
+//	return cand;
+//}
 
 employer resetPassword2(employer e)
 {
@@ -261,6 +320,168 @@ employer resetPassword2(employer e)
 	}
 
 }
+
+int EmployerMenu(employer emp)
+{
+	int run = 0;
+	char choice = '0';
+	while (run != -1)
+	{
+		printf("----Wellcome dear %s---- \n", emp.Fname);
+		printf("Employer Menu :\n");
+		printf("Press 1 to Search engine.\n");// signed as a same candidate search engine in the requirments...
+		printf("Press 2 to Add,Edit,Delete jobs.\n");
+		printf("Press 3 to List of my jobs offers.\n");
+		printf("Press 4 to Edit profile.\n");
+		printf("Press 5 to delete profile.\n");
+		printf("Press 6 to Candidate Search.\n");
+		printf("Press 7 to exit.\n\nchoice : ");
+		scanf("%c", &choice);
+		switch (choice)
+		{
+		case '1': {
+			//empSearchEngine();
+			break;
+		}
+		case '2':
+		{
+			getchar();
+			jobEdit(emp.email);// inside function switch cases between 3 cases (edit,add,delete)
+			getchar();
+			break;
+		}
+		case '3':
+		{
+			getchar();
+			jobsOfferList(emp.email);//printing list of jobs and details,viewing optional candidates for specific jobs , and option to delete the job
+			getchar();
+			break;
+		}
+		case '4':
+		{
+			//empProfilEdit();// not the same  profile for the employer...
+		}
+		case '5':
+		{
+
+			getchar();
+			system("cls");
+			deleteline("Employer_DATA.csv", findRightRow("Employer_DATA.csv", emp.email));
+			run = -1;
+			getchar();
+			break;
+		}
+		case '6':
+		{
+			run = -1;
+			//candidateSearch();// candidate searching by age/type/working area
+		}
+		case '7':
+		{
+			system("cls");
+			run = -1;
+			getchar();
+			break;
+		}
+
+		default:
+		{
+			system("cls");
+			printf("wrong Input Please Choose between 1-7 \n");
+		}
+		}
+	}
+	return main();
+}
+
+//int editProfileMenu(employer emp)
+//{
+//	char choice = '0';
+//	int run = 0;
+//	int ans = 0;
+//
+//	while (run != -1)
+//	{
+//		printf("Edit Profile Menu:\nPress 1 for Edit email.\n");//need
+//		printf("Press 2 to Change your password.\n");//need
+//		printf("Press 3 to Edit city adress.\n");//need
+//		printf("Press 4 to Edit Phone number.\n");//need
+//		printf("Press 5 to Change your security question.\n");//need
+//		printf("Press 6 to Edit your company description.\n");
+//		printf("Press 7 to go back to the previous menu.\n");
+//		printf("choice : ");
+//		scanf("%c", &choice);
+//		switch (choice)
+//		{
+//		case '1':
+//		{
+//			//system("cls");
+//			//getchar();
+//			//ans = choice - '0';
+//			//cand = editProfile(cand, "Candidate_DATA.csv", ans);//Email editfunction
+//			//getchar();
+//			break;
+//		}
+//		case '2':
+//		{
+//			system("cls");
+//			getchar();
+//			ans = choice - '0';
+//			editProfile(cand, "Candidate_DATA.csv", ans);//Change Password function
+//			getchar();
+//			break;
+//		}
+//		case '3':
+//		{
+//			system("cls");
+//			getchar();
+//			ans = choice - '0';
+//			editProfile(cand, "Candidate_DATA.csv", ans);//address edit function
+//			getchar();
+//			break;
+//		}
+//		case '4':
+//		{
+//			system("cls");
+//			getchar();
+//			ans = choice - '0';
+//			editProfile(cand, "Candidate_DATA.csv", ans);//Phone number edit function 
+//			getchar();
+//			break;
+//		}
+//
+//		case '5':
+//		{
+//			system("cls");
+//			//change security number
+//			getchar();
+//			break;
+//		}
+//
+//		case '6':
+//		{
+//			system("cls");
+//			getchar();
+//			CVFile(cand);//free CV builder (not urgent)
+//			getchar();
+//			break;
+//		}
+//		case '7':
+//		{
+//			system("cls");
+//			run = -1;
+//			break;
+//		}
+//
+//		default:
+//		{
+//			system("cls");
+//			printf("Worng input please try again...(1-7) \n");
+//		}
+//		}
+//	}
+//}
+
 
 int jobEdit(char* email)// inside function switch cases between 3 cases (edit,add,delete)
 {
@@ -697,38 +918,54 @@ int editJobFromList(char* email)
 	}
 	fprintf(fp, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity, joBs.Jtype, joBs.Jdescription, joBs.Jresponsibilities, joBs.Jqualifications, joBs.Jsalary, joBs.Jhours, joBs.empEmail);
 	fclose(fp);
+
+
+
 	return 0;
 }
 
 int deleteJob(char* email)
 {
-	int jobNumber,check=0;
+	
+	int jobNumber, check = 0;
+	char jobNum[MAXBUFFER];
+	char fileName[MAXNAME] = "submissionsJOB";//submissionsJOB2
 
 	if (printMyPublishedJobs(email) == 0)
 	{
 		printf("You dont have any published jobs!");
 		return 0;
 	}
-	else
+	
+	printf("\nEnter the job number you want to delete: ");
+	scanf("%d", &jobNumber);
+	getchar();
+	job joBs;
+	joBs = buildJob(jobNumber);
+	sprintf(jobNum, "%d", jobNumber);
+	strcat(fileName, jobNum);
+	strcat(fileName, ".csv");
+
+	if (findJobsubFile(fileName) == 0)// if there a .csv file of submissions.
 	{
-		printf("\nEnter the job number you want to delete: ");
-		scanf("%d", &jobNumber);
-		getchar();
-		job joBs;
-		joBs = buildJob(jobNumber);
+		deleteFromSubAndFromPersonalcsvFile(fileName,jobNumber);
+	}
 
-		check = deleteJobLine("JOB_LIST_DATA.csv", jobNumber);
-		if (check == 0)
-		{
-			printf("\nJob No.%d was deleted successfully!", jobNumber);
-			return 0;
-		}
-		else
-		{
-			printf("\nThere was a problem to delete your job!");
-			return 1;
-		}
+	check = fevoritsDelete(fileName, jobNumber);//fevorits check and delete.
+	
 
+
+	check = deleteJobLine("JOB_LIST_DATA.csv", jobNumber);
+	if (check == 0)
+	{
+		printf("\nJob No.%d was deleted from the JOB DATA BASE successfully!\n", jobNumber);
+		return 0;
+	}
+
+	if (check != 0)
+	{
+		printf("\nThere was a problem to delete your job!\n");
+		return 1;
 	}
 }
 
@@ -784,10 +1021,77 @@ int printMyPublishedJobs(char *email)
 	return jobCounter;
 }
 
-//int jobsOfferList()
-//{
-//
-//}
+int jobsOfferList(char *email)
+{
+	int jobNumber;
+	char jobNum[MAXBUFFER];
+	char fileName[MAXNAME] = "submissionsJOB";//submissionsJOB2
+	if (printMyPublishedJobs(email) == 0)
+	{
+		printf("You dont have any published jobs!");
+		return 0;
+	}
+	else
+	{
+		printf("\nEnter the job number to see all the candidates that submitted for this job: ");
+		scanf("%d", &jobNumber);
+		getchar();
+		sprintf(jobNum, "%d", jobNumber);
+		strcat(fileName, jobNum);
+		strcat(fileName, ".csv");
+
+		if (findJobsubFile(fileName) != 0)
+		{
+			printf("\nStill No one submitted for this job!\n");
+			return 1;
+		}
+		else
+		{
+			FILE* fp = fopen(fileName, "r");
+			if (!fp)
+			{
+				printf("can't open file\n");
+				return 1;
+			}
+			char buffer[2024];
+			while (fgets(buffer, 1024, fp))
+			{
+				printCand(buffer);
+			}
+			fclose(fp);
+			printf("\nIf you want to delete a job, choose the job number that you want");
+			int run = 0;
+			char choice = '0';
+			while (run != -1)
+			{
+				printf("Press 1 for delete this job.\n");
+				printf("Press 2 to go back.\n");
+				scanf("%c", &choice);
+				switch (choice)
+				{
+				case '1':
+				{
+					deleteJob(email);
+					run = -1;
+					break;
+				}
+				case '2':
+				{
+					run = -1;
+					break;
+				}
+
+				default:
+				{
+					system("cls");
+					printf("wrong Input Please Choose between 1-2 \n");
+				}
+				}
+			}
+		}
+	}
+	return 0;
+}
 
 job buildJob(int number)
 {

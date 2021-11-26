@@ -3,6 +3,7 @@
 #include "checkFunction.h"
 candidate loginC(char email[])
 {
+	char* pch;
 	char* value, buffer[2024];
 	int column = 0, row = 0, wantedRow = 1;
 	candidate newCand;
@@ -59,7 +60,11 @@ candidate loginC(char email[])
 					if (column == 11)
 						strcpy(newCand.answer, value);
 					if (column == 12)
-						strcpy(newCand.wantedjobs, value);
+					{
+						pch = strtok(value, "\n");
+						strcpy(newCand.wantedjobs, pch);
+					}
+						
 					if (column == 13)
 						strcpy(newCand.CVname, value);
 
@@ -723,7 +728,9 @@ int favoriteJobs(candidate cand)
 
 	while (fgets(buffer, 2024, candF))
 	{
-		printJob(buffer);
+		if(strcmp(buffer, "\n") !=0)
+			printJob(buffer);
+
 	}
 	fclose(candF);
 	return 0;

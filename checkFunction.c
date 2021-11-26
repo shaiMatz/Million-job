@@ -328,6 +328,160 @@ int deleteJobLine(char* fileName, int serialNum)
 	rc = rename(name, fileName);
 	return 0;
 }
+
+int deleteJobLineFromCAND_NAME_CSVfile(char* fileName, int serialNum)
+{
+	char num[50];
+	sprintf(num, "%d", serialNum);
+	char buffer[2024];
+	int numRow = 0, rc;
+	char name[50] = "temp";
+	FILE* fp = fopen(fileName, "r");
+	strcat(name, fileName);
+	FILE* temp = fopen(name, "w");
+	if (!fp)
+	{
+		printf("Can't open file: %s\n", fileName);
+		return 1;
+	}
+	if (!temp)
+	{
+		printf("Can't open file: %s\n", name);
+		return 1;
+	}
+	else
+	{
+		while (fgets(buffer, 1024, fp))
+		{
+			char tempbuf[1024];
+			strcpy(tempbuf, buffer);
+			if (strcmp(getfield(tempbuf, 1), num) != 0)
+			{
+				fprintf(temp, "%s", buffer);
+			}
+		}
+	}
+
+
+	fclose(fp);
+
+
+	rc = remove(fileName);
+	if (rc != 0)
+	{
+		perror("remove");
+		return 1;
+	}
+	fclose(temp);
+	rc = rename(name, fileName);
+	return 0;
+}
+
+int deleteFromSubAndFromPersonalcsvFile(char* fileName, int jobNumber)
+{
+
+	char* temp;
+	char* temp2;
+	char canName[MAXNAME];
+	char buffer[2024];
+	char ID[MAXNAME];
+	int rc,check = 0, check2 = 0;
+	//deleteFromSubAndFromPersonalcsvFile(char* fileName,int jobNumber)
+	FILE* fp = fopen(fileName, "w");
+	if (!fp) {
+		// Error in file opening
+		printf("Can't open file\n");
+		return 1;
+	}
+	while (fgets(buffer, 1024, fp))
+	{
+
+		temp = _strdup(buffer);
+		temp2 = _strdup(buffer);
+		strcpy(ID, getfield(temp, 1));// geting the id.
+
+		strcpy(canName, getfield(temp2, 2));// geting the name of canditate.
+		strcat(canName, ID);
+		strcat(canName, ".csv");
+		if (findJobsubFile(canName) == 0)// if there a canditade_name_id.csv file.
+		{
+			check2 = deleteJobLineFromCAND_NAME_CSVfile(canName, jobNumber);
+			if (check2 == 0)
+			{
+				printf("\nJob No.%d was deleted successfully from %s.csv file!\n", jobNumber, canName);
+			}
+			else
+			{
+				printf("\nThere was a problem to delete your job!\n");
+				return 1;
+			}
+
+		}
+		else
+			continue;
+	}
+	fclose(fp);
+
+
+	rc = remove(fileName);
+	if (rc != 0)
+	{
+		perror("remove");
+		return 1;
+	}
+	printf("\nSubmissions file was removed successfully!\n");
+	return 0;
+}
+
+int fevoritsDelete(char* fileName,int jobNumber)
+{
+	char* temp3;
+	char* temp4;
+	char canName[MAXNAME];
+	char buffer[2024];
+	char ID[MAXNAME];
+	int rc,check2 = 0;
+	FILE* fpcand = fopen("Candidate_DATA.csv", "r");// to search for the fevorits
+	if (!fpcand)
+	{
+		printf("Can't open file\n");
+		return 1;
+	}
+	while (fgets(buffer, 1024, fpcand))
+	{
+
+		temp3 = _strdup(buffer);
+		temp4 = _strdup(buffer);
+		strcpy(ID, getfield(temp3, 1));// geting the id.
+		strcpy(canName, getfield(temp4, 2));// geting the name of canditate.
+		char name[MAXNAME] = "FAVORITEJOB";
+		strcat(name, canName);
+		strcat(name, ID);
+		strcat(name, ".csv");
+		if (findJobsubFile(name) == 0)
+		{
+			check2 = deleteJobLineFromCAND_NAME_CSVfile(name, jobNumber);
+			if (check2 == 0)
+			{
+				printf("\nJob No.%d was deleted successfully from %s file!\n", jobNumber, name);
+			}
+			else
+			{
+				printf("\nThere was a problem to delete your job!\n");
+				return 1;
+			}
+
+		}
+		else
+			continue;
+	}
+	fclose(fpcand);
+	return 0;
+}
+
+
+
+
 int findRightRow(char* fileName, char* email)
 {//find the row by email, returns the line nunber
 	char* value, buffer[2024];
@@ -628,4 +782,16 @@ int lastSerial()
 	}
 	fclose(JoblistdataF);
 	return bigSerialNum;
+}
+
+int findJobsubFile(char* fileName)// file finder.
+{
+	char buffer[2024];
+	FILE* fp = fopen(fileName, "r");
+	if (!fp)
+	{
+		return 1;
+	}
+	fclose(fp);
+	return 0;
 }

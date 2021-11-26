@@ -28,3 +28,7 @@ int ifExists(char* fileName, char* name, int column);
 int sortFile(char* fileName, int column);
 int sortFilefromendtostart(char* fileName, int column);
 int lastSerial();
+int findJobsubFile(char* fileName);
+int deleteJobLineFromCAND_NAME_CSVfile(char* fileName, int serialNum);
+int deleteFromSubAndFromPersonalcsvFile(char* fileName,int jobNumber);
+int fevoritsDelete(char* fileName,int jobNumber);

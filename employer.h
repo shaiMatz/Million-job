@@ -24,6 +24,7 @@ typedef struct job
 job buildJob(int number);
 
 int EmployerMenu(employer emp);
+//int editProfileMenu(employer emp);
 int jobAdd(char* email);
 int jobEdit(char* email);
 int editJobFromList(char* email);
@@ -31,10 +32,10 @@ int deleteJob(char* email);
 
 int printMyPublishedJobs(char* email);
 
-//int jobsOfferList();
+int jobsOfferList(char* email);
 
 
-
+//employer editProfile(employer emp, char* fileName, int ans);
 employer employer_Registration();
 employer loginE(char email[]);
 employer resetPassword2(employer e);

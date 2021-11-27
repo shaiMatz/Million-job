@@ -1,6 +1,7 @@
 #include "candidate.h"
 #include "SearchEngine.h"
 #include "checkFunction.h"
+
 candidate loginC(char email[])
 {
 	char* pch=NULL;
@@ -58,8 +59,7 @@ candidate loginC(char email[])
 				temp = _strdup(buffer);
 				strcpy(newCand.wantedjobs, getfield(temp, 13));	
 				temp = _strdup(buffer);
-				if(getfield(temp, 14)!=NULL)
-					strcpy(newCand.CVname, getfield(temp, 14));
+			
 			}
 
 		}
@@ -137,19 +137,7 @@ candidate CVFile(candidate cand)
 	system("cls");
 	printf("your CV file created!\n");
 	strcpy(cand.CVname, CVName);
-	int row = findRightRow("Candidate_DATA.csv", cand.email);
-	deleteline("Candidate_DATA.csv", row);
-	FILE* fp = fopen("Candidate_DATA.csv", "a+");
-	if (!fp) {
-		// Error in file opening
-		printf("Can't open file\n");
-		return;
-	}
-	fprintf(fp, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,
-		cand.Fname, cand.Lname, cand.email, cand.password1,
-		cand.city, cand.month, cand.day,
-		cand.year, cand.phoneNumber, cand.questionChoose, cand.answer, cand.CVname);
-	fclose(fp);
+	
 	return cand;
 
 }
@@ -234,6 +222,7 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 			printf("press 2: What is your pet name? \n");
 			printf("press 3: What is the name of your high-school? \nyour choise:  \b");
 			scanf("%s", &cand.questionChoose);
+			getchar();
 			printf("\nEnter your answer:  \b");
 			gets(cand.answer);
 
@@ -257,7 +246,7 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 			if (ifExists(name, cand.email, 4) == 0)
 			{
 				deleteline(name, findRightRow(name, cand.email));
-				temppf = fopen(name, "a+");
+				temppf=fopen(name, "a+");
 				fprintf(temppf, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,//enter all the informaitin into the database
 					cand.Fname, cand.Lname, cand.email, cand.password1,
 					cand.city, cand.month, cand.day,
@@ -432,23 +421,12 @@ int CandidateMenu(candidate cand)
 		case '5':
 		{
 			system("cls");
-			deleteline("Candidate_DATA.csv", findRightRow("Candidate_DATA.csv", cand.email));
-			char tempname[MAXNAME];
-			strcpy(tempname, cand.Fname);
-			strcat(tempname, cand.ID);
-			strcat(tempname, ".csv");
-			remove(tempname);
-			char tempname2[MAXNAME];
-			strcpy(tempname2, "FAVORITEJOB");
-			strcat(tempname2, cand.Fname);
-			strcat(tempname2, cand.ID);
-			strcat(tempname2, ".csv");
-			remove(tempname2);
+			char name[MAXNAME], num[MAXNAME], CFileName[MAXNAME];
 			int count = countNumLine("JOB_LIST_DATA.csv");
+			deleteline("Candidate_DATA.csv", findRightRow("Candidate_DATA.csv", cand.email));
 			for (int i = 0; i < count; i++)
 			{
-				char name[MAXNAME] = "submissionsJOB";
-				char num[MAXNAME];
+				strcpy(name, "submissionsJOB");
 				sprintf(num, "%d", i);
 				strcat(name, num);
 				strcat(name, ".csv");
@@ -457,6 +435,16 @@ int CandidateMenu(candidate cand)
 					deleteline(name, findRightRow(name, cand.email));
 				}
 			}
+			char tempname[MAXNAME] = "FAVORITEJOB";
+			strcat(tempname, cand.Fname);
+			strcat(tempname, cand.ID);
+			strcat(tempname, ".csv");
+			remove(tempname);
+
+			strcpy(CFileName, cand.Fname);
+			strcat(CFileName, cand.ID);
+			strcat(CFileName, ".csv");
+			remove(CFileName);
 			run = -1;
 			break;
 		}
@@ -474,7 +462,7 @@ int CandidateMenu(candidate cand)
 		}
 		}
 	}
-	return main();
+	return 0;
 }
 
 void searchEngine(candidate cand) {//Search engine for candidate (menu)
@@ -551,11 +539,11 @@ int editProfileMenu(candidate cand)
 		printf("Press 7 to go back to the previous menu\n");
 		printf("choice : ");
 		scanf("%c", &choice);
-		getchar();
 		switch (choice)
 		{
 		case '1':
 		{
+			getchar();
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//Email editfunction
@@ -564,6 +552,7 @@ int editProfileMenu(candidate cand)
 		}
 		case '2':
 		{
+			getchar();
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//Change Password function
@@ -571,6 +560,7 @@ int editProfileMenu(candidate cand)
 		}
 		case '3':
 		{
+			getchar();
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//address edit function
@@ -578,6 +568,7 @@ int editProfileMenu(candidate cand)
 		}
 		case '4':
 		{
+			getchar();
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//Phone number edit function 
@@ -586,7 +577,9 @@ int editProfileMenu(candidate cand)
 
 		case '5':
 		{
+			getchar();
 			system("cls");
+			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//change security question
 			break;
 		}

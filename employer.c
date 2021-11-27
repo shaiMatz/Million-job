@@ -3,6 +3,7 @@
 
 #include"employer.h"
 #include"SearchEngine.h"
+#include <malloc.h>
 
 employer loginE(char email[])
 {
@@ -336,12 +337,15 @@ int EmployerMenu(employer emp)
 		}
 		case '4':
 		{
+			system("cls");
 			editProfileMenuEmp(emp);// menu for edit profile for employer
 			break;
 		}
 		case '5':
 		{
 			system("cls");
+	
+			deleteMyPublishedJobs(emp.email);
 			deleteline("Employer_DATA.csv", findRightRow("Employer_DATA.csv", emp.email));//delete employer
 			run = -1;
 			break;
@@ -972,13 +976,9 @@ int deleteJob(char* email)
 	sprintf(jobNum, "%d", jobNumber);
 	strcat(fileName, jobNum);
 	strcat(fileName, ".csv");
+	remove(fileName);
 
-	if (findJobsubFile(fileName) == 0)// if there a .csv file of submissions.
-	{
-		deleteFromSubAndFromPersonalcsvFile(fileName,jobNumber);
-	}
-
-	check = fevoritsDelete(fileName, jobNumber);//fevorits check and delete.
+	check = fevoritsAndAddDelete(jobNumber);//fevorits check and delete.
 	
 
 
@@ -1047,6 +1047,83 @@ int printMyPublishedJobs(char *email)
 	fclose(JoblistdataF);
 	return jobCounter;
 }
+
+int deleteMyPublishedJobs(char* email)
+{
+	char* temp=NULL, buffer[2024];
+	int column = 0, count = 0;
+	int* arr = NULL;
+	int i = 0;
+	int jobNum;
+	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r+");
+	if (JoblistdataF == NULL)
+	{
+		printf("Can't open file!");
+		return 1;
+	}
+	while (fgets(buffer, 1024, JoblistdataF))//run to the end.
+	{		
+		temp = _strdup(buffer);
+		if (strcmp(getfield(temp, 11), email) == 0)
+			count++;
+	}
+	arr = (int*)malloc(count * sizeof(int));
+	rewind(JoblistdataF);
+	while (fgets(buffer, 1024, JoblistdataF))//run to the end.
+	{	
+		temp = _strdup(buffer);
+		if (strcmp(getfield(temp, 11), email) == 0)
+		{
+			temp = _strdup(buffer);
+			arr[i] = atoi(getfield(temp, 1));
+			i++;
+		}
+	}
+	fclose(JoblistdataF);
+
+	for (int j = 0; j < i; j++)
+	{
+		deleteJobsByNumber(arr[j]);
+	}
+	free(arr);
+	return 0;
+}
+
+//
+//temp = _strdup(buffer);
+//if (strcmp(getfield(temp, 11), email) == 0)
+//deleteJobsByNumber(getfield(temp, 1));
+
+int deleteJobsByNumber(int jobNumber)
+{
+	int check;
+	char jobNum[MAXBUFFER];
+	char fileName[MAXNAME] = "submissionsJOB";//submissionsJOB2
+	job joBs;
+	joBs = buildJob(jobNumber);//delete the job file
+	sprintf(jobNum, "%d", jobNumber);
+	strcat(fileName, jobNum);
+	strcat(fileName, ".csv");
+	remove(fileName);
+
+	fevoritsAndAddDelete(jobNumber);//fevorits check and delete.
+
+
+
+	check = deleteJobLine("JOB_LIST_DATA.csv", jobNumber);
+	if (check == 0)
+	{
+		printf("\nJob No.%d was deleted from the JOB DATA BASE successfully!\n", jobNumber);
+		return 0;
+	}
+
+	if (check != 0)
+	{
+		printf("\nThere was a problem to delete your job!\n");
+		return 1;
+	}
+}
+
 
 int jobsOfferList(char *email)
 {

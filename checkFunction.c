@@ -2,6 +2,7 @@
 #include "candidate.h"
 #include "employer.h"
 #include <errno.h>
+
 int IDCheck(char* ID)
 {
 	long longID;
@@ -336,9 +337,9 @@ int deleteJobLineFromCAND_NAME_CSVfile(char* fileName, int serialNum)
 	char buffer[2024];
 	int numRow = 0, rc;
 	char name[50] = "temp";
-	FILE* fp = fopen(fileName, "r");
+	FILE* fp = fopen(fileName, "r+");
 	strcat(name, fileName);
-	FILE* temp = fopen(name, "w");
+	FILE* temp = fopen(name, "r+");
 	if (!fp)
 	{
 		printf("Can't open file: %s\n", fileName);
@@ -386,8 +387,8 @@ int deleteFromSubAndFromPersonalcsvFile(char* fileName, int jobNumber)
 	char buffer[2024];
 	char ID[MAXNAME];
 	int rc,check = 0, check2 = 0;
-	//deleteFromSubAndFromPersonalcsvFile(char* fileName,int jobNumber)
-	FILE* fp = fopen(fileName, "w");
+
+	FILE* fp = fopen(fileName, "r+");
 	if (!fp) {
 		// Error in file opening
 		printf("Can't open file\n");
@@ -433,50 +434,45 @@ int deleteFromSubAndFromPersonalcsvFile(char* fileName, int jobNumber)
 	return 0;
 }
 
-int fevoritsDelete(char* fileName,int jobNumber)
+int fevoritsAndAddDelete(int jobNumber)
 {
-	char* temp3;
-	char* temp4;
-	char canName[MAXNAME];
-	char buffer[2024];
-	char ID[MAXNAME];
-	int rc,check2 = 0;
-	FILE* fpcand = fopen("Candidate_DATA.csv", "r");// to search for the fevorits
-	if (!fpcand)
+	int  run = 0, run2 = 0, run3 = 0;
+	char name[MAXNAME], num[MAXNAME], name2[MAXNAME];
+	char buffer[MAXBUFFER], * temp,*temp2, jobNum[MAXNAME];
+	FILE* candF = fopen("Candidate_DATA.csv", "r");//check if opend
+	if (!candF)
 	{
 		printf("Can't open file\n");
 		return 1;
 	}
-	while (fgets(buffer, 1024, fpcand))
+
+	fgets(buffer, 2024, candF);
+	while (fgets(buffer, 2024, candF))
 	{
-
-		temp3 = _strdup(buffer);
-		temp4 = _strdup(buffer);
-		strcpy(ID, getfield(temp3, 1));// geting the id.
-		strcpy(canName, getfield(temp4, 2));// geting the name of canditate.
-		char name[MAXNAME] = "FAVORITEJOB";
-		strcat(name, canName);
-		strcat(name, ID);
+		temp = _strdup(buffer);
+		strcpy(name, "FAVORITEJOB");
+		strcat(name, getfield(temp, 2));
+		temp = _strdup(buffer);
+		strcat(name, getfield(temp, 1));
 		strcat(name, ".csv");
-		if (findJobsubFile(name) == 0)
+		temp2 = _strdup(buffer);
+		strcpy(name2, getfield(temp2, 2));
+		temp2 = _strdup(buffer);
+		strcat(name2, getfield(temp2, 1));
+		strcat(name2, ".csv");
+		sprintf(jobNum, "%d", jobNumber);
+		if (ifExists(name, jobNum, 1) == 0)
 		{
-			check2 = deleteJobLineFromCAND_NAME_CSVfile(name, jobNumber);
-			if (check2 == 0)
-			{
-				printf("\nJob No.%d was deleted successfully from %s file!\n", jobNumber, name);
-			}
-			else
-			{
-				fclose(fpcand);
-				printf("\nThere was a problem to delete your job!\n");
-				return 1;
-			}
-
+			deleteline(name, findRightRowSerial(name, jobNum));
+			
 		}
-		else
-			continue;
+		if (ifExists(name2, jobNum, 1) == 0)
+		{
+			deleteline(name2, findRightRowSerial(name2, jobNum));
+			
+		}
 	}
-	fclose(fpcand);
+	fclose(candF);
 	return 0;
 }
 
@@ -599,14 +595,14 @@ int CheckLower(char* city)
 const char* getfield(char* line, int column)
 {
 	const char* value;
-	for (value = strtok(line, ",");
+	for (value = strtok(line, ",");//sperate the ,
 		value && *value;
 		value = strtok(NULL, ",\n"))
 	{
 		if (!--column)
-			return value;
+			return value;//return the value in the field
 	}
-	return NULL;
+	return NULL;// if not found returns null
 }
 int ifExists(char* fileName, char* name, int column)// check every field in the column if the name value exists
 {
@@ -691,7 +687,7 @@ int countNumLine(char* fileName)
 	int mone = -1;
 	while (fgets(buffer, 2024, pf))
 	{
-		mone++;
+		mone++;//counts every line
 	}
 	fclose(pf);
 	return mone;

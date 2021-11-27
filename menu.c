@@ -93,7 +93,6 @@ void menu()
 			{
 				system("cls");
 				newCand = loginC(temp);
-				getchar();
 				CandidateMenu(newCand);
 			}
 

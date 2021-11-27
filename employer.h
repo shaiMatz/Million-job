@@ -30,9 +30,10 @@ int editJobFromList(char* email);
 int deleteJob(char* email);
 int printMyPublishedJobs(char* email);
 int jobsOfferList(char* email);
-
 employer editProfileEmp(employer emp, char* fileName, int ans);
 employer employer_Registration();
 employer loginE(char email[]);
 employer resetPassword2(employer e);
+int deleteJobsByNumber(int jobNumber);
+int deleteMyPublishedJobs(char* email);
 

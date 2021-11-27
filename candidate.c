@@ -85,7 +85,7 @@ candidate CVFile(candidate cand)
 	}
 	printf("\nBase information\n");
 	// Asking user input for the CVFile
-
+	getchar();
 	fprintf(CandidateCV, "%s %s %s", cand.Fname, cand.Lname, "CV\n\n");
 	printf("ID: %s \n", cand.ID);
 	fprintf(CandidateCV, "%s %s %s", "Base information\nID: ", cand.ID, "\n");

@@ -61,11 +61,11 @@ int MailCheck(char* mail)
 	for (i = 0; i < strlen(mail); i++)
 	{
 		if (mail[i] == '@')
-			counter3++;
+			counter3++;////count how many @ there are
 		if (mail[i] == '.')
-			counter4++;
+			counter4++;//count how many . there are
 	}
-	if (counter3 != 1 || counter4 < 1)
+	if (counter3 != 1 || counter4 < 1)//check if there is only one '@' and at least one '.'
 	{
 		printf("Mail not valid !\n");
 		return 0;
@@ -73,28 +73,28 @@ int MailCheck(char* mail)
 	i = 0;
 	while (mail[i] != '@')
 	{
-		position++;
+		position++;//check the position of the '@'
 		i++;
 	}
 	i = 0;
 	while (mail[i] != '@')
 	{
-		counter2++;
+		counter2++;//check how many letters are before the '@'
 		i++;
 	}
 	while (mail[i] != '.')
 	{
-		counter2++;
+		counter2++;//check the position of the '.'
 		i++;
 	}
 	for (int i = 0; i < strlen(mail); i++)
 	{
 		if (mail[i] == '.')
-			point++;
+			point++;//count how many '.' there are
 		if (mail[i] == '@')
-			point2++;
+			point2++;//count how many '@' there are
 	}
-	if (position >= 3 && point >= 1 && point2 == 1 && position < counter2)
+	if (position >= 3 && point >= 1 && point2 == 1 && position < counter2)//check that there are 3 letters before the '@', at least one '.', just one '@'
 		return 1;
 	else
 	{
@@ -109,15 +109,15 @@ int PasswordCheck(char* password)
 	for (int i = 0; i < strlen(password); i++)
 	{
 		if (password[i] >= 'A' && password[i] <= 'Z')
-			countUpper++;
+			countUpper++;//count the number of uppercase letters
 		if (password[i] >= 'a' && password[i] <= 'z')
-			countLower++;
+			countLower++;//count the number of lowercase letters
 		if (password[i] >= '0' && password[i] <= '9')
-			countDigit++;
+			countDigit++;//count the number of digits
 		if (password[i] >= 32 && password[i] <= 47 || password[i] >= 58 && password[i] <= 64 || password[i] >= 92 && password[i] <= 96 || password[i] >= 123 && password[i] <= 126)
-			countSymbol++;
+			countSymbol++;//count the number of symbols
 	}
-	if (countUpper > 0 && countLower > 0 && countDigit > 0 && countSymbol > 0 && strlen(password) >= 8)
+	if (countUpper > 0 && countLower > 0 && countDigit > 0 && countSymbol > 0 && strlen(password) >= 8)//check if there is at least one uppercase, lowercase letter, digit and symbol and if the password size is larger than 9
 	{
 		return 1;
 	}
@@ -129,26 +129,26 @@ int PasswordCheck(char* password)
 }
 int BirthCheck(int day, int month, int year)
 {
-	if (year < 1900)
+	if (year < 1900)//check the limitations
 	{
 		printf("Not valid year !\n");
 		return 0;
 	}
-	if (month < 1 || month >12)
+	if (month < 1 || month >12)//check the limitations
 	{
 		printf("Not valid month !\n");
 		return 0;
 	}
-	if (day < 1 || day>31)
+	if (day < 1 || day>31)//check the limitations
 	{
 		printf("Not valid day !\n");
 		return 0;
 	}
-	if (year % 4 == 0 && year & 100 != 0 || year % 400 == 0)
+	if (year % 4 == 0 && year & 100 != 0 || year % 400 == 0)//check the bisexctile year
 	{
 		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
 		{
-			if (day >= 1 && day <= 31)
+			if (day >= 1 && day <= 31)//check if these months contain up to 31 days
 			{
 				return 1;
 			}
@@ -160,7 +160,7 @@ int BirthCheck(int day, int month, int year)
 		}
 		if (month == 2)
 		{
-			if (day >= 1 && day <= 29)
+			if (day >= 1 && day <= 29)//checks if the month of February in a bisexctile year contains at most 29 days
 			{
 				return 1;
 			}
@@ -172,7 +172,7 @@ int BirthCheck(int day, int month, int year)
 		}
 		if (month == 4 || month == 6 || month == 9 || month == 11)
 		{
-			if (day >= 1 && day <= 30)
+			if (day >= 1 && day <= 30)//check if these months contain up to 30 days
 			{
 				return 1;
 			}
@@ -189,7 +189,7 @@ int BirthCheck(int day, int month, int year)
 	{
 		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
 		{
-			if (day >= 1 && day <= 31)
+			if (day >= 1 && day <= 31)//check if these months contain up to 31 days
 			{
 				return 1;
 			}
@@ -201,7 +201,7 @@ int BirthCheck(int day, int month, int year)
 		}
 		if (month == 2)
 		{
-			if (day >= 1 && day <= 28)
+			if (day >= 1 && day <= 28)//checks if the month of February in a no bisexctile year contains at most 28 days
 			{
 				return 1;
 			}
@@ -213,7 +213,7 @@ int BirthCheck(int day, int month, int year)
 		}
 		if (month == 4 || month == 6 || month == 9 || month == 11)
 		{
-			if (day >= 1 && day <= 30)
+			if (day >= 1 && day <= 30)//check if these months contain up to 30 days
 			{
 				return 1;
 			}
@@ -227,9 +227,9 @@ int BirthCheck(int day, int month, int year)
 }
 int PhoneCheck(char* phone)
 {
-	if (phone[0] == '0' && phone[1] == '5' && strlen(phone) == 10)
+	if (phone[0] == '0' && phone[1] == '5' && strlen(phone) == 10)//check that the length of the telephone number is equal to 10, and that it starts with 05
 		return 1;
-	if (strlen(phone) != 10)
+	if (strlen(phone) != 10)//check that the size of the phone number does not exceed 10 digits
 	{
 		printf("The phone number must have 10 digits, try again !\n");
 		return 0;
@@ -574,20 +574,20 @@ int CheckLower(char* city)
 	{
 		if (city[i] >= 'a' && city[i] <= 'z')
 		{
-			count++;
+			count++;//counter for lowercase letters
 		}
 		if (city[i] == ' ')
 		{
-			countSpace++;
+			countSpace++;//counter for spaces
 		}
 		if (city[i] > 32 && city[i] <= 47 || city[i] >= 58 && city[i] <= 64 || city[i] >= 92 && city[i] <= 96 || city[i] >= 123 && city[i] <= 126)
 		{
-			countSymbol++;
+			countSymbol++;//counter for symbols
 		}
 
 
 	}
-	if (count == strlen(city) - countSpace - countSymbol)
+	if (count == strlen(city) - countSpace - countSymbol)//check if the number of lowercase letters is equal to the size of the word
 		return 1;
 	else
 	{

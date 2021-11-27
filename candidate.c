@@ -54,13 +54,12 @@ candidate loginC(char email[])
 				temp = _strdup(buffer);
 				newCand.questionChoose = atoi(getfield(temp, 11));
 				temp = _strdup(buffer);
-				strcpy(newCand.answer, getfield(pch, 12));
-				pch = strtok(temp, "\n");//was the last need to remove \n
+				strcpy(newCand.answer, getfield(temp, 12));			
 				temp = _strdup(buffer);
-				strcpy(newCand.wantedjobs, getfield(temp, 13));
-				pch = strtok(temp, "\n");//was the last need to remove \n
+				strcpy(newCand.wantedjobs, getfield(temp, 13));	
 				temp = _strdup(buffer);
-				strcpy(newCand.CVname, getfield(temp, 14));
+				if(getfield(temp, 14)!=NULL)
+					strcpy(newCand.CVname, getfield(temp, 14));
 			}
 
 		}
@@ -258,7 +257,7 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 			if (ifExists(name, cand.email, 4) == 0)
 			{
 				deleteline(name, findRightRow(name, cand.email));
-				fopen(name, "a");
+				fopen(name, "a+");
 				fprintf(temppf, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,//enter all the informaitin into the database
 					cand.Fname, cand.Lname, cand.email, cand.password1,
 					cand.city, cand.month, cand.day,
@@ -649,7 +648,7 @@ int wantedJobs(candidate cand)// print all the wanted jobs
 
 	FILE* candF = fopen(CFileName, "r");
 	if (!candF) {
-		printf("can't open file: %s\n", CFileName);
+		printf("You don't have jobs in submissions list\n");
 		return 1;
 	}
 
@@ -671,7 +670,7 @@ int favoriteJobs(candidate cand)// print all the favorite jobs
 	FILE* candF = fopen(name, "r");
 	if (!candF)
 	{
-		printf("can't open file: %s\n~press enter to continue~", name);
+		printf("You don't have jobs in favorite list\n");
 		return 0;
 	}
 

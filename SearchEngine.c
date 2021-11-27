@@ -9,34 +9,42 @@ int Filtermenu(candidate cand)
 	{
 		printf("Press 1 to sort by location \nPress 2 to sort by job hours \nPress 3 to sort by salary \nPress 4 to sort job type \nPress 5 to go to the previous menu\n ");
 		scanf("%c", &i);
+		getchar();
 		switch (i)
 		{
 		case '1':
-			getchar();
+			system("cls");
+			
 			filtertown(cand);
 			break;
 
 		case '2':
-			getchar();
+			system("cls");
+
 			filterjobhours(cand);
 			break;
 
 		case '3':
-			getchar();
+			system("cls");
+
 			filtersalary(cand);
 			break;
 
 		case '4':
-			getchar();
+			system("cls");
+
 			filterjobtype(cand);
 			break;
 
 		case '5':
-			getchar();
+			system("cls");
+
 			i = '0';
 			break;
 
 		default:
+			system("cls");
+
 			printf("wrong entry try again\n");
 			break;
 		}

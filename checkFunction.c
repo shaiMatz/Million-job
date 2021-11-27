@@ -240,7 +240,7 @@ int PhoneCheck(char* phone)
 		return 0;
 	}
 }
-int deleteline(char* fileName, int row)
+int deleteline(char* fileName, int row)// delete the line from the file
 {
 	char buffer[2024];
 	int numRow = 0, rc;
@@ -260,7 +260,7 @@ int deleteline(char* fileName, int row)
 	}
 	else
 	{
-		while (fgets(buffer, 1024, fp))
+		while (fgets(buffer, 1024, fp))//copy all the line exept the line we want to delete
 		{
 			numRow++;
 			if (row != numRow)
@@ -482,7 +482,35 @@ int fevoritsDelete(char* fileName,int jobNumber)
 
 
 
+int findRightRowSerial(char* fileName, char* serial)
+{//find the row by serial, returns the line nunber
+	char* temp, buffer[2024];
+	int column = 0, row = 0;
+	FILE* fp = fopen(fileName, "r");
+	if (!fp)
+	{
+		printf("Can't open file\n");
+		return 1;
+	}
 
+	else
+	{
+		while (fgets(buffer, 1024, fp))//run until he find the row that matches the email
+		{
+			row++;
+			if (strcmp("\n", buffer) == 0)
+				break;
+			temp = _strdup(buffer);
+			if (strcmp(serial, getfield(temp, 1)) == 0)
+			{
+				fclose(fp);
+				return row;
+			}
+		}
+	}
+	fclose(fp);
+	return 1;
+}
 int findRightRow(char* fileName, char* email)
 {//find the row by email, returns the line nunber
 	char* temp, buffer[2024];
@@ -580,20 +608,24 @@ const char* getfield(char* line, int column)
 	}
 	return NULL;
 }
-int ifExists(char* fileName, char* name, int column)
+int ifExists(char* fileName, char* name, int column)// check every field in the column if the name value exists
 {
-	char buffer[MAXBUFFER];
+	char buffer[MAXBUFFER],*temp;
 	FILE* fp = fopen(fileName, "r");
 	if (!fp)
 	{
-		printf("Can't open file\n");
 		return 1;
 	}
 
 	while (fgets(buffer, 2024, fp))
 	{
-		if (strcmp(name, getfield(buffer, column)) == 0)
+		temp = _strdup(buffer);
+		if (strcmp(getfield(temp, column), name) == 0)
+		{
+			fclose(fp);
 			return 0;
+
+		}
 	}
 	fclose(fp);
 	return 1;

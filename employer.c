@@ -477,6 +477,7 @@ int jobEdit(char* email)// inside function switch cases between 3 cases (edit,ad
 		{
 			system("cls");
 			jobAdd(email);
+			getchar();
 			break;
 		}
 		case '2':
@@ -489,6 +490,7 @@ int jobEdit(char* email)// inside function switch cases between 3 cases (edit,ad
 		{
 			system("cls");
 			deleteJob(email);
+			getchar();
 			break;
 		}
 		case '4':
@@ -677,7 +679,7 @@ int jobAdd(char* email)
 	}
 	serialNum++;
 	// Saving data in file
-
+	getchar();
 	fprintf(Jobdata, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", serialNum, Jname, Jcity,
 		Jrange, Jtype, Jdescription, Jresponsibilities, Jqualifications,
 		Jsalary, Jhours, email);
@@ -737,7 +739,6 @@ int editJobFromList(char* email)
 			system("cls");
 			printf("Enter new name of the job: \b");
 			gets(joBs.Jname);
-			getchar();
 			break;
 		}
 		case '2':
@@ -745,7 +746,6 @@ int editJobFromList(char* email)
 			system("cls");
 			printf("Enter new job description: \b");
 			gets(joBs.Jdescription);
-			getchar();
 			break;
 		}
 		case '3':
@@ -753,7 +753,6 @@ int editJobFromList(char* email)
 			
 			printf("Enter new job main responsibilities: \b");
 			gets(joBs.Jresponsibilities);
-			getchar();
 			break;
 		}
 		case '4':
@@ -761,7 +760,6 @@ int editJobFromList(char* email)
 			
 			printf("Enter new job qualifications: \b");
 			gets(joBs.Jqualifications);
-			getchar();
 			break;
 		}
 		case '5':
@@ -930,20 +928,20 @@ int editJobFromList(char* email)
 			if (ifExists(name,jobNum, 1) == 0)
 			{
 				deleteline(name, findRightRowSerial(name, jobNum));
-				fopen(name, "a+");
-				fprintf(fp, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity,
+				FILE* fp2=fopen(name, "a+");
+				fprintf(fp2, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity,
 					joBs.Jtype, joBs.Jdescription, joBs.Jresponsibilities, joBs.Jqualifications,
 					joBs.Jsalary, joBs.Jhours, joBs.empEmail);
-				fclose(fp);
+				fclose(fp2);
 			}
 			if (ifExists(name2, jobNum, 1) == 0)
 			{
-				deleteline(name, findRightRowSerial(name, jobNum));
-				fopen(name, "a+");
-				fprintf(fp, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity,
+				deleteline(name2, findRightRowSerial(name2, jobNum));
+				FILE* fp3=fopen(name2, "a+");
+				fprintf(fp3, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity,
 					joBs.Jtype, joBs.Jdescription, joBs.Jresponsibilities, joBs.Jqualifications,
 					joBs.Jsalary, joBs.Jhours, joBs.empEmail);
-				fclose(fp);
+				fclose(fp3);
 			}
 		}
 	
@@ -960,7 +958,7 @@ int deleteJob(char* email)
 	char jobNum[MAXBUFFER];
 	char fileName[MAXNAME] = "submissionsJOB";//submissionsJOB2
 
-	if (printMyPublishedJobs(email) == 0)
+	if (printMyPublishedJobs(email) == 0)//print all the employer jobs 
 	{
 		printf("You dont have any published jobs!\n");
 		return 0;
@@ -970,7 +968,7 @@ int deleteJob(char* email)
 	scanf("%d", &jobNumber);
 	getchar();
 	job joBs;
-	joBs = buildJob(jobNumber);
+	joBs = buildJob(jobNumber);//delete the job file
 	sprintf(jobNum, "%d", jobNumber);
 	strcat(fileName, jobNum);
 	strcat(fileName, ".csv");

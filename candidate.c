@@ -251,13 +251,13 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 		for (int i = 0; i < count; i++)
 		{
 			strcpy(name, "submissionsJOB");
-			sprintf(num, "%d", count);
+			sprintf(num, "%d", i);
 			strcat(name, num);
 			strcat(name, ".csv");
 			if (ifExists(name, cand.email, 4) == 0)
 			{
 				deleteline(name, findRightRow(name, cand.email));
-				fopen(name, "a+");
+				temppf = fopen(name, "a+");
 				fprintf(temppf, "%s,%s,%s,%s,%s,%s,%d,%d,%d,%s,%d,%s,%s\n", cand.ID,//enter all the informaitin into the database
 					cand.Fname, cand.Lname, cand.email, cand.password1,
 					cand.city, cand.month, cand.day,
@@ -433,6 +433,30 @@ int CandidateMenu(candidate cand)
 		{
 			system("cls");
 			deleteline("Candidate_DATA.csv", findRightRow("Candidate_DATA.csv", cand.email));
+			char tempname[MAXNAME];
+			strcpy(tempname, cand.Fname);
+			strcat(tempname, cand.ID);
+			strcat(tempname, ".csv");
+			remove(tempname);
+			char tempname2[MAXNAME];
+			strcpy(tempname2, "FAVORITEJOB");
+			strcat(tempname2, cand.Fname);
+			strcat(tempname2, cand.ID);
+			strcat(tempname2, ".csv");
+			remove(tempname2);
+			int count = countNumLine("JOB_LIST_DATA.csv");
+			for (int i = 0; i < count; i++)
+			{
+				char name[MAXNAME] = "submissionsJOB";
+				char num[MAXNAME];
+				sprintf(num, "%d", i);
+				strcat(name, num);
+				strcat(name, ".csv");
+				if (ifExists(name, cand.email, 4) == 0)
+				{
+					deleteline(name, findRightRow(name, cand.email));
+				}
+			}
 			run = -1;
 			break;
 		}

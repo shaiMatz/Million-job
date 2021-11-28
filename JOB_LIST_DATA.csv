@@ -1,7 +1,5 @@
 SerialNum,Job name,Job range,city,Job type,Job description,Job responsibilities,Job qualifications,Job salary,Job hours,Email of the employer
+9,burger,non,ashkelon,full time,burger,burger,burger,30-40/h,morning,ilyailyailya@gmail.com
+8,cleaner,ashdod,burger,part time,none,none,none,30-40/h,morning,ilyailyailya@gmail.com
 1,engineer,software engineering,yavne,full time,qa,none,none,1000/h,evening,shai@gmail.com
-2,burger,none,ashkelon,full time,need to flight,none,none,100 nis/h,night,ilyailyailya@gmail.com
-3,burger,driver,paris,full time,taxi driver,need to drive from tlv to ashdod,need to have licence,100/h,morning,ilyailyailya@gmail.com
-5,burger,need to clean,ashdod,full time,looool,loooool,loooool,30-40/h,afternoon,ilyailyailya@gmail.com
-6,loooool,ashdod,taxi driver,full time,looooooool,loooool,looooool,30-40/h,night,ilyailyailya@gmail.com
-4,looooool,ashdod,taxi,part time,loooool,loooool,looool,60-70/h,morning,ilyailyailya@gmail.com
+SerialNum,Job name,Job range,city,Job type,Job description,Job responsibilities,Job qualifications,Job salary,Job hours,Email of the employer

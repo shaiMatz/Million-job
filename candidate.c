@@ -214,6 +214,7 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 				printf("\nEnter phone number:  \b");
 				scanf("%s", &cand.phoneNumber);
 			}
+			getchar();
 		}
 		if (ans == 5)
 		{
@@ -221,7 +222,7 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 			printf("press 1: What is your grandfather name from your father side? \n");
 			printf("press 2: What is your pet name? \n");
 			printf("press 3: What is the name of your high-school? \nyour choise:  \b");
-			scanf("%s", &cand.questionChoose);
+			scanf("%d", &cand.questionChoose);
 			getchar();
 			printf("\nEnter your answer:  \b");
 			gets(cand.answer);
@@ -229,8 +230,7 @@ candidate editProfile(candidate cand, char* fileName, int ans)
 		}
 		if (ans == 6)
 		{
-			printf("\nEnter phone number:  \b");
-			gets(cand.answer);
+			CVFile(cand);
 		}
 		if (ans == 7)
 		{
@@ -511,11 +511,13 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		}
 		case '6':
 		{
+			system("cls");
 			return 0;
 		}
 		default:
 		{
-			printf("Wrong Input! Please Choose between 1-7 \n");
+			system("cls");
+			printf("Wrong Input! Please Choose between 1-6 \n\n");
 		}
 		}
 	}
@@ -531,12 +533,13 @@ int editProfileMenu(candidate cand)
 	while (run != -1)
 	{
 		printf("Edit Profile Menu:\nPress 1 for Edit email.\n");
-		printf("Press 2 to Change your password\n");
+		printf("Press 2 to Change your password.\n");
 		printf("Press 3 to Edit city adress.\n");
 		printf("Press 4 to Edit Phone number.\n");
-		printf("Press 5 to Change your security question\n");
-		printf("Press 6 to build your cv file: \n");
-		printf("Press 7 to go back to the previous menu\n");
+		printf("Press 5 to Change your security question.\n");
+		printf("Press 6 to build your cv file. \n");
+		printf("press 7 to Edit your job preference \n");
+		printf("Press 8 to go back to the previous menu.\n");
 		printf("choice : ");
 		scanf("%c", &choice);
 		switch (choice)
@@ -577,6 +580,7 @@ int editProfileMenu(candidate cand)
 
 		case '5':
 		{
+			
 			getchar();
 			system("cls");
 			ans = choice - '0';
@@ -592,6 +596,15 @@ int editProfileMenu(candidate cand)
 		}
 		case '7':
 		{
+			getchar();
+			system("cls");
+			ans = choice - '0';
+			cand = editProfile(cand, "Candidate_DATA.csv", ans);//change jop preferense.
+			break;
+		}
+		case '8':
+		{
+			getchar();
 			system("cls");//exit
 			run = -1;
 			break;
@@ -600,7 +613,7 @@ int editProfileMenu(candidate cand)
 		default:
 		{
 			system("cls");
-			printf("Worng input please try again...(1-7) \n");
+			printf("Worng input please try again...(1-8) \n");
 		}
 		}
 	}

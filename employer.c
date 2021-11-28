@@ -186,6 +186,7 @@ employer editProfileEmp(employer emp, char* fileName, int ans)
 				printf("\nEnter email address:  \b");
 				scanf("%s", &emp.email);
 			}
+			getchar();
 		}
 		if (ans == 3)
 		{
@@ -229,22 +230,18 @@ employer editProfileEmp(employer emp, char* fileName, int ans)
 				scanf("%s", &emp.phoneNumber);
 			}
 		}
-		if (ans == 5)
+		if (ans == 7)
 		{
 			printf("\nChoose your security question:(default question is 1)\n");
 			printf("press 1: What is your grandfather name from your father side? \n");
 			printf("press 2: What is your pet name? \n");
 			printf("press 3: What is the name of your high-school? \nyour choise:  \b");
-			scanf("%s", &emp.questionChoose);
+			scanf("%d", &emp.questionChoose);
+			getchar();
 			printf("\nEnter your answer:  \b");
 			gets(emp.answer);
 		}
-		if (ans == 6)
-		{
-			printf("\nEnter phone number:  \b");
-			gets(emp.answer);
-		}
-
+		
 		fprintf(fp, "%s,%s,%s,%s,%s,%s,%s,%s,%d,%s\n", emp.companyName,emp.Fname, emp.Lname, 
 			emp.email, emp.password1, emp.jobDescription,emp.city, emp.phoneNumber, emp.questionChoose, emp.answer);
 		fclose(fp);
@@ -353,8 +350,9 @@ int EmployerMenu(employer emp)
 		case '6':
 		{
 			system("cls");
-			run = -1;
+			
 			empSearchEngine();// candidate searching by age/type/working area
+			break;
 		}
 		case '7':
 		{
@@ -754,14 +752,14 @@ int editJobFromList(char* email)
 		}
 		case '3':
 		{
-			
+			system("cls");
 			printf("Enter new job main responsibilities: \b");
 			gets(joBs.Jresponsibilities);
 			break;
 		}
 		case '4':
 		{
-			
+			system("cls");
 			printf("Enter new job qualifications: \b");
 			gets(joBs.Jqualifications);
 			break;
@@ -886,7 +884,8 @@ int editJobFromList(char* email)
 			{
 				gets(joBs.Jcity);
 			}
-			getchar();
+			//getchar();
+			system("cls");
 			break;
 		}
 		case '8':
@@ -1132,7 +1131,7 @@ int jobsOfferList(char *email)
 	char fileName[MAXNAME] = "submissionsJOB";//submissionsJOB2
 	if (printMyPublishedJobs(email) == 0)
 	{
-		printf("You dont have any published jobs!");
+		printf("You dont have any published jobs!\n");
 		return 0;
 	}
 	else
@@ -1146,7 +1145,7 @@ int jobsOfferList(char *email)
 
 		if (findJobsubFile(fileName) != 0)
 		{
-			printf("\nStill No one submitted for this job!\n");
+			printf("\nStill No one submitted for this job!\n\n");
 			return 1;
 		}
 		else

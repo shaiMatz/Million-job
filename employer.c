@@ -150,7 +150,6 @@ employer employer_Registration()
 
 employer editProfileEmp(employer emp, char* fileName, int ans)
 {
-	
 	char buffer[MAXBUFFER];
 	int exists = 0;
 	FILE* temppf = NULL;
@@ -197,18 +196,18 @@ employer editProfileEmp(employer emp, char* fileName, int ans)
 				printf("\nEnter the password again: (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword:  ");
 				scanf("%s", &emp.password1);
 			}
-			printf("\nPassword verefication:  \b");
+			printf("\nPassword verification:  \b");
 			scanf("%s", &emp.password2);
 			while (strcmp(emp.password1, emp.password2))
 			{
-				printf("\nthe passwords are diffrents,enter your verfication password again:  \b");
+				printf("\nthe passwords are differents,enter your verification password again:  \b");
 				scanf("%s", &emp.password2);
 			}
 			getchar();
 		}
 		if (ans == 4)
 		{
-			printf("Enter new jobDescription : ");
+			printf("Enter new job Description : ");
 			gets(emp.jobDescription);
 		}
 		if (ans == 5)
@@ -224,6 +223,7 @@ employer editProfileEmp(employer emp, char* fileName, int ans)
 		{
 			printf("\nEnter phone number:  \b");
 			scanf("%s", &emp.phoneNumber);
+			getchar();
 			while (PhoneCheck(emp.phoneNumber) == 0)
 			{
 				printf("\nEnter phone number:  \b");
@@ -343,7 +343,15 @@ int EmployerMenu(employer emp)
 			system("cls");
 	
 			deleteMyPublishedJobs(emp.email);
-			deleteline("Employer_DATA.csv", findRightRow("Employer_DATA.csv", emp.email));//delete employer
+			if (deleteline("Employer_DATA.csv", findRightRow("Employer_DATA.csv", emp.email)) == 0)//delete employer
+			{
+				printf("The employer was deleted from the system\n~press enter to continue~\n");
+			}
+			else
+			{
+				printf("The employer was not deleted from the system\n~press enter to continue~\n");
+			}
+			getchar();
 			run = -1;
 			break;
 		}
@@ -351,7 +359,7 @@ int EmployerMenu(employer emp)
 		{
 			system("cls");
 			
-			empSearchEngine();// candidate searching by age/type/working area
+			empSearchEngine();// candidate searching by type/working area
 			break;
 		}
 		case '7':
@@ -368,7 +376,7 @@ int EmployerMenu(employer emp)
 		}
 		}
 	}
-	return main();
+	return 0;
 }
 
 int editProfileMenuEmp(employer emp)
@@ -458,7 +466,6 @@ int editProfileMenuEmp(employer emp)
 		}
 	}
 }
-
 
 int jobEdit(char* email)// inside function switch cases between 3 cases (edit,add,delete)
 {
@@ -561,7 +568,6 @@ int jobAdd(char* email)
 
 		default:
 		{
-			system("cls");
 			printf("wrong Input Please Choose between 1-2 \n");
 		}
 		}
@@ -626,7 +632,6 @@ int jobAdd(char* email)
 
 		default:
 		{
-			system("cls");
 			printf("wrong Input Please Choose between 1-5 \n");
 		}
 		}
@@ -674,7 +679,7 @@ int jobAdd(char* email)
 
 		default:
 		{
-			system("cls");
+
 			printf("wrong Input Please Choose between 1-4 \n");
 		}
 		}
@@ -885,6 +890,7 @@ int editJobFromList(char* email)
 		}
 		case '7':
 		{
+			system("cls");
 			printf("Enter new job area: \b");
 			gets(joBs.Jcity);
 			while (CheckLower(joBs.Jcity) == 0)
@@ -904,7 +910,7 @@ int editJobFromList(char* email)
 
 		default:
 			system("cls");
-			printf("Worng input please try again...(1-8) \n");
+			printf("Wrong input please try again...(1-8) \n");
 
 		}
 	}

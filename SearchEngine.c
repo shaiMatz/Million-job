@@ -65,6 +65,11 @@ int filtertown(candidate cand)
 	char name[MAXNAME];
 	printf("Enter the name of the city\n");
 	gets(name);
+	if (ifExists("JOB_LIST_DATA.csv", name, 4) == 1)
+	{
+		printf("there is no work in this city\n");
+		return 0;
+	}
 	while (fgets(buffer, 1024, fp))
 	{
 		row++;
@@ -118,7 +123,7 @@ void printCand(char* line)
 	char* temp2;
 	if (strcmp(getfield(temp, 1), "ID") != 0)
 	{
-		printf("\n  candidate %s\n", getfield(temp, 1));
+		printf("\n\n  candidate %s\n\n", getfield(temp, 1));
 		temp = _strdup(line);
 		printf("First name: %s\n", getfield(temp, 2));
 		temp = _strdup(line);
@@ -134,7 +139,7 @@ void printCand(char* line)
 		temp = _strdup(line);
 		printf("Phone number: %s\n", getfield(temp, 10));
 		temp = _strdup(line);
-		printf("Job preferences: %s\n", getfield(temp, 13));
+		printf("Job preferences: %s\n\n", getfield(temp, 13));
 	}
 }
 
@@ -185,7 +190,11 @@ int filterjobhours(candidate cand)
 			break;
 		}
 	}
-
+	if (ifExists("JOB_LIST_DATA.csv", name, 10) == 1)
+	{
+		printf("there is no work in this hours\n");
+		return 0;
+	}
 	while (fgets(buffer, 1024, fp))
 	{
 		row++;
@@ -208,7 +217,7 @@ int filterjobhours(candidate cand)
 
 int choicemenu(candidate cand)
 {
-	char choice = ' ';
+	char choice = ' ', num[MAXNAME];
 	int liked;
 	while (choice != '0')
 	{
@@ -221,13 +230,35 @@ int choicemenu(candidate cand)
 			printf("enter the number you liked: ");
 			scanf("%d", &liked);
 			getchar();
-			pickAJob(cand, buildJob(liked));
+			sprintf(num, "%d", liked);
+			if (ifExists("JOB_LIST_DATA.csv", num, 1) == 0)
+			{
+				pickAJob(cand, buildJob(liked));
+				choice = '0';
+			}
+			else
+			{
+				printf("the job does not exist in the database\n");
+				choice = '0';
+			}
+			
 			break;
 		case '2':
 			printf("enter the number you want to add to your favorite list: ");
 			scanf("%d", &liked);
 			getchar();
-			pickAFavJob(cand, buildJob(liked));
+			sprintf(num, "%d", liked);
+			if (ifExists("JOB_LIST_DATA.csv", num, 1) == 0)
+			{
+				pickAFavJob(cand, buildJob(liked));
+				choice = '0';
+			}
+			else
+			{
+				printf("the job does not exist in the database\n");
+				choice = '0';
+			}
+			
 			break;
 		case '3':
 			choice = '0';
@@ -250,7 +281,7 @@ int printall(candidate cand)
 		return 1;
 	}
 	char buffer[2024];
-	char choice = '1';
+	char choice = '1', num[MAXNAME];
 	int row = 2;
 	int run = 1;
 	fgets(buffer, 1024, fp);
@@ -282,15 +313,33 @@ int printall(candidate cand)
 					printf("enter the number you liked: ");
 					scanf("%d", &liked);
 					getchar();
-					pickAJob(cand, buildJob(liked));
-					choice = '0';
+					sprintf(num, "%d", liked);
+					if (ifExists("JOB_LIST_DATA.csv", num, 1) == 0)
+					{
+						pickAJob(cand, buildJob(liked));
+						choice = '0';
+					}
+					else
+					{
+						printf("the job does not exist in the database\n");
+						choice = '0';
+					}
 					break;
 				case '2':
 					printf("enter the number you want to add to your favorite list: ");
 					scanf("%d", &liked);
 					getchar();
-					pickAFavJob(cand, buildJob(liked));
-					choice = '0';
+					sprintf(num, "%d", liked);
+					if (ifExists("JOB_LIST_DATA.csv", num, 1) == 0)
+					{
+						pickAFavJob(cand, buildJob(liked));
+						choice = '0';
+					}
+					else
+					{
+						printf("the job does not exist in the database\n");
+						choice = '0';
+					}
 					break;
 				case '3':
 					if (count >= 10)
@@ -463,7 +512,7 @@ int filtersalary(candidate cand)
 			break;
 
 		case '5':
-			strcpy(name, "+70/h");
+			strcpy(name, "70+/h");
 			i = '0';
 			break;
 		case '6':
@@ -472,6 +521,11 @@ int filtersalary(candidate cand)
 			printf("wrong entry try again\n");
 			break;
 		}
+	}
+	if (ifExists("JOB_LIST_DATA.csv", name, 9) == 1)
+	{
+		printf("there is no work for this salary\n");
+		return 0;
 	}
 
 	while (fgets(buffer, 1024, fp))
@@ -531,7 +585,11 @@ int filterjobtype(candidate cand)
 			break;
 		}
 	}
-
+	if (ifExists("JOB_LIST_DATA.csv", name, 5) == 1)
+	{
+		printf("there is no work of this type\n");
+		return 0;
+	}
 	while (fgets(buffer, 1024, fp))
 	{
 		row++;
@@ -579,6 +637,11 @@ int filtertownEmp()
 	char name[MAXNAME];
 	printf("Enter the name of the city\n");
 	gets(name);
+	if (ifExists("Candidate_DATA.csv", name, 6) == 1)
+	{
+		printf("there is no candidates in this city\n");
+		return 0;
+	}
 	while (fgets(buffer, 1024, fp))
 	{
 		row++;
@@ -610,6 +673,11 @@ int filterjobGenreEmp()
 	char name[MAXNAME];
 	printf("Enter the job type\n");
 	gets(name);
+	if (ifExists("Candidate_DATA.csv", name, 13) == 1)
+	{
+		printf("there is no candidates for this genre\n");
+		return 0;
+	}
 	while (fgets(buffer, 1024, fp))
 	{
 		row++;

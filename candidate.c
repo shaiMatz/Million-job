@@ -282,15 +282,17 @@ candidate Candidate_Registration()
 	// new record to be added
 	printf("\nEnter ID:  \b");
 	scanf("%s", &newCandidate.ID);
-	while (IDCheck(newCandidate.ID) == 0)
+	
+	while ((IDCheck(newCandidate.ID) == 0)||(ifExists("Candidate_DATA.csv", newCandidate.ID,1)==0))
 	{
-		printf("\nEnter ID:  \b");
+		printf("\nEnter ID again:  \b");
 		scanf("%s", &newCandidate.ID);
 	}
 	printf("\nEnter first name:  \b");
 	scanf("%s", &newCandidate.Fname);
 	printf("\nEnter last name:  \b");
 	scanf("%s", &newCandidate.Lname);
+
 	printf("\nEnter email address: (It will be your username)  \b");
 	scanf("%s", &newCandidate.email);
 	while (ifExists("Candidate_DATA.csv", newCandidate.email, 4) != 1)
@@ -373,7 +375,7 @@ candidate Candidate_Registration()
 		newCandidate.year, newCandidate.phoneNumber, newCandidate.questionChoose, newCandidate.answer, newCandidate.wantedjobs);
 	fclose(CandidateF);
 	system("cls");
-	printf("\nNew Account added to record! press enter to continue\n");
+	printf("\nNew Account added to record!\n ~press enter to continue~\n");
 	return newCandidate;
 }
 
@@ -485,21 +487,25 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		switch (choice)
 		{
 		case '1': {
+			system("cls");
 			printall(cand);
 			break;
 		}
 		case '2':
 		{
+			system("cls");
 			Filtermenu(cand);
 			break;
 		}
 		case '3':
 		{
+			system("cls");
 			printoldertonew(cand);
 			break;
 		}
 		case '4':
 		{
+			system("cls");
 			printnewtoolder(cand);
 			break;
 		}

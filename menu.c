@@ -41,6 +41,7 @@ void menu()
 				newCand = loginC(email);
 				getchar();
 				CandidateMenu(newCand);
+				break;
 			}
 
 			else if (num == 2)
@@ -49,6 +50,7 @@ void menu()
 				newEmp = loginE(email);
 				getchar();
 				EmployerMenu(newEmp);
+				break;
 			}
 			break;
 		}
@@ -63,6 +65,7 @@ void menu()
 			case '1':
 				system("cls");
 				newEmp = employer_Registration();
+				system("cls");
 				getchar();
 				EmployerMenu(newEmp);
 				getchar();
@@ -71,6 +74,7 @@ void menu()
 			case '2':
 				system("cls");
 				newCand = Candidate_Registration();
+				system("cls");
 				getchar();
 				CandidateMenu(newCand);
 				getchar();
@@ -84,7 +88,8 @@ void menu()
 		case '3':
 		{
 			system("cls");
-			strcpy(temp,forgetMyPass(&num));
+			if(forgetMyPass(&num)!=NULL)
+				strcpy(temp, forgetMyPass);
 			
 			if (num == 1)
 			{
@@ -180,5 +185,5 @@ char *forgetMyPass(int *num)
 	}
 	else
 		printf("the user doesn't exists in the databases!\n");
-	return;
+	return NULL;
 }

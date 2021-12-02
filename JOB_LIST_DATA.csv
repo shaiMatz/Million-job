@@ -1,5 +1,4 @@
 SerialNum,Job name,Job range,city,Job type,Job description,Job responsibilities,Job qualifications,Job salary,Job hours,Email of the employer
-9,burger,non,ashkelon,full time,burger,burger,burger,30-40/h,morning,ilyailyailya@gmail.com
-8,cleaner,ashdod,burger,part time,none,none,none,30-40/h,morning,ilyailyailya@gmail.com
-1,engineer,software engineering,yavne,full time,qa,none,none,1000/h,evening,shai@gmail.com
-SerialNum,Job name,Job range,city,Job type,Job description,Job responsibilities,Job qualifications,Job salary,Job hours,Email of the employer
+1,burger,non,ashkelon,full time,burger,burger,burger,30-40/h,morning,ilyailyailya@gmail.com
+2,cleaner,ashdod,burger,part time,none,none,none,30-40/h,morning,ilyailyailya@gmail.com
+3,engineer,software engineering,yavne,full time,qa,none,none,30-40/h,evening,shai@gmail.com

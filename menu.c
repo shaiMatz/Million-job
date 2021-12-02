@@ -54,15 +54,13 @@ void menu()
 		}
 		case '2':
 		{
-			system("cls");
-			getchar();
+			system("cls");		
 			printf("option :\n1) For employer Press 1\n2) For candidate press 2\n3) For returning to previous menu press 3\n\nchoice : \b");
 			scanf("%c", &choice1);
 			getchar();
 			switch (choice1)			//employer or candidate ?
 			{
 			case '1':
-				getchar();
 				system("cls");
 				newEmp = employer_Registration();
 				getchar();
@@ -71,7 +69,6 @@ void menu()
 				break;
 
 			case '2':
-				getchar();
 				system("cls");
 				newCand = Candidate_Registration();
 				getchar();
@@ -94,6 +91,7 @@ void menu()
 				system("cls");
 				newCand = loginC(temp);
 				CandidateMenu(newCand);
+				system("cls");
 			}
 
 			else if (num == 2)
@@ -101,6 +99,7 @@ void menu()
 				system("cls");
 				newEmp = loginE(temp);
 				EmployerMenu(newEmp);
+				system("cls");
 			}
 			break;
 		}

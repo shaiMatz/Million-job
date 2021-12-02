@@ -90,11 +90,11 @@ candidate CVFile(candidate cand)
 	printf("ID: %s \n", cand.ID);
 	fprintf(CandidateCV, "%s %s %s", "Base information\nID: ", cand.ID, "\n");
 	printf("First name: %s \n", cand.Fname);
-	printf("Last name:  %s\n", cand.Lname);
-	fprintf(CandidateCV, "%s %s %s %s ", "Name: ", cand.Fname, cand.Lname, "\n");
+	printf("Last name: %s\n", cand.Lname);
+	fprintf(CandidateCV, "%s %s %s %s", "Name: ", cand.Fname, cand.Lname, "\n");
 	printf("Email address: %s\n", cand.email);
 	fprintf(CandidateCV, "%s %s %s", "Email: ", cand.email, "\n");
-	printf("Enter the languages you speak:  \b");
+	printf("Enter the languages you speak: \b");
 	gets(language);
 	fprintf(CandidateCV, "%s %s %s", "Language: ", language, "\n");
 	printf("Enter your driving license type: (if you dont have drining license enter none)  \b");
@@ -606,6 +606,7 @@ int editProfileMenu(candidate cand)
 		{
 			getchar();
 			system("cls");//exit
+			printf("all the data changed!\n");
 			run = -1;
 			break;
 		}

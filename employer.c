@@ -143,7 +143,7 @@ employer employer_Registration()
 		newEmployer.city, newEmployer.phoneNumber, newEmployer.questionChoose, newEmployer.answer);
 	fclose(EmployerF);
 	system("cls");
-	printf("\nNew Account added to record!\n");
+	printf("\nNew Account added to record!\n~press enter to continue~\n");
 	return newEmployer;
 
 }
@@ -480,6 +480,7 @@ int jobEdit(char* email)// inside function switch cases between 3 cases (edit,ad
 			system("cls");
 			jobAdd(email);
 			getchar();
+			system("cls");
 			break;
 		}
 		case '2':
@@ -492,7 +493,6 @@ int jobEdit(char* email)// inside function switch cases between 3 cases (edit,ad
 		{
 			system("cls");
 			deleteJob(email);
-			getchar();
 			break;
 		}
 		case '4':
@@ -687,7 +687,7 @@ int jobAdd(char* email)
 		Jsalary, Jhours, email);
 	fclose(Jobdata);
 	system("cls");
-	printf("\nNew job added to record\n~prees enter to continue~\n");
+	printf("\nNew job added to record!\n~prees enter to continue~\n");
 	return 0;
 
 
@@ -719,8 +719,15 @@ int editJobFromList(char* email)
 		printf("Can't open file\n");
 		return 1;
 	}
-	
-
+	system("cls");
+	while (fgets(buffer, 2024, fp))
+	{
+		temp = _strdup(buffer);
+		sprintf(jobNum, "%d", jobNumber);
+		if(strcmp(jobNum,getfield(temp,1))==0)
+			printJob(temp);
+	}
+	rewind(fp);
 	while (run != -1)
 	{
 		printf("\nPress 1 to Change the name of the job.\n");
@@ -947,12 +954,11 @@ int editJobFromList(char* email)
 				fclose(fp3);
 			}
 		}
-	
+		system("cls");
+		printf("All the data changed!\n");
 
 	return 0;
 }
-
-
 
 int deleteJob(char* email)
 {
@@ -984,6 +990,7 @@ int deleteJob(char* email)
 	check = deleteJobLine("JOB_LIST_DATA.csv", jobNumber);
 	if (check == 0)
 	{
+		system("cls");
 		printf("\nJob No.%d was deleted from the JOB DATA BASE successfully!\n", jobNumber);
 		return 0;
 	}
@@ -1088,11 +1095,6 @@ int deleteMyPublishedJobs(char* email)
 	return 0;
 }
 
-//
-//temp = _strdup(buffer);
-//if (strcmp(getfield(temp, 11), email) == 0)
-//deleteJobsByNumber(getfield(temp, 1));
-
 int deleteJobsByNumber(int jobNumber)
 {
 	int check;
@@ -1127,8 +1129,10 @@ int deleteJobsByNumber(int jobNumber)
 int jobsOfferList(char *email)
 {
 	int jobNumber;
+	char choice, choice2,*temp,Fname[MAXNAME];
 	char jobNum[MAXBUFFER];
 	char fileName[MAXNAME] = "submissionsJOB";//submissionsJOB2
+	FILE *CVf;
 	if (printMyPublishedJobs(email) == 0)
 	{
 		printf("You dont have any published jobs!\n");
@@ -1136,60 +1140,78 @@ int jobsOfferList(char *email)
 	}
 	else
 	{
-		printf("\nEnter the job number to see all the candidates that submitted for this job: ");
-		scanf("%d", &jobNumber);
-		getchar();
-		sprintf(jobNum, "%d", jobNumber);
-		strcat(fileName, jobNum);
-		strcat(fileName, ".csv");
+		printf("\nPress 1 to see all the candidates that submitted for this job: \nPress something else to continue\nchoice:  ");
+		scanf("%c", &choice);
+		if (choice=='1')
+		{
+			printf("\npress the job serial to see all the candidates that submitted for this job: ");
+			scanf("%d", &jobNumber);
+			getchar();
+			sprintf(jobNum, "%d", jobNumber);
+			strcat(fileName, jobNum);
+			strcat(fileName, ".csv");
 
-		if (findJobsubFile(fileName) != 0)
-		{
-			printf("\nStill No one submitted for this job!\n\n");
-			return 1;
-		}
-		else
-		{
-			FILE* fp = fopen(fileName, "r");
-			if (!fp)
+			if (findJobsubFile(fileName) != 0)
 			{
-				printf("can't open file\n");
+				printf("\nStill No one submitted for this job!\n\n");
 				return 1;
 			}
-			char buffer[2024];
-			while (fgets(buffer, 1024, fp))
+			else
 			{
-				printCand(buffer);
-			}
-			fclose(fp);
-			printf("\nIf you want to delete a job, choose the job number that you want");
-			int run = 0;
-			char choice = '0';
-			while (run != -1)
-			{
-				printf("Press 1 for delete this job.\n");
-				printf("Press 2 to go back.\n");
-				scanf("%c", &choice);
-				getchar();
-				switch (choice)
+				FILE* fp = fopen(fileName, "r");
+				if (!fp)
 				{
-				case '1':
-				{
-					deleteJob(email);
-					run = -1;
-					break;
+					printf("can't open file\n");
+					return 1;
 				}
-				case '2':
+				char buffer[2024];
+				while (fgets(buffer, 1024, fp))
 				{
-					run = -1;
-					break;
+					printCand(buffer);
+					temp = _strdup(buffer);
+					strcpy(Fname, getfield(temp, 2));
+					temp = _strdup(buffer);
+					strcat(Fname, getfield(temp, 3));
+					strcat(Fname, "CV.txt");
+					CVf = fopen(Fname, "r");
+					if (!CVf)
+						continue;
+					fclose(CVf);
+					printf("The candidate create CV file, to see it press 1, something else to continue\nchoice: ");
+					scanf("%c", &choice2);
+					if (choice2 == '1')
+						printCV(Fname);
 				}
+				fclose(fp);
+				//printf("\nIf you want to delete a job, choose the job number that you want");
+				int run = 0;
+				char choice = '0';
+				while (run != -1)
+				{
+					printf("Press 1 for delete this job.\n");
+					printf("Press 2 to go back.\n");
+					scanf("%c", &choice);
+					getchar();
+					switch (choice)
+					{
+					case '1':
+					{
+						deleteJob(email);
+						run = -1;
+						break;
+					}
+					case '2':
+					{
+						run = -1;
+						break;
+					}
 
-				default:
-				{
-					system("cls");
-					printf("wrong Input Please Choose between 1-2 \n");
-				}
+					default:
+					{
+						system("cls");
+						printf("wrong Input Please Choose between 1-2 \n");
+					}
+					}
 				}
 			}
 		}
@@ -1242,6 +1264,32 @@ job buildJob(int number)
 	}
 	fclose(jobF);
 	return JobN;
+}
+
+int printCV(char* fileName)
+{
+	FILE* fptr;
+
+	char c;
+
+	// Open file
+	fptr = fopen(fileName, "r");
+	if (fptr == NULL)
+	{
+		printf("Cannot open file \n");
+		return 0;
+	}
+	printf("\n\n");
+	// Read contents from file
+	c = fgetc(fptr);
+	while (c != EOF)
+	{
+		printf("%c", c);
+		c = fgetc(fptr);
+	}
+	printf("\n\n");
+	fclose(fptr);
+	return 0;
 }
 
 

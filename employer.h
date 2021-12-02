@@ -36,4 +36,4 @@ employer loginE(char email[]);
 employer resetPassword2(employer e);
 int deleteJobsByNumber(int jobNumber);
 int deleteMyPublishedJobs(char* email);
-
+int printCV(char* fileName);

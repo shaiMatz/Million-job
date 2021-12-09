@@ -1,6 +1,4 @@
-
 #pragma once
-
 #include"employer.h"
 #include"SearchEngine.h"
 #include <malloc.h>
@@ -36,7 +34,7 @@ employer loginE(char email[])
 			if (row == wantedRow)
 			{
 				temp = _strdup(buffer);
-				strcpy(newEmp.companyName, getfield(temp,1));
+				strcpy(newEmp.companyName, getfield(temp, 1));
 				temp = _strdup(buffer);
 				strcpy(newEmp.Fname, getfield(temp, 2));
 				temp = _strdup(buffer);
@@ -52,7 +50,7 @@ employer loginE(char email[])
 				temp = _strdup(buffer);
 				strcpy(newEmp.phoneNumber, getfield(temp, 8));
 				temp = _strdup(buffer);
-				newEmp.questionChoose=atoi(getfield(temp, 9));
+				newEmp.questionChoose = atoi(getfield(temp, 9));
 				temp = _strdup(buffer);
 				strcpy(newEmp.answer, getfield(temp, 10));
 
@@ -78,63 +76,63 @@ employer employer_Registration()
 
 	// Asking user input for the
 	// new record to be added
-	printf("\nEnter company name:  \b");
+	printf("\nEnter company name :  \b");
 	gets(newEmployer.companyName);
 
-	printf("\nEnter first name:  \b");
+	printf("\nEnter first name :  \b");
 	scanf("%s", &newEmployer.Fname);
-	printf("\nEnter last name:  \b");
+	printf("\nEnter last name :  \b");
 	scanf("%s", &newEmployer.Lname);
-	printf("\nEnter email address: (It will be your username)  \b");
+	printf("\nEnter email address (It will be your username):  \b");
 	scanf("%s", &newEmployer.email);
 	while (MailCheck(newEmployer.email) == 0)
 	{
-		printf("\nEnter email address: (It will be your username)  \b");
+		printf("\nEnter email address (It will be your username) :  \b");
 		scanf("%s", &newEmployer.email);
 	}
 
 
-	printf("\nEnter password: (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword:  ");
+	printf("\nEnter password (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword : ");
 	scanf("%s", &newEmployer.password1);
 	while (PasswordCheck(newEmployer.password1) == 0)
 	{
-		printf("\nEnter the password again: (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword:  ");
+		printf("\nEnter the password again (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword : ");
 		scanf("%s", &newEmployer.password1);
 	}
-	printf("\nPassword verefication:  \b");
+	printf("\nPassword verefication :  \b");
 	scanf("%s", &newEmployer.password2);
 	while (strcmp(newEmployer.password1, newEmployer.password2))
 	{
-		printf("\nthe passwords are diffrents,enter your verfication password again:  \b");
-		scanf("%s", &newEmployer.password2);
+		printf("\nthe passwords are diffrents, enter your verfication password again :  \b");
+		scanf("%s", &newEmployer.password2); 
 	}
 	getchar();
 
-	printf("\nEnter your city name: (enter just in small letters) \b");
+	printf("\nEnter your city name (enter just in small letters) :  \b");
 	gets(newEmployer.city);
 	while (CheckLower(newEmployer.city) == 0)
 	{
 		gets(newEmployer.city);
 	}
-	printf("\nEnter phone number:  \b");
+	printf("\nEnter phone number :  \b");
 	scanf("%s", &newEmployer.phoneNumber);
 	while (PhoneCheck(newEmployer.phoneNumber) == 0)
 	{
-		printf("\nEnter phone number:  \b");
+		printf("\nEnter phone number :  \b");
 		scanf("%s", &newEmployer.phoneNumber);
 	}
 	getchar();
-	printf("\nEnter some information about the company:  \n");
+	printf("\nEnter some information about the company :  \n");
 	gets(newEmployer.jobDescription);
 
-	printf("\nChoose your security question:(default qeustion is 1)\n");
-	printf("press 1: What is your grandfather name from your father side? \n");
-	printf("press 2: What is your pet name? \n");
-	printf("press 3: What is the name of your high-school? \nyour choise:  \b");
+	printf("\nChoose your security question (default question is 1) : \n");
+	printf("press 1: What is your grandfather name from your father side ? \n");
+	printf("press 2: What is your pet name ? \n");
+	printf("press 3: What is the name of your high-school ? \nyour choise :  \b");
 
 	scanf("%d", &newEmployer.questionChoose);
 	getchar();
-	printf("\nEnter your answer:  \b");
+	printf("\nEnter your answer :  \b");
 	gets(newEmployer.answer);
 
 	// Saving data in file
@@ -143,7 +141,7 @@ employer employer_Registration()
 		newEmployer.city, newEmployer.phoneNumber, newEmployer.questionChoose, newEmployer.answer);
 	fclose(EmployerF);
 	system("cls");
-	printf("\nNew Account added to record!\n~press enter to continue~\n");
+	printf("\nNew Account added to record !\n~press enter to continue~\n");
 	return newEmployer;
 
 }
@@ -158,7 +156,7 @@ employer editProfileEmp(employer emp, char* fileName, int ans)
 	wantedRow = findRightRow(fileName, emp.email);
 	if (wantedRow == 1)
 	{
-		printf("The email not found!");
+		printf("The email not found !");
 		return;
 	}
 
@@ -173,77 +171,84 @@ employer editProfileEmp(employer emp, char* fileName, int ans)
 	{
 		if (ans == 1)
 		{
-			printf("\nEnter new company name:  \b");
+			printf("\nEnter new company name :  \b");
 			gets(emp.companyName);
+			printf("edited company name.\n");
 		}
 		if (ans == 2)
 		{
-			printf("Enter your new email: \b");
+			printf("Enter your new email : \b");
 			scanf("%s", &emp.email);
 			while (MailCheck(emp.email) == 0)
 			{
-				printf("\nEnter email address:  \b");
+				printf("\nEnter email address :  \b");
 				scanf("%s", &emp.email);
 			}
 			getchar();
+			printf("edited mail.\n");
 		}
 		if (ans == 3)
 		{
-			printf("\nEnter password: (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword:  ");
+			printf("\nEnter password (needs to be at least 8 char with at least one capital letter,\none small letter, a number and symbol The password needs to be in english)\npassword : ");
 			scanf("%s", &emp.password1);
 			while (PasswordCheck(emp.password1) == 0)
 			{
-				printf("\nEnter the password again: (needs to be at least 8 char with at least one capital letter,\none small letter,a number and symbol The password needs to be in english)\npassword:  ");
+				printf("\nEnter the password again (needs to be at least 8 char with at least one capital letter,\none small letter, a number and symbol The password needs to be in english)\npassword : ");
 				scanf("%s", &emp.password1);
 			}
-			printf("\nPassword verification:  \b");
+			printf("\nPassword verification :  \b");
 			scanf("%s", &emp.password2);
 			while (strcmp(emp.password1, emp.password2))
 			{
-				printf("\nthe passwords are differents,enter your verification password again:  \b");
+				printf("\nthe passwords are differents, enter your verification password again :  \b");
 				scanf("%s", &emp.password2);
 			}
 			getchar();
+			printf("edited password.\n");
 		}
 		if (ans == 4)
 		{
-			printf("Enter new job Description : ");
+			printf("Enter new job description : ");
 			gets(emp.jobDescription);
+			printf("edited job description.\n");
 		}
 		if (ans == 5)
 		{
-			printf("Enter your city name : (enter just in small letters)");
+			printf("Enter your city name (enter just in small letters) : ");
 			gets(emp.city);
 			while (CheckLower(emp.city) == 0)
 			{
 				gets(emp.city);
 			}
+			printf("edtied city.\n");
 		}
 		if (ans == 6)
 		{
-			printf("\nEnter phone number:  \b");
+			printf("\nEnter phone number :  \b");
 			scanf("%s", &emp.phoneNumber);
 			getchar();
 			while (PhoneCheck(emp.phoneNumber) == 0)
 			{
-				printf("\nEnter phone number:  \b");
+				printf("\nEnter phone number :  \b");
 				scanf("%s", &emp.phoneNumber);
 			}
+			printf("edited phone number.\n");
 		}
 		if (ans == 7)
 		{
-			printf("\nChoose your security question:(default question is 1)\n");
-			printf("press 1: What is your grandfather name from your father side? \n");
-			printf("press 2: What is your pet name? \n");
-			printf("press 3: What is the name of your high-school? \nyour choise:  \b");
+			printf("\nChoose your security question (default question is 1) : \n");
+			printf("press 1: What is your grandfather name from your father side ? \n");
+			printf("press 2: What is your pet name ? \n");
+			printf("press 3: What is the name of your high-school ? \nyour choise :  \b");
 			scanf("%d", &emp.questionChoose);
 			getchar();
 			printf("\nEnter your answer:  \b");
 			gets(emp.answer);
+			printf("edtied security question.\n");
 		}
-		
-		fprintf(fp, "%s,%s,%s,%s,%s,%s,%s,%s,%d,%s\n", emp.companyName,emp.Fname, emp.Lname, 
-			emp.email, emp.password1, emp.jobDescription,emp.city, emp.phoneNumber, emp.questionChoose, emp.answer);
+
+		fprintf(fp, "%s,%s,%s,%s,%s,%s,%s,%s,%d,%s\n", emp.companyName, emp.Fname, emp.Lname,
+			emp.email, emp.password1, emp.jobDescription, emp.city, emp.phoneNumber, emp.questionChoose, emp.answer);
 		fclose(fp);
 		return emp;
 
@@ -263,13 +268,13 @@ employer resetPassword2(employer e)
 	{
 		printf("\nTo reset your password, enter your security answer \n");
 		if (e.questionChoose == 1)
-			printf("What is your grandfather name from your father side?\nAnswer:  \b");
+			printf("What is your grandfather name from your father side?\nAnswer :  \b");
 		if (e.questionChoose == 2)
-			printf("What is your pet name ? \nAnswer:  \b");
+			printf("What is your pet name ? \nAnswer :  \b");
 		if (e.questionChoose == 3)
-			printf("What is the name of your high school? \nAnswer:  \b");
+			printf("What is the name of your high school? \nAnswer :  \b");
 		gets(securityAnswer);
-		
+
 		if (strcmp(e.answer, securityAnswer) == 0)
 		{
 			while (run2 == 0)
@@ -298,7 +303,7 @@ int EmployerMenu(employer emp)
 	int run = 0;
 	char choice = '0';
 	candidate cand;
-	strcpy(cand.email,"0");
+	strcpy(cand.email, "0");
 	strcpy(cand.Fname, emp.Fname);
 	while (run != -1)
 	{
@@ -341,7 +346,7 @@ int EmployerMenu(employer emp)
 		case '5':
 		{
 			system("cls");
-	
+
 			deleteMyPublishedJobs(emp.email);
 			if (deleteline("Employer_DATA.csv", findRightRow("Employer_DATA.csv", emp.email)) == 0)//delete employer
 			{
@@ -358,7 +363,7 @@ int EmployerMenu(employer emp)
 		case '6':
 		{
 			system("cls");
-			
+
 			empSearchEngine();// candidate searching by type/working area
 			break;
 		}
@@ -372,7 +377,7 @@ int EmployerMenu(employer emp)
 		default:
 		{
 			system("cls");
-			printf("wrong Input Please Choose between 1-7 \n");
+			printf("wrong Input Please Choose between 1-7  \n");
 		}
 		}
 	}
@@ -411,21 +416,21 @@ int editProfileMenuEmp(employer emp)
 		{
 			system("cls");
 			ans = choice - '0';
-			emp= editProfileEmp(emp, "Employer_DATA.csv", ans);//email
+			emp = editProfileEmp(emp, "Employer_DATA.csv", ans);//email
 			break;
 		}
 		case '3':
 		{
 			system("cls");
 			ans = choice - '0';
-			emp= editProfileEmp(emp, "Employer_DATA.csv", ans);//password edit function
+			emp = editProfileEmp(emp, "Employer_DATA.csv", ans);//password edit function
 			break;
 		}
 		case '4':
 		{
 			system("cls");
 			ans = choice - '0';
-			emp= editProfileEmp(emp, "Employer_DATA.csv", ans);//job description edit function 
+			emp = editProfileEmp(emp, "Employer_DATA.csv", ans);//job description edit function 
 			break;
 		}
 
@@ -433,7 +438,7 @@ int editProfileMenuEmp(employer emp)
 		{
 			system("cls");
 			ans = choice - '0';
-			emp=editProfileEmp(emp, "Employer_DATA.csv", ans);//city edit function 
+			emp = editProfileEmp(emp, "Employer_DATA.csv", ans);//city edit function 
 			break;
 		}
 
@@ -441,14 +446,14 @@ int editProfileMenuEmp(employer emp)
 		{
 			system("cls");
 			ans = choice - '0';
-			emp=editProfileEmp(emp, "Employer_DATA.csv", ans);//phone number edit function 
+			emp = editProfileEmp(emp, "Employer_DATA.csv", ans);//phone number edit function 
 			break;
 		}
 		case '7':
 		{
 			system("cls");
 			ans = choice - '0';
-			emp=editProfileEmp(emp, "Employer_DATA.csv", ans);//security question edit function 
+			emp = editProfileEmp(emp, "Employer_DATA.csv", ans);//security question edit function 
 			break;
 		}
 		case '8':
@@ -523,7 +528,7 @@ int jobAdd(char* email)
 {
 	int serialNum;
 	serialNum = lastSerial();
-	char* Jname[MAXNAME], Jrange[MAXBUFFER], Jcity[MAXNAME], Jtype[MAXNAME], Jdescription[MAXBUFFER], Jresponsibilities[MAXBUFFER], 
+	char* Jname[MAXNAME], Jrange[MAXBUFFER], Jcity[MAXNAME], Jtype[MAXNAME], Jdescription[MAXBUFFER], Jresponsibilities[MAXBUFFER],
 		Jqualifications[MAXBUFFER], Jsalary[MAXNAME], Jhours[MAXNAME];
 
 	FILE* Jobdata = fopen("JOB_LIST_DATA.csv", "a+");
@@ -533,17 +538,17 @@ int jobAdd(char* email)
 		return 1;
 	}
 
-	printf("\nEnter the job name: \b");
+	printf("\nEnter the job name :  \b");
 	gets(Jname);
-	printf("\nEnter the job range: \b");
+	printf("\nEnter the job range :  \b");
 	gets(Jrange);
-	printf("\nEnter the city: \b");
+	printf("\nEnter the city :  \b");
 	gets(Jcity);
 	while (CheckLower(Jcity) == 0)
 	{
 		gets(Jcity);
 	}
-	printf("\nJob type:\n");
+	printf("\nJob type : \n");
 	int run = 0;
 	char choice = '0';
 	while (run != -1)
@@ -575,16 +580,16 @@ int jobAdd(char* email)
 
 
 	getchar();
-	printf("\nEnter the job description: \n");
+	printf("\nEnter the job description : \n");
 	gets(Jdescription);
 
-	printf("\nEnter the job responsibilities: \n");
+	printf("\nEnter the job responsibilities : \n");
 	gets(Jresponsibilities);
 
-	printf("\nEnter the job qualifications: \n");
+	printf("\nEnter the job qualifications : \n");
 	gets(Jqualifications);
 
-	printf("\nJob salary: \n");
+	printf("\nJob salary : \n");
 	run = 0;
 	choice = '0';
 	while (run != -1)
@@ -638,7 +643,7 @@ int jobAdd(char* email)
 	}
 
 	getchar();
-	printf("\nJob hours: \n");
+	printf("\nJob hours : \n");
 	run = 0;
 	choice = '0';
 	while (run != -1)
@@ -692,7 +697,7 @@ int jobAdd(char* email)
 		Jsalary, Jhours, email);
 	fclose(Jobdata);
 	system("cls");
-	printf("\nNew job added to record!\n~prees enter to continue~\n");
+	printf("\nNew job added to record !\n~prees enter to continue~\n");
 	return 0;
 
 
@@ -700,18 +705,18 @@ int jobAdd(char* email)
 
 int editJobFromList(char* email)
 {
-	int jobNumber, row=1;
-	int check = 0,run = 0,run2 = 0, run3 = 0;
-	char choice = '0', choice2 = '0', choice3 = '0',name[MAXNAME],num[MAXNAME], name2[MAXNAME];
-	char buffer[MAXBUFFER],*temp, jobNum[MAXNAME];
+	int jobNumber, row = 1;
+	int check = 0, run = 0, run2 = 0, run3 = 0;
+	char choice = '0', choice2 = '0', choice3 = '0', name[MAXNAME], num[MAXNAME], name2[MAXNAME];
+	char buffer[MAXBUFFER], * temp, jobNum[MAXNAME];
 	int count = countNumLine("Candidate_DATA.csv");
 	if (printMyPublishedJobs(email) == 0)
 	{
-		printf("You dont have any published jobs!");
+		printf("You dont have any published jobs !");
 		return 0;
 	}
 
-	printf("\nEnter the job number you want to edit: ");
+	printf("\nEnter the job number you want to edit : ");
 	scanf("%d", &jobNumber);
 	getchar();
 	job joBs;
@@ -729,7 +734,7 @@ int editJobFromList(char* email)
 	{
 		temp = _strdup(buffer);
 		sprintf(jobNum, "%d", jobNumber);
-		if(strcmp(jobNum,getfield(temp,1))==0)
+		if (strcmp(jobNum, getfield(temp, 1)) == 0)
 			printJob(temp);
 	}
 	rewind(fp);
@@ -743,7 +748,7 @@ int editJobFromList(char* email)
 		printf("Press 6 to Change job hours.\n");
 		printf("Press 7 to Change job area.\n");
 		printf("Press 8 to exit.\n");
-		printf("choice: ");
+		printf("choice : ");
 		scanf("%c", &choice);
 		getchar();
 		switch (choice)
@@ -751,36 +756,40 @@ int editJobFromList(char* email)
 		case '1':
 		{
 			system("cls");
-			printf("Enter new name of the job: \b");
+			printf("Enter new name of the job :  \b");
 			gets(joBs.Jname);
+			printf("edited name.\n");
 			break;
 		}
 		case '2':
 		{
 			system("cls");
-			printf("Enter new job description: \b");
+			printf("Enter new job description :  \b");
 			gets(joBs.Jdescription);
+			printf("edited description.\n");
 			break;
 		}
 		case '3':
 		{
 			system("cls");
-			printf("Enter new job main responsibilities: \b");
+			printf("Enter new job main responsibilities :  \b");
 			gets(joBs.Jresponsibilities);
+			printf("edited responsibilities.\n");
 			break;
 		}
 		case '4':
 		{
 			system("cls");
-			printf("Enter new job qualifications: \b");
+			printf("Enter new job qualifications :  \b");
 			gets(joBs.Jqualifications);
+			printf("edited job qualifications.\n");
 			break;
 		}
 		case '5':
 		{
 			system("cls");
-			printf("Enter new job salary: \b");
-			
+			printf("Enter new job salary :  \b");
+
 			while (run2 != -1)
 			{
 				printf("\nPress 1 for 30-40 nis/h.\n");//30-40/h
@@ -788,7 +797,7 @@ int editJobFromList(char* email)
 				printf("Press 3 for 50-60 nis/h\n");
 				printf("Press 4 for 60-70 nis/h\n");
 				printf("Press 5 for 70+ nis/h\n");//+70/h
-				printf("Choice: ");
+				printf("Choice : ");
 				scanf("%c", &choice2);
 				getchar();
 				switch (choice2)
@@ -797,18 +806,21 @@ int editJobFromList(char* email)
 				{
 					strcpy(joBs.Jsalary, "30-40/h");
 					run2 = -1;
+					printf("edited job salary to 30-40/h.\n");
 					break;
 				}
 				case '2':
 				{
 					strcpy(joBs.Jsalary, "40-50/h");
 					run2 = -1;
+					printf("edited job salary to 40-50/h.\n");
 					break;
 				}
 				case '3':
 				{
 					strcpy(joBs.Jsalary, "50-60/h");
 					run2 = -1;
+					printf("edited job salary to 50-60/h.\n");
 					break;
 
 				}
@@ -816,12 +828,14 @@ int editJobFromList(char* email)
 				{
 					strcpy(joBs.Jsalary, "60-70/h");
 					run2 = -1;
+					printf("edited job salary to 60-70/h.\n");
 					break;
 				}
 				case '5':
 				{
 					strcpy(joBs.Jsalary, "70+/h");
 					run2 = -1;
+					printf("edited job salary to 70+/h.\n");
 					break;
 				}
 
@@ -838,7 +852,7 @@ int editJobFromList(char* email)
 		case '6':
 		{
 			system("cls");
-			printf("Enter new job hours: \b");
+			printf("Enter new job hours :  \b");
 			while (run3 != -1)
 			{
 				printf("\nPress 1 for morning.\n");//30-40/h
@@ -854,18 +868,21 @@ int editJobFromList(char* email)
 				{
 					strcpy(joBs.Jhours, "morning");
 					run3 = -1;
+					printf("edited job hours to morning.\n");
 					break;
 				}
 				case '2':
 				{
 					strcpy(joBs.Jhours, "afternoon");
 					run3 = -1;
+					printf("edited job hours to afternoon.\n");
 					break;
 				}
 				case '3':
 				{
 					strcpy(joBs.Jhours, "evening");
 					run3 = -1;
+					printf("edited job hours to evening.\n");
 					break;
 
 
@@ -874,6 +891,7 @@ int editJobFromList(char* email)
 				{
 					strcpy(joBs.Jhours, "night");
 					run3 = -1;
+					printf("edited job hours to night.\n");
 					break;
 				}
 
@@ -891,7 +909,7 @@ int editJobFromList(char* email)
 		case '7':
 		{
 			system("cls");
-			printf("Enter new job area: \b");
+			printf("Enter new job area :  \b");
 			gets(joBs.Jcity);
 			while (CheckLower(joBs.Jcity) == 0)
 			{
@@ -899,6 +917,7 @@ int editJobFromList(char* email)
 			}
 			//getchar();
 			system("cls");
+			printf("edited job area.\n");
 			break;
 		}
 		case '8':
@@ -920,66 +939,66 @@ int editJobFromList(char* email)
 	fclose(fp);
 	char* temp2;
 
-		FILE* candF = fopen("Candidate_DATA.csv", "r");//check if opend
-		if (!candF)
+	FILE* candF = fopen("Candidate_DATA.csv", "r");//check if opend
+	if (!candF)
+	{
+		printf("Can't open file\n");
+		return;
+	}
+	fgets(buffer, 2024, candF);
+	while (fgets(buffer, 2024, fp))
+	{
+		temp = _strdup(buffer);
+		strcpy(name, "FAVORITEJOB");
+		strcat(name, getfield(temp, 2));
+		temp = _strdup(buffer);
+		strcat(name, getfield(temp, 1));
+		strcat(name, ".csv");
+		temp2 = _strdup(buffer);
+		strcpy(name2, getfield(temp2, 2));
+		temp2 = _strdup(buffer);
+		strcat(name2, getfield(temp2, 1));
+		strcat(name2, ".csv");
+		sprintf(jobNum, "%d", jobNumber);
+		if (ifExists(name, jobNum, 1) == 0)
 		{
-			printf("Can't open file\n");
-			return;
+			deleteline(name, findRightRowSerial(name, jobNum));
+			FILE* fp2 = fopen(name, "a+");
+			fprintf(fp2, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity,
+				joBs.Jtype, joBs.Jdescription, joBs.Jresponsibilities, joBs.Jqualifications,
+				joBs.Jsalary, joBs.Jhours, joBs.empEmail);
+			fclose(fp2);
 		}
-		fgets(buffer, 2024, candF);
-		while (fgets(buffer, 2024, fp))
+		if (ifExists(name2, jobNum, 1) == 0)
 		{
-			temp = _strdup(buffer);
-			strcpy(name, "FAVORITEJOB");
-			strcat(name, getfield(temp, 2));
-			temp = _strdup(buffer);
-			strcat(name, getfield(temp, 1));
-			strcat(name, ".csv");
-			temp2 = _strdup(buffer);
-			strcpy(name2, getfield(temp2, 2));
-			temp2 = _strdup(buffer);
-			strcat(name2, getfield(temp2, 1));
-			strcat(name2, ".csv");
-			sprintf(jobNum, "%d", jobNumber);
-			if (ifExists(name,jobNum, 1) == 0)
-			{
-				deleteline(name, findRightRowSerial(name, jobNum));
-				FILE* fp2=fopen(name, "a+");
-				fprintf(fp2, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity,
-					joBs.Jtype, joBs.Jdescription, joBs.Jresponsibilities, joBs.Jqualifications,
-					joBs.Jsalary, joBs.Jhours, joBs.empEmail);
-				fclose(fp2);
-			}
-			if (ifExists(name2, jobNum, 1) == 0)
-			{
-				deleteline(name2, findRightRowSerial(name2, jobNum));
-				FILE* fp3=fopen(name2, "a+");
-				fprintf(fp3, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity,
-					joBs.Jtype, joBs.Jdescription, joBs.Jresponsibilities, joBs.Jqualifications,
-					joBs.Jsalary, joBs.Jhours, joBs.empEmail);
-				fclose(fp3);
-			}
+			deleteline(name2, findRightRowSerial(name2, jobNum));
+			FILE* fp3 = fopen(name2, "a+");
+			fprintf(fp3, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", joBs.serialNum, joBs.Jname, joBs.Jrange, joBs.Jcity,
+				joBs.Jtype, joBs.Jdescription, joBs.Jresponsibilities, joBs.Jqualifications,
+				joBs.Jsalary, joBs.Jhours, joBs.empEmail);
+			fclose(fp3);
 		}
-		system("cls");
-		printf("All the data changed!\n");
+	}
+	system("cls");
+	printf("All the data changed !\n");
 
 	return 0;
 }
 
 int deleteJob(char* email)
 {
-	
+
 	int jobNumber, check = 0;
 	char jobNum[MAXBUFFER];
 	char fileName[MAXNAME] = "submissionsJOB";//submissionsJOB2
 
 	if (printMyPublishedJobs(email) == 0)//print all the employer jobs 
 	{
-		printf("You dont have any published jobs!\n");
+		printf("You dont have any published jobs !\n");
 		return 0;
 	}
-	
-	printf("\nEnter the job number you want to delete: ");
+
+	printf("\nEnter the job number you want to delete : ");
 	scanf("%d", &jobNumber);
 	getchar();
 	job joBs;
@@ -990,25 +1009,25 @@ int deleteJob(char* email)
 	remove(fileName);
 
 	check = fevoritsAndAddDelete(jobNumber);//fevorits check and delete.
-	
+
 
 
 	check = deleteJobLine("JOB_LIST_DATA.csv", jobNumber);
 	if (check == 0)
 	{
 		system("cls");
-		printf("\nJob No.%d was deleted from the JOB DATA BASE successfully!\n", jobNumber);
+		printf("\nJob No.%d was deleted from the JOB DATA BASE successfully !\n", jobNumber);
 		return 0;
 	}
 
 	if (check != 0)
 	{
-		printf("\nThere was a problem to delete your job!\n");
+		printf("\nThere was a problem to delete your job !\n");
 		return 1;
 	}
 }
 
-int printMyPublishedJobs(char *email)
+int printMyPublishedJobs(char* email)
 {
 	char* value, buffer[2024];
 
@@ -1021,7 +1040,7 @@ int printMyPublishedJobs(char *email)
 	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r");
 	if (JoblistdataF == NULL)
 	{
-		printf("Can't open file!");
+		printf("Can't open file !");
 		return 1;
 	}
 
@@ -1062,7 +1081,7 @@ int printMyPublishedJobs(char *email)
 
 int deleteMyPublishedJobs(char* email)
 {
-	char* temp=NULL, buffer[2024];
+	char* temp = NULL, buffer[2024];
 	int column = 0, count = 0;
 	int* arr = NULL;
 	int i = 0;
@@ -1070,11 +1089,11 @@ int deleteMyPublishedJobs(char* email)
 	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r+");
 	if (JoblistdataF == NULL)
 	{
-		printf("Can't open file!");
+		printf("Can't open file !");
 		return 1;
 	}
 	while (fgets(buffer, 1024, JoblistdataF))//run to the end.
-	{		
+	{
 		temp = _strdup(buffer);
 		if (strcmp(getfield(temp, 11), email) == 0)
 			count++;
@@ -1082,7 +1101,7 @@ int deleteMyPublishedJobs(char* email)
 	arr = (int*)malloc(count * sizeof(int));
 	rewind(JoblistdataF);
 	while (fgets(buffer, 1024, JoblistdataF))//run to the end.
-	{	
+	{
 		temp = _strdup(buffer);
 		if (strcmp(getfield(temp, 11), email) == 0)
 		{
@@ -1120,37 +1139,36 @@ int deleteJobsByNumber(int jobNumber)
 	check = deleteJobLine("JOB_LIST_DATA.csv", jobNumber);
 	if (check == 0)
 	{
-		printf("\nJob No.%d was deleted from the JOB DATA BASE successfully!\n", jobNumber);
+		printf("\nJob No.%d was deleted from the JOB DATA BASE successfully !\n", jobNumber);
 		return 0;
 	}
 
 	if (check != 0)
 	{
-		printf("\nThere was a problem to delete your job!\n");
+		printf("\nThere was a problem to delete your job !\n");
 		return 1;
 	}
 }
 
-
-int jobsOfferList(char *email)
+int jobsOfferList(char* email)
 {
 	int jobNumber;
-	char choice, choice2,*temp,Fname[MAXNAME];
+	char choice, choice2, * temp, Fname[MAXNAME];
 	char jobNum[MAXBUFFER];
 	char fileName[MAXNAME] = "submissionsJOB";//submissionsJOB2
-	FILE *CVf;
+	FILE* CVf;
 	if (printMyPublishedJobs(email) == 0)
 	{
-		printf("You dont have any published jobs!\n");
+		printf("You dont have any published jobs !\n");
 		return 0;
 	}
 	else
 	{
-		printf("\nPress 1 to see all the candidates that submitted for this job: \nPress something else to continue\nchoice:  ");
+		printf("\nPress 1 to see all the candidates that submitted for this job : \nPress something else to continue\nchoice : ");
 		scanf("%c", &choice);
-		if (choice=='1')
+		if (choice == '1')
 		{
-			printf("\npress the job serial to see all the candidates that submitted for this job: ");
+			printf("\npress the job serial to see all the candidates that submitted for this job : ");
 			scanf("%d", &jobNumber);
 			getchar();
 			sprintf(jobNum, "%d", jobNumber);
@@ -1159,7 +1177,7 @@ int jobsOfferList(char *email)
 
 			if (findJobsubFile(fileName) != 0)
 			{
-				printf("\nStill No one submitted for this job!\n\n");
+				printf("\nStill No one submitted for this job !\n\n");
 				return 1;
 			}
 			else
@@ -1183,7 +1201,7 @@ int jobsOfferList(char *email)
 					if (!CVf)
 						continue;
 					fclose(CVf);
-					printf("The candidate create CV file, to see it press 1, something else to continue\nchoice: ");
+					printf("The candidate create CV file, to see it press 1, something else to continue\nchoice : ");
 					scanf("%c", &choice2);
 					if (choice2 == '1')
 						printCV(Fname);

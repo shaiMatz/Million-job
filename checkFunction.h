@@ -30,6 +30,6 @@ int sortFilefromendtostart(char* fileName, int column);
 int lastSerial();
 int findJobsubFile(char* fileName);
 int deleteJobLineFromCAND_NAME_CSVfile(char* fileName, int serialNum);
-int deleteFromSubAndFromPersonalcsvFile(char* fileName,int jobNumber);
+int deleteFromSubAndFromPersonalcsvFile(char* fileName, int jobNumber);
 int fevoritsAndAddDelete(int jobNumber);
 int findRightRowSerial(char* fileName, char* serial);

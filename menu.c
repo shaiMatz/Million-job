@@ -6,19 +6,19 @@
 void menu()
 {
 	int run = 0;
-	char choice = '0'; 
+	char choice = '0';
 	char choice1 = '0';
 	char email[MAXNAME];
 	employer newEmp;
 	candidate newCand;
-	int num=0;
+	int num = 0;
 	char temp[MAXNAME];
 	while (run != -1)
 	{
-		printf(" ~~~~~ Hello Dear User!~~~~~ \n");
+		printf(" ~~~~~ Hello Dear User !~~~~~ \n");
 		printf("Welcome to Million Job Program \n");
-		printf(" dont miss your apportunity! \n\n");
-		printf("option :\n1) For login Press 1\n2) For Register press 2\n3) For lost password press 3\n4) For exit press 4\n\nchoice : \b");
+		printf(" dont miss your apportunity ! \n\n");
+		printf("option : \n1) For login Press 1\n2) For Register press 2\n3) For lost password press 3\n4) For exit press 4\n\nchoice :  \b");
 		scanf("%c", &choice);
 		getchar();
 		switch (choice)
@@ -32,7 +32,7 @@ void menu()
 				system("cls");
 				printf("the email don't exists in the database, you need to sign up\n");
 				getchar();
-				
+
 				break;
 			}
 			else if (num == 1)
@@ -56,8 +56,8 @@ void menu()
 		}
 		case '2':
 		{
-			system("cls");		
-			printf("option :\n1) For employer Press 1\n2) For candidate press 2\n3) For returning to previous menu press 3\n\nchoice : \b");
+			system("cls");
+			printf("option : \n1) For employer Press 1\n2) For candidate press 2\n3) For returning to previous menu press 3\n\nchoice :  \b");
 			scanf("%c", &choice1);
 			getchar();
 			switch (choice1)			//employer or candidate ?
@@ -88,9 +88,9 @@ void menu()
 		case '3':
 		{
 			system("cls");
-			if(forgetMyPass(&num)!=NULL)
+			if (forgetMyPass(&num) != NULL)
 				strcpy(temp, forgetMyPass);
-			
+
 			if (num == 1)
 			{
 				system("cls");
@@ -112,14 +112,14 @@ void menu()
 		{
 			run = -1;
 			system("cls");
-			printf("Good-bye!\n\n");
-			
+			printf("Good-bye !\n\n");
+
 			break;
 		}
 		default:
 		{
 			system("cls");
-			printf("Error! you put wrong number please try again (1-4)\n");
+			printf("Error ! You put wrong number please try again (1-4) : \n");
 
 		}
 		}
@@ -127,20 +127,20 @@ void menu()
 
 }
 
-char* login(int *num)
+char* login(int* num)
 {
 	char email[MAXNAME], password[MAXNAME];
 	candidate cand;
 	employer emp;
 	int row;
 	printf("please enter your email and password\n");
-	printf("Email: ");
+	printf("Email : ");
 	scanf("%s", &email);
-	printf("Password: ");
+	printf("Password : ");
 	scanf("%s", &password);
 	row = findRightRow("Candidate_DATA.csv", email);
-	
-	if((row!=1)&& (row == findRightRowPass("Candidate_DATA.csv",password)))
+
+	if ((row != 1) && (row == findRightRowPass("Candidate_DATA.csv", password)))
 	{
 		*num = 1;
 		return email;
@@ -160,13 +160,14 @@ char* login(int *num)
 	return "\0";
 
 }
-char *forgetMyPass(int *num)
+
+char* forgetMyPass(int* num)
 {
 	char email[MAXNAME];
 	candidate cand;
 	employer emp;
 
-	printf("Hello, please enter your email address:\nEmail:");
+	printf("Hello, please enter your email address :\nEmail : ");
 	scanf("%s", &email);
 	getchar();
 	if (findRightRow("Candidate_DATA.csv", email) != 1)
@@ -184,6 +185,6 @@ char *forgetMyPass(int *num)
 		return emp.email;
 	}
 	else
-		printf("the user doesn't exists in the databases!\n");
+		printf("the user doesn't exists in the databases !\n");
 	return NULL;
 }

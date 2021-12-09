@@ -20,6 +20,7 @@ int IDCheck(char* ID)
 	return 1;
 
 }
+
 int IDCheckIFREAL(long numid) //function "ID"
 {
 	long int num1, num2, num3, num4, num5, num6, num7, num8, num9, sum; // in this function i unpucked the id number that the user entered. and multiplide by the algoritem 1,2.
@@ -50,6 +51,7 @@ int IDCheckIFREAL(long numid) //function "ID"
 	else// else mean that the id is not proper.
 		return 0;
 }
+
 int MailCheck(char* mail)
 {
 	int position = 0;
@@ -103,6 +105,7 @@ int MailCheck(char* mail)
 		return 0;
 	}
 }
+
 int PasswordCheck(char* password)
 {
 	int i = 0;
@@ -128,6 +131,7 @@ int PasswordCheck(char* password)
 		return 0;
 	}
 }
+
 int BirthCheck(int day, int month, int year)
 {
 	if (year < 1900)//check the limitations
@@ -226,6 +230,7 @@ int BirthCheck(int day, int month, int year)
 		}
 	}
 }
+
 int PhoneCheck(char* phone)
 {
 	if (phone[0] == '0' && phone[1] == '5' && strlen(phone) == 10)//check that the length of the telephone number is equal to 10, and that it starts with 05
@@ -241,6 +246,7 @@ int PhoneCheck(char* phone)
 		return 0;
 	}
 }
+
 int deleteline(char* fileName, int row)// delete the line from the file
 {
 	char buffer[2024];
@@ -282,6 +288,7 @@ int deleteline(char* fileName, int row)// delete the line from the file
 	rc = rename(name, fileName);
 	return 0;
 }
+
 int deleteJobLine(char* fileName, int serialNum)
 {
 	char num[50];
@@ -386,7 +393,7 @@ int deleteFromSubAndFromPersonalcsvFile(char* fileName, int jobNumber)
 	char canName[MAXNAME];
 	char buffer[2024];
 	char ID[MAXNAME];
-	int rc,check = 0, check2 = 0;
+	int rc, check = 0, check2 = 0;
 
 	FILE* fp = fopen(fileName, "r+");
 	if (!fp) {
@@ -438,7 +445,7 @@ int fevoritsAndAddDelete(int jobNumber)
 {
 	int  run = 0, run2 = 0, run3 = 0;
 	char name[MAXNAME], num[MAXNAME], name2[MAXNAME];
-	char buffer[MAXBUFFER], * temp,*temp2, jobNum[MAXNAME];
+	char buffer[MAXBUFFER], * temp, * temp2, jobNum[MAXNAME];
 	FILE* candF = fopen("Candidate_DATA.csv", "r");//check if opend
 	if (!candF)
 	{
@@ -464,19 +471,17 @@ int fevoritsAndAddDelete(int jobNumber)
 		if (ifExists(name, jobNum, 1) == 0)
 		{
 			deleteline(name, findRightRowSerial(name, jobNum));
-			
+
 		}
 		if (ifExists(name2, jobNum, 1) == 0)
 		{
 			deleteline(name2, findRightRowSerial(name2, jobNum));
-			
+
 		}
 	}
 	fclose(candF);
 	return 0;
 }
-
-
 
 int findRightRowSerial(char* fileName, char* serial)
 {//find the row by serial, returns the line nunber
@@ -507,6 +512,7 @@ int findRightRowSerial(char* fileName, char* serial)
 	fclose(fp);
 	return 1;
 }
+
 int findRightRow(char* fileName, char* email)
 {//find the row by email, returns the line nunber
 	char* temp, buffer[2024];
@@ -536,9 +542,10 @@ int findRightRow(char* fileName, char* email)
 	fclose(fp);
 	return 1;
 }
+
 int findRightRowPass(char* fileName, char* pass)
 {//find the row by password, returns the line nunber
-	char buffer[2024],*temp;
+	char buffer[2024], * temp;
 	int column = 0, row = 0;
 	FILE* fp = fopen(fileName, "r");
 	if (!fp)
@@ -562,6 +569,7 @@ int findRightRowPass(char* fileName, char* pass)
 	fclose(fp);
 	return -1;
 }
+
 int CheckLower(char* city)
 {
 	int count = 0, i = 0, countSpace = 0, countSymbol = 0;
@@ -592,6 +600,7 @@ int CheckLower(char* city)
 	}
 
 }
+
 const char* getfield(char* line, int column)
 {
 	const char* value;
@@ -604,9 +613,10 @@ const char* getfield(char* line, int column)
 	}
 	return NULL;// if not found returns null
 }
+
 int ifExists(char* fileName, char* name, int column)// check every field in the column if the name value exists
 {
-	char buffer[MAXBUFFER],*temp;
+	char buffer[MAXBUFFER], * temp;
 	FILE* fp = fopen(fileName, "r");
 	if (!fp)
 	{
@@ -626,6 +636,7 @@ int ifExists(char* fileName, char* name, int column)// check every field in the 
 	fclose(fp);
 	return 1;
 }
+
 int sortFile(char* fileName, int column)
 {
 	char buffer[MAXBUFFER];

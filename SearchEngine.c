@@ -7,14 +7,14 @@ int Filtermenu(candidate cand)
 	char i = ' ';
 	while (i != '0')
 	{
-		printf("Press 1 to sort by location \nPress 2 to sort by job hours \nPress 3 to sort by salary \nPress 4 to sort job type \nPress 5 to go to the previous menu\n ");
+		printf("Press 1 to sort by location\nPress 2 to sort by job hours\nPress 3 to sort by salary\nPress 4 to sort job type\nPress 5 to go to the previous menu\n");
 		scanf("%c", &i);
 		getchar();
 		switch (i)
 		{
 		case '1':
 			system("cls");
-			
+
 			filtertown(cand);
 			break;
 
@@ -116,6 +116,7 @@ void printJob(char* line)
 
 	}
 }
+
 void printCand(char* line)
 {
 	char* temp = _strdup(line);
@@ -157,7 +158,7 @@ int filterjobhours(candidate cand)
 	char name[MAXNAME];
 	while (i != '0')
 	{
-		printf("Press 1 to show morning jobs \nPress 2 to show afternoon jobs \nPress 3 to show evening jobs \nPress 4 to show night jobs \nPress 5 to go to the previous menu\n ");
+		printf("Press 1 to show morning jobs\nPress 2 to show afternoon jobs\nPress 3 to show evening jobs\nPress 4 to show night jobs\nPress 5 to go to the previous menu\n");
 		scanf("%c", &i);
 		getchar();
 		switch (i)
@@ -227,7 +228,7 @@ int choicemenu(candidate cand)
 		switch (choice)
 		{
 		case '1':
-			printf("enter the number you liked: ");
+			printf("enter the number you liked : ");
 			scanf("%d", &liked);
 			getchar();
 			sprintf(num, "%d", liked);
@@ -241,10 +242,10 @@ int choicemenu(candidate cand)
 				printf("the job does not exist in the database\n");
 				choice = '0';
 			}
-			
+
 			break;
 		case '2':
-			printf("enter the number you want to add to your favorite list: ");
+			printf("enter the number you want to add to your favorite list : ");
 			scanf("%d", &liked);
 			getchar();
 			sprintf(num, "%d", liked);
@@ -258,7 +259,7 @@ int choicemenu(candidate cand)
 				printf("the job does not exist in the database\n");
 				choice = '0';
 			}
-			
+
 			break;
 		case '3':
 			choice = '0';
@@ -326,7 +327,7 @@ int printall(candidate cand)
 					}
 					break;
 				case '2':
-					printf("enter the number you want to add to your favorite list: ");
+					printf("enter the number you want to add to your favorite list : ");
 					scanf("%d", &liked);
 					getchar();
 					sprintf(num, "%d", liked);
@@ -465,6 +466,7 @@ int pickAFavJob(candidate cand, job jobN)
 		fprintf(pf, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", jobN.serialNum, jobN.Jname, jobN.Jcity,
 			jobN.Jrange, jobN.Jtype, jobN.Jdescription, jobN.Jresponsibilities, jobN.Jqualifications,
 			jobN.Jsalary, jobN.Jhours);
+		printf("added job.\n");
 	}
 	else
 		printf("The job already exists in your list!\n");
@@ -486,7 +488,7 @@ int filtersalary(candidate cand)
 	char name[MAXNAME];
 	while (i != '0')
 	{
-		printf("Press 1 to show salary between 30-40/h \nPress 2 to show salary between 40-50/h  \nPress 3 to show salary between 50-60/h  \nPress 4 to show salary between 60-70/h  \nPress 5 to show salary +70/h \nPress 6 to go to the previous menu\n ");
+		printf("Press 1 to show salary between 30-40/h\nPress 2 to show salary between 40-50/h\nPress 3 to show salary between 50-60/h\nPress 4 to show salary between 60-70/h \nPress 5 to show salary +70/h\nPress 6 to go to the previous menu\n");
 		scanf("%c", &i);
 		getchar();
 		switch (i)
@@ -700,7 +702,7 @@ int empSearchEngine()
 	char i = ' ';
 	while (i != '0')
 	{
-		printf("Press 1 to sort by location \nPress 2 to sort by job genre \nPress 3 to go to the previous menu\n ");
+		printf("Press 1 to sort by location\nPress 2 to sort by job genre\nPress 3 to go to the previous menu\n");
 		scanf("%c", &i);
 		getchar();
 		switch (i)

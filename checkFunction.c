@@ -2,7 +2,12 @@
 #include "candidate.h"
 #include "employer.h"
 #include <errno.h>
-
+void clearBuffer() {
+	char c;
+	do {
+		c = getchar();
+	} while (c != '\n' && c != EOF);
+}
 int IDCheck(char* ID)
 {
 	long longID;
@@ -649,7 +654,6 @@ int sortFile(char* fileName, int column)
 	FILE* pf = fopen(fileName, "r");
 	if (!pf)
 	{
-		printf("can't open the file: %s", fileName);
 		return 1;
 	}
 	FILE* temp = fopen(name, "w");
@@ -717,7 +721,6 @@ int sortFilefromendtostart(char* fileName, int column)
 	FILE* pf = fopen(fileName, "r");
 	if (!pf)
 	{
-		printf("can't open the file: %s", fileName);
 		return 1;
 	}
 	FILE* temp = fopen(name, "w");
@@ -728,16 +731,18 @@ int sortFilefromendtostart(char* fileName, int column)
 	}
 	fgets(buffer, 2024, pf);
 	fprintf(temp, "%s", buffer);
-	while (counter >= 0)
+	while (counter > 0)
 	{
 		while (fgets(buffer, 2024, pf))
 		{
+
 			temp2 = _strdup(buffer);
 			if (atoi(getfield(temp2, 1)) == counter)
 			{
 				fprintf(temp, "%s", buffer);
 				break;
 			}
+			
 		}
 		counter--;
 		rewind(pf);
@@ -764,7 +769,7 @@ int lastSerial()
 	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r");
 	if (JoblistdataF == NULL)
 	{
-		printf("Can't open file!");
+		printf("there are no jobs\n");
 		return;
 	}
 

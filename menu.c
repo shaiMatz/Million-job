@@ -118,6 +118,7 @@ void menu()
 		}
 		default:
 		{
+			clearBuffer();
 			system("cls");
 			printf("Error ! You put wrong number please try again (1-4) : \n");
 

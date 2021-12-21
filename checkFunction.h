@@ -33,3 +33,4 @@ int deleteJobLineFromCAND_NAME_CSVfile(char* fileName, int serialNum);
 int deleteFromSubAndFromPersonalcsvFile(char* fileName, int jobNumber);
 int fevoritsAndAddDelete(int jobNumber);
 int findRightRowSerial(char* fileName, char* serial);
+void clearBuffer();

@@ -43,6 +43,7 @@ int Filtermenu(candidate cand)
 			break;
 
 		default:
+			clearBuffer();
 			system("cls");
 
 			printf("wrong entry try again\n");
@@ -57,7 +58,7 @@ int filtertown(candidate cand)
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
 	{
-		printf("can't open file\n");
+		printf("there are no jobs\n");
 		return 1;
 	}
 	char buffer[2024], * temp = NULL;
@@ -149,7 +150,7 @@ int filterjobhours(candidate cand)
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
 	{
-		printf("can't open file\n");
+		printf("there are no jobs\n");
 		return 1;
 	}
 	char buffer[2024], * temp = NULL;
@@ -187,6 +188,7 @@ int filterjobhours(candidate cand)
 			return 0;
 
 		default:
+			clearBuffer();
 			printf("wrong entry try again\n");
 			break;
 		}
@@ -262,9 +264,12 @@ int choicemenu(candidate cand)
 
 			break;
 		case '3':
+			system("cls");
 			choice = '0';
 			return 0;
 		default:
+			system("cls");
+			clearBuffer();
 			printf("wrong entry try again\n");
 			break;
 		}
@@ -278,7 +283,7 @@ int printall(candidate cand)
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
 	{
-		printf("can't open file\n");
+		printf("There are no jobs\n");
 		return 1;
 	}
 	char buffer[2024];
@@ -336,7 +341,7 @@ int printall(candidate cand)
 						pickAFavJob(cand, buildJob(liked));
 						choice = '0';
 					}
-					else
+					 else
 					{
 						printf("the job does not exist in the database\n");
 						choice = '0';
@@ -355,11 +360,13 @@ int printall(candidate cand)
 					}
 					break;
 				case '4':
+					system("cls");
 					choice = '0';
 					run = 0;
 					fclose(fp);
 					return 0;
 				default:
+					clearBuffer();
 					printf("wrong entry try again\n");
 					break;
 				}
@@ -391,6 +398,7 @@ int printall(candidate cand)
 					fclose(fp);
 					return 0;
 				default:
+					clearBuffer();
 					printf("wrong entry try again\n");
 					break;
 				}
@@ -479,7 +487,7 @@ int filtersalary(candidate cand)
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
 	{
-		printf("can't open file\n");
+		printf("there are no jobs\n");
 		return 1;
 	}
 	char buffer[2024], * temp = NULL;
@@ -520,6 +528,7 @@ int filtersalary(candidate cand)
 		case '6':
 			return 0;
 		default:
+			clearBuffer();
 			printf("wrong entry try again\n");
 			break;
 		}
@@ -555,7 +564,7 @@ int filterjobtype(candidate cand)
 	FILE* fp = fopen("JOB_LIST_DATA.csv", "r");
 	if (!fp)
 	{
-		printf("can't open file\n");
+		printf("there are no jobs\n");
 		return 1;
 	}
 	char buffer[2024], * temp = NULL;
@@ -583,6 +592,7 @@ int filterjobtype(candidate cand)
 			return 0;
 
 		default:
+			clearBuffer();
 			printf("wrong entry try again\n");
 			break;
 		}
@@ -720,6 +730,7 @@ int empSearchEngine()
 			break;
 
 		default:
+			clearBuffer();
 			printf("wrong entry try again\n");
 			break;
 		}

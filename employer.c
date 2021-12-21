@@ -376,6 +376,7 @@ int EmployerMenu(employer emp)
 
 		default:
 		{
+			clearBuffer();
 			system("cls");
 			printf("wrong Input Please Choose between 1-7  \n");
 		}
@@ -465,6 +466,7 @@ int editProfileMenuEmp(employer emp)
 
 		default:
 		{
+			clearBuffer();
 			system("cls");
 			printf("Worng input please try again...(1-8) \n");
 		}
@@ -515,6 +517,7 @@ int jobEdit(char* email)// inside function switch cases between 3 cases (edit,ad
 		}
 		default:
 		{
+			clearBuffer();
 			system("cls");
 			printf("wrong Input Please Choose between 1-4 \n");
 		}
@@ -573,6 +576,7 @@ int jobAdd(char* email)
 
 		default:
 		{
+			clearBuffer();
 			printf("wrong Input Please Choose between 1-2 \n");
 		}
 		}
@@ -637,6 +641,7 @@ int jobAdd(char* email)
 
 		default:
 		{
+			clearBuffer();
 			printf("wrong Input Please Choose between 1-5 \n");
 		}
 		}
@@ -684,7 +689,7 @@ int jobAdd(char* email)
 
 		default:
 		{
-
+			clearBuffer();
 			printf("wrong Input Please Choose between 1-4 \n");
 		}
 		}
@@ -842,6 +847,7 @@ int editJobFromList(char* email)
 
 				default:
 				{
+					clearBuffer();
 					system("cls");
 					printf("wrong Input Please Choose between 1-5 \n");
 				}
@@ -897,6 +903,7 @@ int editJobFromList(char* email)
 
 				default:
 				{
+					clearBuffer();
 					system("cls");
 					printf("wrong Input Please Choose between 1-4 \n");
 				}
@@ -928,6 +935,7 @@ int editJobFromList(char* email)
 		}
 
 		default:
+			clearBuffer();
 			system("cls");
 			printf("Wrong input please try again...(1-8) \n");
 
@@ -1232,6 +1240,7 @@ int jobsOfferList(char* email)
 
 					default:
 					{
+						clearBuffer();
 						system("cls");
 						printf("wrong Input Please Choose between 1-2 \n");
 					}

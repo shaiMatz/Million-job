@@ -1,4 +1,25 @@
 SerialNum,Job name,Job range,city,Job type,Job description,Job responsibilities,Job qualifications,Job salary,Job hours,Email of the employer
-1,burger,non,ashkelon,full time,burger,burger,burger,30-40/h,morning,ilyailyailya@gmail.com
-2,cleaner,ashdod,burger,part time,none,none,none,30-40/h,morning,ilyailyailya@gmail.com
-3,engineer,software engineering,yavne,full time,qa,none,none,30-40/h,evening,shai@gmail.com
+24,school maneger,education,bat yam,full time,manage the school,teach ,responsible,50-60/h,morning,rosieros@gmail.com
+23,build house,construction,ashkelon,part time,build,build houses,constructor dgree,40-50/h,evening,yoram@gmail.com
+22,food,sales,tel aviv,full time,cook,cook,know to cook,50-60/h,evening,bitonor@gmail.com
+21,farmer,farm,ashdod,part time,grow carrot,water the carrots,3 year experience,60-70/h,evening,suzi@gmail.com
+20,profesor,education,nahariya,part time,teach studet,test studets,teach before,40-50/h,morning,bitonor@gmail.com
+19,nerse,medical,bat yam,part time,treat people,treat people,dgree,70+/h,afternoon,rosieros@gmail.com
+18,teacher,education,yavne,full time,teach kids,teach ,4 year experience,40-50/h,afternoon,suzi@gmail.com
+17,sales books,sales,bat yam,full time,sales,sale book,know to read,70+/h,morning,roizab@gmail.com
+16,office maneger,software engineering,ashdod,full time,manage the project,mange people,4 year experience,60-70/h,morning,ilya@gmail.com
+15,children doctor,medical,nahariya,part time,help kids,heal ,doctor dgree,40-50/h,morning,yoram@gmail.com
+14,loyer,legal,sderot,full time,loyer,help people,law dgree,70+/h,afternoon,roizab@gmail.com
+13,music Directors,music,yavne,part time,find people,find good music,good hearing,60-70/h,afternoon,rotema@gmail.com
+12,family doctor,medical,ashkelon,part time,treat people,heal ,4 year experience dgree,70+/h,evening,roizab@gmail.com
+11,office support,legal,sderot,full time,sit in the office,ans phones,1 year experience,50-60/h,evening,yoram@gmail.com
+10,dj,music,nahariya,part time,show on stage,music,learn music,50-60/h,evening,yoram@gmail.com
+9,music Directors,music,tel aviv,full time,find good candidates,bring good music,4 year experience,40-50/h,afternoon,rotema@gmail.com
+8,painter,art,yavne,full time,paint,sell painting,know to draw,50-60/h,morning,suzi@gmail.com
+7,back end,software engineering,tel aviv,part time,code all day,code,java,30-40/h,afternoon,yoram@gmail.com
+6,energy Engineers,engineer,nahariya,full time,energy,test energy,1 year experience,60-70/h,afternoon,bitonor@gmail.com
+5,dacer,art,tel aviv,full time,show on stage,dance,dance good,40-50/h,evening,sassi@gmail.com
+4,sales shoes,sales,ashdod,part time,sale shoes,responsible for sales,1 year experience,50-60/h,afternoon,rotema@gmail.com
+3,soft engineer,software,yavne,full time,qa,none,c and python,30-40/h,evening,shai@gmail.com
+2,cleaner,burger,ashdod,part time,cleaning,clean,kitchen ,30-40/h,morning,ilya@gmail.com
+1,burger,food,ashkelon,full time,burger,cook burger,burger,30-40/h,morning,ilya@gmail.com

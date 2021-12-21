@@ -459,6 +459,7 @@ int CandidateMenu(candidate cand)
 
 		default:
 		{
+			clearBuffer();
 			system("cls");
 			printf("wrong Input Please Choose between 1-6 \n");
 		}
@@ -522,6 +523,7 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		}
 		default:
 		{
+			clearBuffer();
 			system("cls");
 			printf("Wrong Input! Please Choose between 1-6 \n\n");
 		}
@@ -625,8 +627,9 @@ int editProfileMenu(candidate cand)
 
 		default:
 		{
+			clearBuffer();
 			system("cls");
-			printf("Worng input please try again...(1-8) \n");
+			printf("Wrong input please try again...(1-8) \n");
 		}
 		}
 	}

@@ -2,11 +2,15 @@
 #include "candidate.h"
 #include "employer.h"
 #include <errno.h>
-void clearBuffer() {
+int clearBuffer()
+{
+	int run = 0;
 	char c;
 	do {
+		run++;
 		c = getchar();
 	} while (c != '\n' && c != EOF);
+	return run;
 }
 int IDCheck(char* ID)
 {

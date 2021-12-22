@@ -317,7 +317,8 @@ int EmployerMenu(employer emp)
 		printf("Press 6 to Candidate Search.\n");
 		printf("Press 7 to exit.\n\nchoice : ");
 		scanf("%c", &choice);
-		getchar();
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1': {
@@ -376,7 +377,7 @@ int EmployerMenu(employer emp)
 
 		default:
 		{
-			clearBuffer();
+			
 			system("cls");
 			printf("wrong Input Please Choose between 1-7  \n");
 		}
@@ -403,7 +404,8 @@ int editProfileMenuEmp(employer emp)
 		printf("Press 8 to go back to the previous menu.\n");
 		printf("choice : ");
 		scanf("%c", &choice);
-		getchar();
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -466,7 +468,7 @@ int editProfileMenuEmp(employer emp)
 
 		default:
 		{
-			clearBuffer();
+			
 			system("cls");
 			printf("Worng input please try again...(1-8) \n");
 		}
@@ -486,7 +488,8 @@ int jobEdit(char* email)// inside function switch cases between 3 cases (edit,ad
 		printf("3) Press 3 to delete a job.\n");
 		printf("4) Press 4 to exit.\n\nchoice : ");
 		scanf("%c", &choice);
-		getchar();
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -517,7 +520,7 @@ int jobEdit(char* email)// inside function switch cases between 3 cases (edit,ad
 		}
 		default:
 		{
-			clearBuffer();
+			
 			system("cls");
 			printf("wrong Input Please Choose between 1-4 \n");
 		}
@@ -559,6 +562,8 @@ int jobAdd(char* email)
 		printf("Press 1 for full time.\n");
 		printf("Press 2 for part time.\n");
 		scanf("%c", &choice);
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -576,7 +581,7 @@ int jobAdd(char* email)
 
 		default:
 		{
-			clearBuffer();
+			
 			printf("wrong Input Please Choose between 1-2 \n");
 		}
 		}
@@ -604,6 +609,8 @@ int jobAdd(char* email)
 		printf("Press 4 for 60-70 nis/h\n");
 		printf("Press 5 for 70+ nis/h\n");//+70/h
 		scanf("%c", &choice);
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -641,7 +648,7 @@ int jobAdd(char* email)
 
 		default:
 		{
-			clearBuffer();
+			
 			printf("wrong Input Please Choose between 1-5 \n");
 		}
 		}
@@ -658,6 +665,8 @@ int jobAdd(char* email)
 		printf("Press 3 for evening\n");
 		printf("Press 4 for night\n");
 		scanf("%c", &choice);
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -689,7 +698,7 @@ int jobAdd(char* email)
 
 		default:
 		{
-			clearBuffer();
+			
 			printf("wrong Input Please Choose between 1-4 \n");
 		}
 		}
@@ -755,7 +764,8 @@ int editJobFromList(char* email)
 		printf("Press 8 to exit.\n");
 		printf("choice : ");
 		scanf("%c", &choice);
-		getchar();
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -804,7 +814,8 @@ int editJobFromList(char* email)
 				printf("Press 5 for 70+ nis/h\n");//+70/h
 				printf("Choice : ");
 				scanf("%c", &choice2);
-				getchar();
+				if (clearBuffer() > 1)
+					choice = 'd';
 				switch (choice2)
 				{
 				case '1':
@@ -847,7 +858,7 @@ int editJobFromList(char* email)
 
 				default:
 				{
-					clearBuffer();
+					
 					system("cls");
 					printf("wrong Input Please Choose between 1-5 \n");
 				}
@@ -867,7 +878,8 @@ int editJobFromList(char* email)
 				printf("Press 4 for night.\n");
 				printf("Choice: ");
 				scanf("%c", &choice3);
-				getchar();
+				if (clearBuffer() > 1)
+					choice = 'd';
 				switch (choice3)
 				{
 				case '1':
@@ -903,7 +915,7 @@ int editJobFromList(char* email)
 
 				default:
 				{
-					clearBuffer();
+					
 					system("cls");
 					printf("wrong Input Please Choose between 1-4 \n");
 				}
@@ -935,7 +947,7 @@ int editJobFromList(char* email)
 		}
 
 		default:
-			clearBuffer();
+			
 			system("cls");
 			printf("Wrong input please try again...(1-8) \n");
 
@@ -1223,7 +1235,8 @@ int jobsOfferList(char* email)
 					printf("Press 1 for delete this job.\n");
 					printf("Press 2 to go back.\n");
 					scanf("%c", &choice);
-					getchar();
+					if (clearBuffer() > 1)
+						choice = 'd';
 					switch (choice)
 					{
 					case '1':
@@ -1240,7 +1253,7 @@ int jobsOfferList(char* email)
 
 					default:
 					{
-						clearBuffer();
+						
 						system("cls");
 						printf("wrong Input Please Choose between 1-2 \n");
 					}

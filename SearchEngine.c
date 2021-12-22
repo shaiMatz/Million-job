@@ -9,7 +9,8 @@ int Filtermenu(candidate cand)
 	{
 		printf("Press 1 to sort by location\nPress 2 to sort by job hours\nPress 3 to sort by salary\nPress 4 to sort job type\nPress 5 to go to the previous menu\n");
 		scanf("%c", &i);
-		getchar();
+		if (clearBuffer() > 1)
+			i = 'd';
 		switch (i)
 		{
 		case '1':
@@ -43,7 +44,6 @@ int Filtermenu(candidate cand)
 			break;
 
 		default:
-			clearBuffer();
 			system("cls");
 
 			printf("wrong entry try again\n");
@@ -161,7 +161,8 @@ int filterjobhours(candidate cand)
 	{
 		printf("Press 1 to show morning jobs\nPress 2 to show afternoon jobs\nPress 3 to show evening jobs\nPress 4 to show night jobs\nPress 5 to go to the previous menu\n");
 		scanf("%c", &i);
-		getchar();
+		if (clearBuffer() > 1)
+			i = 'd';
 		switch (i)
 		{
 		case '1':
@@ -188,7 +189,6 @@ int filterjobhours(candidate cand)
 			return 0;
 
 		default:
-			clearBuffer();
 			printf("wrong entry try again\n");
 			break;
 		}
@@ -226,7 +226,8 @@ int choicemenu(candidate cand)
 	{
 		printf("Press 1 to pick a job \nPress 2 to save a work to your favourites \nPress 3 to go back to previous menu\n");
 		scanf("%c", &choice);
-		getchar();
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -269,7 +270,6 @@ int choicemenu(candidate cand)
 			return 0;
 		default:
 			system("cls");
-			clearBuffer();
 			printf("wrong entry try again\n");
 			break;
 		}
@@ -312,7 +312,8 @@ int printall(candidate cand)
 			{
 				printf("Press 1 to pick a job \nPress 2 to save a work to your favourites \nPress 3 to continue searching for a work \nPress 4 to go back to previous menu\n");
 				scanf("%c", &choice);
-				getchar();
+				if (clearBuffer() > 1)
+					choice = 'd';
 				switch (choice)
 				{
 				case '1':
@@ -366,7 +367,7 @@ int printall(candidate cand)
 					fclose(fp);
 					return 0;
 				default:
-					clearBuffer();
+					
 					printf("wrong entry try again\n");
 					break;
 				}
@@ -377,7 +378,8 @@ int printall(candidate cand)
 			{
 				printf("Press 1 to continue searching for a work \nPress 2 to go back to previous menu\n");
 				scanf("%c", &choice);
-				getchar();
+				if (clearBuffer() > 1)
+					choice = 'd';
 				switch (choice)
 				{
 				case '1':
@@ -398,7 +400,7 @@ int printall(candidate cand)
 					fclose(fp);
 					return 0;
 				default:
-					clearBuffer();
+					
 					printf("wrong entry try again\n");
 					break;
 				}
@@ -498,7 +500,8 @@ int filtersalary(candidate cand)
 	{
 		printf("Press 1 to show salary between 30-40/h\nPress 2 to show salary between 40-50/h\nPress 3 to show salary between 50-60/h\nPress 4 to show salary between 60-70/h \nPress 5 to show salary +70/h\nPress 6 to go to the previous menu\n");
 		scanf("%c", &i);
-		getchar();
+		if (clearBuffer() > 1)
+			i = 'd';
 		switch (i)
 		{
 		case '1':
@@ -528,7 +531,7 @@ int filtersalary(candidate cand)
 		case '6':
 			return 0;
 		default:
-			clearBuffer();
+			
 			printf("wrong entry try again\n");
 			break;
 		}
@@ -575,7 +578,8 @@ int filterjobtype(candidate cand)
 	{
 		printf("Press 1 to show part time \nPress 2 to show full time \nPress 3 to go to the previous menu \n");
 		scanf("%c", &i);
-		getchar();
+		if (clearBuffer() > 1)
+			i = 'd';
 		switch (i)
 		{
 		case '1':
@@ -592,7 +596,7 @@ int filterjobtype(candidate cand)
 			return 0;
 
 		default:
-			clearBuffer();
+			
 			printf("wrong entry try again\n");
 			break;
 		}
@@ -714,7 +718,8 @@ int empSearchEngine()
 	{
 		printf("Press 1 to sort by location\nPress 2 to sort by job genre\nPress 3 to go to the previous menu\n");
 		scanf("%c", &i);
-		getchar();
+		if (clearBuffer() > 1)
+			i = 'd';
 		switch (i)
 		{
 		case '1':
@@ -730,7 +735,7 @@ int empSearchEngine()
 			break;
 
 		default:
-			clearBuffer();
+			
 			printf("wrong entry try again\n");
 			break;
 		}

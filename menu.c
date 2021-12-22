@@ -20,7 +20,8 @@ void menu()
 		printf(" dont miss your apportunity ! \n\n");
 		printf("option : \n1) For login Press 1\n2) For Register press 2\n3) For lost password press 3\n4) For exit press 4\n\nchoice :  \b");
 		scanf("%c", &choice);
-		getchar();
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -59,7 +60,8 @@ void menu()
 			system("cls");
 			printf("option : \n1) For employer Press 1\n2) For candidate press 2\n3) For returning to previous menu press 3\n\nchoice :  \b");
 			scanf("%c", &choice1);
-			getchar();
+			if (clearBuffer() > 1)
+				choice = 'd';
 			switch (choice1)			//employer or candidate ?
 			{
 			case '1':
@@ -118,7 +120,6 @@ void menu()
 		}
 		default:
 		{
-			clearBuffer();
 			system("cls");
 			printf("Error ! You put wrong number please try again (1-4) : \n");
 

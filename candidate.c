@@ -393,7 +393,8 @@ int CandidateMenu(candidate cand)
 		printf("5) Press 5 to delete your Profile.\n");
 		printf("6) Press 6 to exit.\n\nchoice : ");
 		scanf("%c", &choice);
-		getchar();
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -459,7 +460,6 @@ int CandidateMenu(candidate cand)
 
 		default:
 		{
-			clearBuffer();
 			system("cls");
 			printf("wrong Input Please Choose between 1-6 \n");
 		}
@@ -484,7 +484,8 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		printf("Press 6 return previous menu.\n");
 		printf("------Enter your choice please :------\n");
 		scanf("%c", &choice);
-		getchar();
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1': {
@@ -523,7 +524,7 @@ void searchEngine(candidate cand) {//Search engine for candidate (menu)
 		}
 		default:
 		{
-			clearBuffer();
+
 			system("cls");
 			printf("Wrong Input! Please Choose between 1-6 \n\n");
 		}
@@ -550,6 +551,8 @@ int editProfileMenu(candidate cand)
 		printf("Press 8 to go back to the previous menu.\n");
 		printf("choice : ");
 		scanf("%c", &choice);
+		if (clearBuffer() > 1)
+			choice = 'd';
 		switch (choice)
 		{
 		case '1':
@@ -618,7 +621,7 @@ int editProfileMenu(candidate cand)
 		}
 		case '8':
 		{
-			getchar();
+			
 			system("cls");//exit
 			printf("all the data changed!\n");
 			run = -1;
@@ -627,7 +630,6 @@ int editProfileMenu(candidate cand)
 
 		default:
 		{
-			clearBuffer();
 			system("cls");
 			printf("Wrong input please try again...(1-8) \n");
 		}

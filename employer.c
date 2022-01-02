@@ -1014,13 +1014,52 @@ int deleteJob(char* email)
 
 	if (printMyPublishedJobs(email) == 0)//print all the employer jobs 
 	{
-		printf("You dont have any published jobs !\n");
+		printf("\nYou dont have any published jobs !\n");
 		return 0;
 	}
 
 	printf("\nEnter the job number you want to delete : ");
 	scanf("%d", &jobNumber);
 	getchar();
+	//////////
+	char buffer[2024];
+	int tempCheck = 0;
+	FILE* JoblistdataF = fopen("JOB_LIST_DATA.csv", "r");
+	if (JoblistdataF == NULL)
+	{
+		printf("Can't open file !");
+		return 1;
+	}
+	sprintf(jobNum, "%d", jobNumber);
+	while (fgets(buffer, 1024, JoblistdataF))
+	{
+		
+		char tempbuf[1024];
+		char tempbuf2[1024];
+		strcpy(tempbuf, buffer);
+		strcpy(tempbuf2, buffer);
+		if (strcmp(getfield(tempbuf, 11), email) == 0)
+		{
+			if (strcmp(getfield(tempbuf2, 1), jobNum) == 0)
+			{
+				tempCheck++;
+				break;
+
+			}
+		}
+		else
+		{
+			continue;
+		}
+	}
+	fclose(JoblistdataF);
+	if (tempCheck == 0)
+	{
+		printf("You dont have job that matches your choice!\n");
+		return 0;
+	}
+
+	///////////
 	job joBs;
 	joBs = buildJob(jobNumber);//delete the job file
 	sprintf(jobNum, "%d", jobNumber);

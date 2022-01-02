@@ -98,7 +98,7 @@ candidate CVFile(candidate cand)
 	gets(language);
 	fprintf(CandidateCV, "%s %s %s", "Language : ", language, "\n");
 	printf("Enter your driving license type (if you dont have drining license enter none) :  \b");
-	scanf("%s", &drivingLicence);
+	gets(drivingLicence);
 	fprintf(CandidateCV, "%s %s %s", "DrivingLicence : ", drivingLicence, "\n");
 	printf("City address : %s \n", cand.city);
 	fprintf(CandidateCV, "%s %s %s", "City : ", cand.city, "\n");

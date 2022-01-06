@@ -85,9 +85,15 @@ employer employer_Registration()
 	scanf("%s", &newEmployer.Lname);
 	printf("\nEnter email address (It will be your username):  \b");
 	scanf("%s", &newEmployer.email);
+
 	while (MailCheck(newEmployer.email) == 0)
 	{
 		printf("\nEnter email address (It will be your username) :  \b");
+		scanf("%s", &newEmployer.email);
+	}
+	while ((ifExists("Candidate_DATA.csv", newEmployer.email, 4) != 1)|| (ifExists("Employer_DATA.csv", newEmployer.email, 4) != 1))
+	{
+		printf("The email is already exists in the database, please choose another : ");
 		scanf("%s", &newEmployer.email);
 	}
 
@@ -1014,13 +1020,14 @@ int deleteJob(char* email)
 
 	if (printMyPublishedJobs(email) == 0)//print all the employer jobs 
 	{
-		printf("\nYou dont have any published jobs !\n");
+		printf("You dont have any published jobs !\n");
 		return 0;
 	}
 
 	printf("\nEnter the job number you want to delete : ");
 	scanf("%d", &jobNumber);
 	getchar();
+
 	//////////
 	char buffer[2024];
 	int tempCheck = 0;
@@ -1033,7 +1040,7 @@ int deleteJob(char* email)
 	sprintf(jobNum, "%d", jobNumber);
 	while (fgets(buffer, 1024, JoblistdataF))
 	{
-		
+
 		char tempbuf[1024];
 		char tempbuf2[1024];
 		strcpy(tempbuf, buffer);
@@ -1060,6 +1067,8 @@ int deleteJob(char* email)
 	}
 
 	///////////
+
+
 	job joBs;
 	joBs = buildJob(jobNumber);//delete the job file
 	sprintf(jobNum, "%d", jobNumber);

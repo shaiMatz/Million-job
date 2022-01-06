@@ -1,7 +1,7 @@
 #include "candidate.h"
 #include "SearchEngine.h"
 #include "checkFunction.h"
-
+#include <string.h>
 candidate loginC(char email[])
 {
 	char* pch = NULL;
@@ -95,6 +95,7 @@ candidate CVFile(candidate cand)
 	printf("Email address : %s\n", cand.email);
 	fprintf(CandidateCV, "%s %s %s", "Email : ", cand.email, "\n");
 	printf("Enter the languages you speak :  \b");
+	clearBuffer();
 	gets(language);
 	fprintf(CandidateCV, "%s %s %s", "Language : ", language, "\n");
 	printf("Enter your driving license type (if you dont have drining license enter none) :  \b");
@@ -295,11 +296,12 @@ candidate Candidate_Registration()
 
 	printf("\nEnter email address (It will be your username) :  \b");
 	scanf("%s", &newCandidate.email);
-	while (ifExists("Candidate_DATA.csv", newCandidate.email, 4) != 1)
+	while ((ifExists("Candidate_DATA.csv", newCandidate.email, 4) != 1)|| (ifExists("Employer_DATA.csv", newCandidate.email, 4) != 1))
 	{
 		printf("The email is already exists in the database, please choose another : ");
 		scanf("%s", &newCandidate.email);
 	}
+	
 	while (MailCheck(newCandidate.email) == 0)
 	{
 		printf("\nEnter email address (It will be your username) :  \b");

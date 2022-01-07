@@ -372,6 +372,7 @@ int EmployerMenu(employer emp)
 			system("cls");
 
 			empSearchEngine();// candidate searching by type/working area
+			system("cls");
 			break;
 		}
 		case '7':

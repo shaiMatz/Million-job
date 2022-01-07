@@ -559,7 +559,7 @@ int editProfileMenu(candidate cand)
 		{
 		case '1':
 		{
-			getchar();
+			
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//Email editfunction
@@ -569,7 +569,7 @@ int editProfileMenu(candidate cand)
 		}
 		case '2':
 		{
-			getchar();
+			
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//Change Password function
@@ -578,7 +578,7 @@ int editProfileMenu(candidate cand)
 		}
 		case '3':
 		{
-			getchar();
+			
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//address edit function
@@ -587,7 +587,7 @@ int editProfileMenu(candidate cand)
 		}
 		case '4':
 		{
-			getchar();
+			
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//Phone number edit function 
@@ -598,7 +598,7 @@ int editProfileMenu(candidate cand)
 		case '5':
 		{
 
-			getchar();
+			
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//change security question
@@ -614,7 +614,7 @@ int editProfileMenu(candidate cand)
 		}
 		case '7':
 		{
-			getchar();
+			
 			system("cls");
 			ans = choice - '0';
 			cand = editProfile(cand, "Candidate_DATA.csv", ans);//change job preference.

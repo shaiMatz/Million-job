@@ -85,7 +85,6 @@ candidate CVFile(candidate cand)
 	}
 	printf("\nBase information\n");
 	// Asking user input for the CVFile
-	getchar();
 	fprintf(CandidateCV, "%s %s %s", cand.Fname, cand.Lname, "CV\n\n");
 	printf("ID : %s \n", cand.ID);
 	fprintf(CandidateCV, "%s %s %s", "Base information\nID: ", cand.ID, "\n");
@@ -95,7 +94,7 @@ candidate CVFile(candidate cand)
 	printf("Email address : %s\n", cand.email);
 	fprintf(CandidateCV, "%s %s %s", "Email : ", cand.email, "\n");
 	printf("Enter the languages you speak :  \b");
-	clearBuffer();
+
 	gets(language);
 	fprintf(CandidateCV, "%s %s %s", "Language : ", language, "\n");
 	printf("Enter your driving license type (if you dont have drining license enter none) :  \b");
@@ -106,39 +105,39 @@ candidate CVFile(candidate cand)
 	printf("Phone number: %s \n", cand.phoneNumber);
 	fprintf(CandidateCV, "%s %s %s", "Phone number : ", cand.phoneNumber, "\n");
 
-	getchar();
+
 	//more info
-	printf("\n\nMore information\nEnter your background :  \b");
+	printf("\n\nMore information\nEnter your background: (press twice enter to continue) \n");
 	fprintf(CandidateCV, "%s", "Background :\n ");
 	while (scanf("%[^\n]%*c", background) == 1)
 	{
 		fprintf(CandidateCV, "%s %s", background, "\n");
 	}
 	getchar();
-	printf("\nEnter your eduction :  \n");
+	printf("\nEnter your eduction :  (press twice enter to continue)\n");
 	fprintf(CandidateCV, "%s", "Eduction :\n ");
 	while (scanf("%[^\n]%*c", eduction) == 1)
 	{
 		fprintf(CandidateCV, "%s %s", eduction, "\n");
 	}
 	getchar();
-	printf("\nEnter your employment experience :  \n");
+	printf("\nEnter your employment experience : (press twice enter to continue) \n");
 	fprintf(CandidateCV, "%s", "Employment experience :\n ");
 	while (scanf("%[^\n]%*c", employmentExperience) == 1)
 	{
 		fprintf(CandidateCV, "%s %s", employmentExperience, "\n");
 	}
 	getchar();
-	printf("\nEnter your military service background :  \n");
+	printf("\nEnter your military service background : (press twice enter to continue) \n");
 	fprintf(CandidateCV, "%s", "Military service :\n ");
 	while (scanf("%[^\n]%*c", MilitaryService) == 1) {
 		fprintf(CandidateCV, "%s %s", MilitaryService, "\n");
 	}
 	fclose(CandidateCV);
 	system("cls");
-	printf("your CV file created !\n");
+	printf("your CV file created !\n~press enter to continue~\n");
 	strcpy(cand.CVname, CVName);
-
+	getchar();
 	return cand;
 
 }
@@ -378,6 +377,7 @@ candidate Candidate_Registration()
 	fclose(CandidateF);
 	system("cls");
 	printf("\nNew Account added to record !\n ~press enter to continue~\n");
+	getchar();
 	return newCandidate;
 }
 

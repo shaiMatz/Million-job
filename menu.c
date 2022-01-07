@@ -77,7 +77,6 @@ void menu()
 				system("cls");
 				newCand = Candidate_Registration();
 				system("cls");
-				getchar();
 				CandidateMenu(newCand);
 				getchar();
 				break;

@@ -593,8 +593,6 @@ int jobAdd(char* email)
 		}
 	}
 
-
-	getchar();
 	printf("\nEnter the job description : \n");
 	gets(Jdescription);
 
@@ -660,7 +658,6 @@ int jobAdd(char* email)
 		}
 	}
 
-	getchar();
 	printf("\nJob hours : \n");
 	run = 0;
 	choice = '0';
@@ -711,7 +708,6 @@ int jobAdd(char* email)
 	}
 	serialNum++;
 	// Saving data in file
-	getchar();
 	fprintf(Jobdata, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", serialNum, Jname, Jcity,
 		Jrange, Jtype, Jdescription, Jresponsibilities, Jqualifications,
 		Jsalary, Jhours, email);
@@ -1280,8 +1276,10 @@ int jobsOfferList(char* email)
 				char choice = '0';
 				while (run != -1)
 				{
+
 					printf("Press 1 for delete this job.\n");
-					printf("Press 2 to go back.\n");
+					printf("Press 2 to go back.\nchoice :");
+					clearBuffer();
 					scanf("%c", &choice);
 					if (clearBuffer() > 1)
 						choice = 'd';
@@ -1310,6 +1308,7 @@ int jobsOfferList(char* email)
 			}
 		}
 	}
+	system("cls");
 	return 0;
 }
 
